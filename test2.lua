@@ -2008,6 +2008,11 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["a3"]["BorderSizePixel"] = 0;
 				Key["a3"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["a3"]["FontFace"] = CustomFont
+				if game:GetService("UserInputService").KeyboardEnabled == false and game:GetService("UserInputService").TouchEnabled == true then
+					Key["a3"]["TextSize"] = 12;
+				else
+					Key["a3"]["TextSize"] = 14;
+				end
 				Key["a3"]["TextSize"] = 14;
 				Key["a3"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["a3"]["Size"] = UDim2.new(0, 350, 0, 50);
