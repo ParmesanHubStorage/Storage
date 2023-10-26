@@ -1037,14 +1037,6 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			end
 			
 			--Methods
-			
-			--[[uis.InputChanged:Connect(function(Input)
-				if Hover == true and Input.UserInputType == Enum.UserInputType.MouseMovement then 
-					local SizeScale = math.clamp((Input.Position.X - SliderBar.AbsolutePosition.X) / SliderBar.AbsoluteSize.X, 0, 1)
-					Slider:Set(SliderConfig.Min + ((SliderConfig.Max - SliderConfig.Min) * SizeScale)) 
-				end
-			end)]]--
-			
 			function Slider:SetValue(v)
 				if v == nil then
 					local percentage = math.clamp((mouse.X - Slider["1e"].AbsolutePosition.X) / (Slider["1e"].AbsoluteSize.X), 0, 1)
@@ -1401,17 +1393,9 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["2g"]["PaddingRight"] = UDim.new(0, 3)
 				Dropdown["2g"]["PaddingTop"] = UDim.new(0, 8)
 				Dropdown["2g"]["PaddingBottom"] = UDim.new(0, 8)
-				
-				--[[
-				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.OptionHolder.UIListLayout
-				Dropdown["2c"] = Instance.new("UIListLayout", Dropdown["2b"]);
-				Dropdown["2c"]["VerticalAlignment"] = Enum.VerticalAlignment.Top;
-				Dropdown["2c"]["Padding"] = UDim.new(0, 6);
-				Dropdown["2c"]["SortOrder"] = Enum.SortOrder.LayoutOrder;]]--
 			end
 			
 			--Methods
-			
 			do
 				function Dropdown:Add(id, value)
 					local Item = {
@@ -1469,8 +1453,6 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Dropdown.Items[id].instance["2v"].MouseButton1Click:Connect(function()
 						if Dropdown.Items[id] == nil then return end
 						Item.MouseDown = true
-						--Library:tween(Dropdown.Items[id].instance["2v"], {BackgroundColor3 = Color3.fromRGB(60, 60, 60)})		
-						--Library:tween(Dropdown.Items[id].instance["2e"], {Color = Color3.fromRGB(200, 200, 200)})
 						Dropdown["2p"]["Text"] = Dropdown.Items[id].instance["2v"].Text
 						options.callback(Dropdown.Items[id].instance["2v"].Text, value)
 						Dropdown:Toggle()
@@ -1558,35 +1540,6 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 						Library:tween(Dropdown["27"], {Color = Color3.fromRGB(38, 38, 39)})
 					end
 				end)
-				
-				--[[uis.InputBegan:Connect(function(input, gpe)
-					if gpe then return end
-					if input.UserInputType == Enum.UserInputType.MouseButton1 and Dropdown.Hover then
-						Dropdown.MouseDown = true
-						Library:tween(Dropdown["25"], {BackgroundColor3 = Color3.fromRGB(60, 60, 60)})		
-						Library:tween(Dropdown["27"], {Color = Color3.fromRGB(200, 200, 200)})
-						
-						if not Dropdown.HoveringItem then
-							Dropdown:Toggle()
-						end
-					end
-				end)]]--
-
-				--[[uis.InputEnded:Connect(function(input, gpe)
-					if gpe then return end
-
-					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						Dropdown.MouseDown = false
-
-						if Dropdown.Hover then
-							Library:tween(Dropdown["25"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})	
-							Library:tween(Dropdown["27"], {Color = Color3.fromRGB(60, 60, 60)})
-						else	
-							Library:tween(Dropdown["25"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})		
-							Library:tween(Dropdown["27"], {Color = Color3.fromRGB(38, 38, 39)})
-						end
-					end
-				end)]]--
 			end
 			
 			return Dropdown
@@ -1804,7 +1757,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["103"]["TextTransparency"] = 1;
 				
 				Key["103"].MouseButton1Click:Connect(function()
-					print("sex")
+					setclipboard("https://funpay.com/en/lots/offer?id=22843788")
 				end)
 				
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.TextLabel
@@ -1878,7 +1831,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["110"]["TextTransparency"] = 1;
 				
 				Key["110"].MouseButton1Click:Connect(function()
-					print("sex")
+					setclipboard("https://funpay.com/en/lots/offer?id=22843826")
 				end)
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.TextLabel
@@ -1953,7 +1906,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["9d"]["TextTransparency"] = 1;
 				
 				Key["9d"].MouseButton1Click:Connect(function()
-					print("sex")
+					setclipboard("https://funpay.com/en/lots/offer?id=22843631")
 				end)
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.TextLabel
