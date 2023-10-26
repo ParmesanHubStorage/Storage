@@ -12,6 +12,7 @@ local viewport = workspace.CurrentCamera.ViewportSize
 local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 local lp = Players.LocalPlayer
 local mouse = lp:GetMouse()
+local CustomFont = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 
 local Library = {}
 
@@ -106,7 +107,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["7"] = Instance.new("TextLabel", GUI["4"]);
 		GUI["7"]["BorderSizePixel"] = 0;
 		GUI["7"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-		GUI["7"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		GUI["7"]["FontFace"] = CustomFont
 		GUI["7"]["TextSize"] = 12;
 		GUI["7"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["7"]["Size"] = UDim2.new(0, 60, 0, 20);
@@ -119,7 +120,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["8"] = Instance.new("TextLabel", GUI["4"]);
 		GUI["8"]["BorderSizePixel"] = 0;
 		GUI["8"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-		GUI["8"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		GUI["8"]["FontFace"] = CustomFont
 		GUI["8"]["TextSize"] = 12;
 		GUI["8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["8"]["AnchorPoint"] = Vector2.new(0, 1);
@@ -193,7 +194,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["c"]["TextWrapped"] = true;
 		GUI["c"]["BorderSizePixel"] = 0;
 		GUI["c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-		GUI["c"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		GUI["c"]["FontFace"] = CustomFont
 		GUI["c"]["TextSize"] = 14;
 		GUI["c"]["TextColor3"] = Color3.fromRGB(148, 150, 157);
 		GUI["c"]["Size"] = UDim2.new(1, 0, 1, 0);
@@ -401,7 +402,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			Tab["53"] = Instance.new("TextButton", GUI["sc"]);
 			Tab["53"]["BorderSizePixel"] = 0;
 			Tab["53"]["BackgroundColor3"] = Color3.fromRGB(47, 47, 47);
-			Tab["53"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+			Tab["53"]["FontFace"] = CustomFont
 			Tab["53"]["TextSize"] = 12;
 			Tab["53"]["TextColor3"] = Color3.fromRGB(136, 136, 136);
 			Tab["53"]["AnchorPoint"] = Vector2.new(1, 0);
@@ -547,7 +548,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Button["11"]["Text"] = options.name;
 				Button["11"]["TextColor3"] = Color3.fromRGB(255,255,255);
 				Button["11"]["TextSize"] = 14;
-				Button["11"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Button["11"]["FontFace"] = CustomFont
 				Button["11"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Button["11"]["AutoButtonColor"] = false;
 				
@@ -639,7 +640,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Warning["5f"]["BorderSizePixel"] = 0;
 				Warning["5f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Warning["5f"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Warning["5f"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Warning["5f"]["FontFace"] = CustomFont
 				Warning["5f"]["TextSize"] = 14;
 				Warning["5f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Warning["5f"]["Size"] = UDim2.new(1, 0, 0, 30);
@@ -668,7 +669,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Warning["62"]["BorderSizePixel"] = 0;
 				Warning["62"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Warning["62"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Warning["62"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Warning["62"]["FontFace"] = CustomFont
 				Warning["62"]["TextSize"] = 14;
 				Warning["62"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Warning["62"]["Size"] = UDim2.new(1, 0, 0, 20);
@@ -743,7 +744,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Information["56"]["BorderSizePixel"] = 0;
 				Information["56"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Information["56"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Information["56"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Information["56"]["FontFace"] = CustomFont
 				Information["56"]["TextSize"] = 14;
 				Information["56"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Information["56"]["Size"] = UDim2.new(1, 0, 0, 30);
@@ -772,7 +773,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Information["59"]["BorderSizePixel"] = 0;
 				Information["59"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Information["59"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Information["59"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Information["59"]["FontFace"] = CustomFont
 				Information["59"]["TextSize"] = 14;
 				Information["59"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Information["59"]["Size"] = UDim2.new(1, 0, 0, 15);
@@ -845,7 +846,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Message["68"]["BorderSizePixel"] = 0;
 				Message["68"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Message["68"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Message["68"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Message["68"]["FontFace"] = CustomFont
 				Message["68"]["TextSize"] = 14;
 				Message["68"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Message["68"]["Size"] = UDim2.new(1, 0, 0, 30);
@@ -874,7 +875,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Message["6b"]["BorderSizePixel"] = 0;
 				Message["6b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Message["6b"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Message["6b"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Message["6b"]["FontFace"] = CustomFont
 				Message["6b"]["TextSize"] = 14;
 				Message["6b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Message["6b"]["Size"] = UDim2.new(1, 0, 0, 20);
@@ -961,7 +962,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Slider["1c"]["BorderSizePixel"] = 0;
 				Slider["1c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Slider["1c"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Slider["1c"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Slider["1c"]["FontFace"] = CustomFont
 				Slider["1c"]["TextSize"] = 14;
 				Slider["1c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Slider["1c"]["Size"] = UDim2.new(1, 0, 1, -30);
@@ -1016,7 +1017,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Slider["24"]["BorderSizePixel"] = 0;
 				Slider["24"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Slider["24"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Slider["24"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Slider["24"]["FontFace"] = CustomFont
 				Slider["24"]["TextSize"] = 12;
 				Slider["24"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Slider["24"]["Size"] = UDim2.new(1, 0, 1, 0);
@@ -1080,6 +1081,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Library:tween(Slider["1b"], {Color = Color3.fromRGB(60, 60, 60)})
 					Library:tween(Slider["20"], {Color = Color3.fromRGB(200, 200, 200)})
 
+					--if not Slider.Connection then
+						--Slider.Connection = RunService.RenderStepped:Connect(function()
+						--	Slider:SetValue()
+						--end)
 					while Slider.MouseDown and mouse.X >= frame.AbsolutePosition.X and mouse.X <= frame.AbsolutePosition.X + frame.AbsoluteSize.X
 					and mouse.Y >= frame.AbsolutePosition.Y and mouse.Y <= frame.AbsolutePosition.Y + frame.AbsoluteSize.Y do
 							Slider:SetValue()
@@ -1153,7 +1158,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Toggle["38"]["BorderSizePixel"] = 0;
 				Toggle["38"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Toggle["38"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Toggle["38"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Toggle["38"]["FontFace"] = CustomFont
 				Toggle["38"]["TextSize"] = 14;
 				Toggle["38"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Toggle["38"]["Size"] = UDim2.new(1, 0, 1, 0);
@@ -1308,7 +1313,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["28"]["BorderSizePixel"] = 0;
 				Dropdown["28"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Dropdown["28"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Dropdown["28"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Dropdown["28"]["FontFace"] = CustomFont
 				Dropdown["28"]["TextSize"] = 14;
 				Dropdown["28"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Dropdown["28"]["Size"] = UDim2.new(1, 0, 0, 30);
@@ -1349,7 +1354,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["2p"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Dropdown["2p"]["TextXAlignment"] = Enum.TextXAlignment.Right;
 				Dropdown["2p"]["TextYAlignment"] = Enum.TextYAlignment.Center;
-				Dropdown["2p"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Dropdown["2p"]["FontFace"] = CustomFont
 				Dropdown["2p"]["TextSize"] = 12;
 				Dropdown["2p"]["TextColor3"] = Color3.fromRGB(136,136,136);
 				Dropdown["2p"]["Size"] = UDim2.new(0, 200, 0, 50);
@@ -1421,7 +1426,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Dropdown.Items[id].instance["2v"] = Instance.new("TextButton", Dropdown["2c"]);
 					Dropdown.Items[id].instance["2v"]["BorderSizePixel"] = 0;
 					Dropdown.Items[id].instance["2v"]["BackgroundColor3"] = Color3.fromRGB(60, 60, 60);
-					Dropdown.Items[id].instance["2v"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+					Dropdown.Items[id].instance["2v"]["FontFace"] = CustomFont
 					Dropdown.Items[id].instance["2v"]["TextSize"] = 14;
 					Dropdown.Items[id].instance["2v"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 					Dropdown.Items[id].instance["2v"]["Size"] = UDim2.new(1, -3, 0, 25);
@@ -1429,7 +1434,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Dropdown.Items[id].instance["2v"]["Text"] = id;
 					Dropdown.Items[id].instance["2v"]["AutoButtonColor"] = false;
 					Dropdown.Items[id].instance["2v"]["Name"] = [[Inactive Option]];
-					Dropdown.Items[id].instance["2v"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+					Dropdown.Items[id].instance["2v"]["FontFace"] = CustomFont
 
 					-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.OptionHolder.Inactive Option.UIStroke
 					Dropdown.Items[id].instance["2e"] = Instance.new("UIStroke", Dropdown.Items[id].instance["2v"]);
@@ -1616,7 +1621,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Input["8f"]["BorderSizePixel"] = 0;
 				Input["8f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Input["8f"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Input["8f"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Input["8f"]["FontFace"] = CustomFont
 				Input["8f"]["TextSize"] = 14;
 				Input["8f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Input["8f"]["Size"] = UDim2.new(1, 0, 1, 0);
@@ -1636,7 +1641,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Input["91"]["TextWrapped"] = true;
 				Input["91"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
 				Input["91"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-				Input["91"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Input["91"]["FontFace"] = CustomFont
 				Input["91"]["AnchorPoint"] = Vector2.new(0, 0);
 				Input["91"]["PlaceholderText"] = options.placeholdertext;
 				Input["91"]["Size"] = UDim2.new(0, 65, 0, 19);
@@ -1996,7 +2001,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["a3"]["LineHeight"] = 1.159999966621399;
 				Key["a3"]["BorderSizePixel"] = 0;
 				Key["a3"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-				Key["a3"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Key["a3"]["FontFace"] = CustomFont
 				Key["a3"]["TextSize"] = 14;
 				Key["a3"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["a3"]["Size"] = UDim2.new(0, 350, 0, 50);
@@ -2085,7 +2090,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["a8"]["TextWrapped"] = true;
 				Key["a8"]["BorderSizePixel"] = 0;
 				Key["a8"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-				Key["a8"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Key["a8"]["FontFace"] = CustomFont
 				Key["a8"]["TextSize"] = 14;
 				Key["a8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["a8"]["Size"] = UDim2.new(0, 380, 0, 40);
@@ -2114,7 +2119,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["aa"]["TextWrapped"] = true;
 				Key["aa"]["BorderSizePixel"] = 0;
 				Key["aa"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-				Key["aa"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Key["aa"]["FontFace"] = CustomFont
 				Key["aa"]["TextSize"] = 14;
 				Key["aa"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["aa"]["Size"] = UDim2.new(0, 350, 0, 30);
@@ -2131,7 +2136,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["ab"]["TextSize"] = 14;
 				Key["ab"]["BackgroundColor3"] = Color3.fromRGB(47, 47, 47);
 				Key["ab"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-				Key["ab"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Key["ab"]["FontFace"] = CustomFont
 				Key["ab"]["Size"] = UDim2.new(0, 200, 0, 30);
 				Key["ab"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Key["ab"]["Text"] = [[parmesanhub@gmail.com]];
@@ -2203,7 +2208,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b2"]["BorderSizePixel"] = 0;
 				Profile["b2"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Profile["b2"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Profile["b2"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Profile["b2"]["FontFace"] = CustomFont
 				Profile["b2"]["TextSize"] = 14;
 				Profile["b2"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Profile["b2"]["Size"] = UDim2.new(0, 150, 0, 25);
@@ -2216,7 +2221,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b3"] = Instance.new("TextLabel", Profile["ae"]);
 				Profile["b3"]["BorderSizePixel"] = 0;
 				Profile["b3"]["BackgroundColor3"] = Color3.fromRGB(46, 46, 46);
-				Profile["b3"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Profile["b3"]["FontFace"] = CustomFont
 				Profile["b3"]["TextSize"] = 13;
 				Profile["b3"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Profile["b3"]["Size"] = UDim2.new(0, 180, 0, 25);
@@ -2239,7 +2244,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b6"]["BorderSizePixel"] = 0;
 				Profile["b6"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Profile["b6"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Profile["b6"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Profile["b6"]["FontFace"] = CustomFont
 				Profile["b6"]["TextSize"] = 16;
 				Profile["b6"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Profile["b6"]["Size"] = UDim2.new(0, 150, 0, 25);
@@ -2257,7 +2262,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b8"]["BorderSizePixel"] = 0;
 				Profile["b8"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Profile["b8"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Profile["b8"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Profile["b8"]["FontFace"] = CustomFont
 				Profile["b8"]["TextSize"] = 14;
 				Profile["b8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Profile["b8"]["Size"] = UDim2.new(0, 150, 0, 25);
@@ -2270,7 +2275,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b9"] = Instance.new("TextLabel", Profile["ae"]);
 				Profile["b9"]["BorderSizePixel"] = 0;
 				Profile["b9"]["BackgroundColor3"] = Color3.fromRGB(46, 46, 46);
-				Profile["b9"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Profile["b9"]["FontFace"] = CustomFont
 				Profile["b9"]["TextSize"] = 14;
 				Profile["b9"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Profile["b9"]["Size"] = UDim2.new(0, 50, 0, 30);
@@ -2337,7 +2342,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["be"]["BorderSizePixel"] = 0;
 				Credits["be"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["be"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Credits["be"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Credits["be"]["FontFace"] = CustomFont
 				Credits["be"]["TextSize"] = 14;
 				Credits["be"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["be"]["Size"] = UDim2.new(0, 100, 0, 25);
@@ -2351,7 +2356,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["bf"]["BorderSizePixel"] = 0;
 				Credits["bf"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["bf"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Credits["bf"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Credits["bf"]["FontFace"] = CustomFont
 				Credits["bf"]["TextSize"] = 14;
 				Credits["bf"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["bf"]["Size"] = UDim2.new(0, 100, 0, 25);
@@ -2365,7 +2370,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["c0"]["BorderSizePixel"] = 0;
 				Credits["c0"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["c0"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Credits["c0"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Credits["c0"]["FontFace"] = CustomFont
 				Credits["c0"]["TextSize"] = 14;
 				Credits["c0"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["c0"]["Size"] = UDim2.new(0, 100, 0, 25);
@@ -2378,7 +2383,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["c1"] = Instance.new("TextLabel", Credits["bb"]);
 				Credits["c1"]["BorderSizePixel"] = 0;
 				Credits["c1"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-				Credits["c1"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Credits["c1"]["FontFace"] = CustomFont
 				Credits["c1"]["TextSize"] = 14;
 				Credits["c1"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["c1"]["Size"] = UDim2.new(0, 100, 0, 25);
@@ -2395,7 +2400,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["c2"]["TextYAlignment"] = Enum.TextYAlignment.Top;
 				Credits["c2"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["c2"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-				Credits["c2"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Credits["c2"]["FontFace"] = CustomFont
 				Credits["c2"]["TextSize"] = 12;
 				Credits["c2"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["c2"]["Size"] = UDim2.new(0, 190, 0, 110);
@@ -2408,7 +2413,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["c3"] = Instance.new("TextLabel", Credits["ba"]);
 				Credits["c3"]["BorderSizePixel"] = 0;
 				Credits["c3"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-				Credits["c3"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Credits["c3"]["FontFace"] = CustomFont
 				Credits["c3"]["TextSize"] = 18;
 				Credits["c3"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["c3"]["Size"] = UDim2.new(0, 200, 0, 50);
