@@ -1074,18 +1074,33 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				end)
 				
 				Slider["19"].MouseButton1Down:Connect(function()
+					local frame = Slider["19"]
 					Slider.MouseDown = true
 					Library:tween(Slider["19"], {BackgroundColor3 = Color3.fromRGB(60, 60, 60)})	
 					Library:tween(Slider["1b"], {Color = Color3.fromRGB(60, 60, 60)})
 					Library:tween(Slider["20"], {Color = Color3.fromRGB(200, 200, 200)})
 
-					if not Slider.Connection then
-						Slider.Connection = RunService.RenderStepped:Connect(function()
+					while Slider.MouseDown and mouse.X >= frame.AbsolutePosition.X and mouse.X <= frame.AbsolutePosition.X + frame.AbsoluteSize.X
+					and mouse.Y >= frame.AbsolutePosition.Y and mouse.Y <= frame.AbsolutePosition.Y + frame.AbsoluteSize.Y do
 							Slider:SetValue()
-						end)
+							game:GetService("RunService").RenderStepped:Wait()
+						end
+					Slider.MouseDown = false
+
+					if Slider.Hover then
+						Library:tween(Slider["19"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})	
+						Library:tween(Slider["20"], {Color = Color3.fromRGB(60, 60, 60)})
+						Library:tween(Slider["1b"], {Color = Color3.fromRGB(60, 60, 60)})
+					else	
+						Library:tween(Slider["19"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})		
+						Library:tween(Slider["20"], {Color = Color3.fromRGB(38, 38, 39)})
+						Library:tween(Slider["1b"], {Color = Color3.fromRGB(38, 38, 39)})
 					end
+
+					if Slider.Connection then Slider.Connection:Disconnect() end
+					Slider.Connection = nil
 				end)
-				
+
 				Slider["19"].MouseButton1Up:Connect(function()
 					Slider.MouseDown = false
 
