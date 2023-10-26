@@ -12,7 +12,13 @@ local viewport = workspace.CurrentCamera.ViewportSize
 local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 local lp = Players.LocalPlayer
 local mouse = lp:GetMouse()
-local CustomFont = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+
+local CustomFont
+if game:GetService("UserInputService").KeyboardEnabled == false and game:GetService("UserInputService").TouchEnabled == true then
+	CustomFont = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+else
+	CustomFont = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+end
 
 local Library = {}
 
