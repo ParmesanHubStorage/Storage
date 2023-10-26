@@ -868,7 +868,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Message["6a"] = Instance.new("ImageLabel", Message["65"]);
 				Message["6a"]["BorderSizePixel"] = 0;
 				Message["6a"]["BackgroundColor3"] = Color3.fromRGB(71, 71, 71);
-				Message["6a"]["ImageColor3"] = Color3.fromRGB(94, 94, 94);
+				Message["6a"]["ImageColor3"] = Color3.fromRGB(85, 85, 85);
 				Message["6a"]["Image"] = [[rbxassetid://15122343175]];
 				Message["6a"]["Size"] = UDim2.new(0, 17, 0, 17);
 				Message["6a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
