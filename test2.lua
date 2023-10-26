@@ -14,7 +14,7 @@ local lp = Players.LocalPlayer
 local mouse = lp:GetMouse()
 
 local CustomFont
-if game:GetService("UserInputService").KeyboardEnabled == false and game:GetService("UserInputService").TouchEnabled == true then
+if game:GetService("UserInputService").TouchEnabled == true then
 	CustomFont = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Light, Enum.FontStyle.Normal);
 else
 	CustomFont = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
