@@ -233,11 +233,6 @@ function CreateKeySystem()
 		KeySystem["14"]["Position"] = UDim2.new(0, 63, 0, 270);
 	end
 	
-	--Logic
-	KeySystem["7"].FocusLost:Connect(function()
-		print(KeySystem["7"].Text)
-	end)
-	
 	function KeySystem:Minimize()
 		local Minimize = {
 			Active = false
