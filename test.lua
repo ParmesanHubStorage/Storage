@@ -87,6 +87,20 @@ function CreateKeySystem()
 		KeySystem["7"]["Text"] = [[]];
 		KeySystem["7"]["Position"] = UDim2.new(0, 35, 0, 240);
 
+		local function CheckKey(EnteredKey)
+			local http = game.HttpService
+			local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
+			for index, DocumentName in pairs(http:JSONDecode(url)) do
+				if DocumentName["Key"] == EnteredKey then
+					print("Success!")
+				end
+			end
+		end
+
+		KeySystem["7"].FocusLost:Connect(function()
+		   CheckKey(KeySystem["7"].Text)
+		end)
+
 		-- StarterGui.KeySystem.Frame.TextBox.UICorner
 		KeySystem["8"] = Instance.new("UICorner", KeySystem["7"]);
 		KeySystem["8"]["CornerRadius"] = UDim.new(0, 4);
