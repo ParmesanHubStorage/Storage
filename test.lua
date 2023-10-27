@@ -97,7 +97,7 @@ function CreateKeySystem()
 			end
 		end
 
-		local function UpdateHWID(key)
+		local function UpdateHWID(EnteredKey)
 		    local http = game.HttpService
 			local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
 			for index, DocumentName in pairs(http:JSONDecode(url)) do
