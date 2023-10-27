@@ -97,8 +97,29 @@ function CreateKeySystem()
 			end
 		end
 
+		local function UpdateHWID(key)
+		    local http = game.HttpService
+			local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
+			for index, DocumentName in pairs(http:JSONDecode(url)) do
+				if DocumentName["Key"] == EnteredKey then
+					DocumentName["HWID"] = "1"
+					local updateOptions = {
+					    Url = url .. "/" .. index .. ".json",
+					    Method = "PATCH",
+					    Headers = {
+						["Content-Type"] = "application/json"
+					    },
+					    Body = HttpService:JSONEncode(DocumentName)
+					}
+					HttpService:RequestAsync(updateOptions)
+					break
+				end
+			end
+		end
+
 		KeySystem["7"].FocusLost:Connect(function()
 		   CheckKey(KeySystem["7"].Text)
+		   UpdateHWID(KeySystem["7"].Text)
 		end)
 
 		-- StarterGui.KeySystem.Frame.TextBox.UICorner
