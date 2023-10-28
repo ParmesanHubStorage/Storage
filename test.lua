@@ -1,5 +1,7 @@
 repeat task.wait() until game:IsLoaded()
 
+loadstring(game:HttpGet(("https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/Keys.lua")
+
 --services
 local TweenService = game:GetService("TweenService")
 
@@ -8,53 +10,6 @@ local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection
 local viewport = workspace.CurrentCamera.ViewportSize
 local Library = {}
 
---functions
-local function UpdateHWID(index, DocumentName)
-    local http = game:GetService("HttpService")
-    local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
-    local req = http_request
-    local data = {
-        [tostring(index)] = {
-            ["ExpireTime"] = DocumentName["ExpireTime"],
-            ["HWID"] = game:GetService("RbxAnalyticsService"):GetClientId(),
-            ["Key"] = DocumentName["Key"]
-        }
-    }
-    if req then
-        req({
-            Url = "https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json",
-            Method = "PUT",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = http:JSONEncode(data)
-        })
-    end
-end
-
-local function CheckKey(EnteredKey)
-    local http = game.HttpService
-    local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
-    if http:JSONDecode(url) ~= nil then
-	    for index, DocumentName in pairs(http:JSONDecode(url)) do
-		if DocumentName["Key"] == EnteredKey then
-		    if DocumentName["HWID"] == "N/A" then
-			UpdateHWID(index, DocumentName)
-			return true
-		    elseif DocumentName["HWID"] ~= "N/A" then
-			if DocumentName["HWID"] == game:GetService("RbxAnalyticsService"):GetClientId() then
-			    return true
-			else
-			    return false
-			end
-		    end
-		    break
-		end
-	    end
-	end
-    return false
-end
-
 function Library:tween(object, goal, callback)
 	local tween = TweenService:Create(object, tweenInfo, goal)
 	tween.Completed:Connect(callback or function() end)
@@ -62,7 +17,7 @@ function Library:tween(object, goal, callback)
 end
 
 --main
-if (isfile("ParmesanHubKey.txt") and CheckKey(readfile("ParmesanHubKey.txt"))) then
+if (isfile("ParmesanHubKey.txt") and table.find(PremiumKeys, readfile("ParmesanHubKey.txt"))) then
     loadstring(game:HttpGet(("https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/test2.lua"),true))()
 else
     function CreateKeySystem()
@@ -138,7 +93,7 @@ else
             KeySystem["7"]["Position"] = UDim2.new(0, 35, 0, 240);
             
             KeySystem["7"].FocusLost:Connect(function()
-                if CheckKey(KeySystem["7"].Text) == true then
+                if table.find(PremiumKeys, KeySystem["7"].Text) == true then
                     loadstring(game:HttpGet(("https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/test2.lua"),true))()
                     KeySystem["ae"]:Destroy()
                     writefile("ParmesanHubKey.txt", KeySystem["7"].Text)
