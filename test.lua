@@ -92,34 +92,54 @@ function CreateKeySystem()
 			local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
 			for index, DocumentName in pairs(http:JSONDecode(url)) do
 				if DocumentName["Key"] == EnteredKey then
-					print("Success!")
-				end
-			end
-		end
-
-		local function UpdateHWID(EnteredKey)
-		    local http = game.HttpService
-			local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
-			for index, DocumentName in pairs(http:JSONDecode(url)) do
-				if DocumentName["Key"] == EnteredKey then
-					DocumentName["HWID"] = "1"
-					local updateOptions = {
-					    Url = url .. "/" .. index .. ".json",
-					    Method = "PATCH",
-					    Headers = {
-						["Content-Type"] = "application/json"
-					    },
-					    Body = HttpService:JSONEncode(DocumentName)
-					}
-					HttpService:RequestAsync(updateOptions)
+					if DocumentName["HWID"] == "N/A" then
+						UpdateHWID(DocumentName)
+						return true
+					elseif DocumentName["HWID"] ~= "N/A" then
+						if DocumentName["HWID"] == game:GetService("RbxAnalyticsService"):GetClientId() then
+							return true
+						else
+							return false
+						end
+					end
 					break
 				end
 			end
+			return false
+		end
+		
+		local function UpdateHWID(DocumentName)
+			local http = game:GetService("HttpService")
+			local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
+			local req = http_request
+					local data = {
+						[tostring(index)] = {
+							["ExpireTime"] = DocumentName["ExpireTime"],
+							["HWID"] = game:GetService("RbxAnalyticsService"):GetClientId(),
+							["Key"] = DocumentName["Key"]
+						}
+					}
+					if req then
+						req({
+							Url = "https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json",
+							Method = "PUT",
+							Headers = {
+								["Content-Type"] = "application/json"
+							},
+							Body = http:JSONEncode(data)
+						})
+					end
+				end
+			end
 		end
 
+		
 		KeySystem["7"].FocusLost:Connect(function()
-		   CheckKey(KeySystem["7"].Text)
-		   UpdateHWID(KeySystem["7"].Text)
+			if CheckKey(KeySystem["7"].Text) == true then
+				print("Success!")
+			else 
+				print("Wrong Key or HWID")
+			end
 		end)
 
 		-- StarterGui.KeySystem.Frame.TextBox.UICorner
