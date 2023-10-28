@@ -87,27 +87,6 @@ function CreateKeySystem()
 		KeySystem["7"]["Text"] = [[]];
 		KeySystem["7"]["Position"] = UDim2.new(0, 35, 0, 240);
 
-		local function CheckKey(EnteredKey)
-			local http = game.HttpService
-			local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
-			for index, DocumentName in pairs(http:JSONDecode(url)) do
-				if DocumentName["Key"] == EnteredKey then
-					if DocumentName["HWID"] == "N/A" then
-						UpdateHWID(index, DocumentName)
-						return true
-					elseif DocumentName["HWID"] ~= "N/A" then
-						if DocumentName["HWID"] == game:GetService("RbxAnalyticsService"):GetClientId() then
-							return true
-						else
-							return false
-						end
-					end
-					break
-				end
-			end
-			return false
-		end
-		
 		local function UpdateHWID(index, DocumentName)
 			local http = game:GetService("HttpService")
 			local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
@@ -130,7 +109,27 @@ function CreateKeySystem()
 				})
 			end
 		end
-
+		
+		local function CheckKey(EnteredKey)
+			local http = game.HttpService
+			local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
+			for index, DocumentName in pairs(http:JSONDecode(url)) do
+				if DocumentName["Key"] == EnteredKey then
+					if DocumentName["HWID"] == "N/A" then
+						UpdateHWID(index, DocumentName)
+						return true
+					elseif DocumentName["HWID"] ~= "N/A" then
+						if DocumentName["HWID"] == game:GetService("RbxAnalyticsService"):GetClientId() then
+							return true
+						else
+							return false
+						end
+					end
+					break
+				end
+			end
+			return false
+		end
 		
 		KeySystem["7"].FocusLost:Connect(function()
 			if CheckKey(KeySystem["7"].Text) == true then
