@@ -41,13 +41,13 @@ local GUI = {
 }
 
 function Library:Init(options) -- Window, Game Title, FPS and Ping counters
-	
+
 	Library:Validate({
 		name = "Parmesan Hub - Universal Script",
 		keytype = "Free",
 		key = "N/A"
 	}, options or {})
-	
+
 	do -- Main Window
 		-- StarterGui.ScreenGui
 		GUI["1"] = Instance.new("ScreenGui", RunService:IsStudio() and Players.LocalPlayer:WaitForChild("PlayerGui") or CoreGui);
@@ -55,8 +55,8 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["1"]["ScreenInsets"] = Enum.ScreenInsets.DeviceSafeInsets;
 		GUI["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 		GUI["1"]["IgnoreGuiInset"] = true
-		
-		
+
+
 		GUI["514"] = Instance.new("Frame", GUI["1"]);
 		GUI["514"]["BorderSizePixel"] = 0;
 		GUI["514"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -66,7 +66,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["514"]["Active"] = true;
 		GUI["514"]["Draggable"] = true;
 		GUI["514"]["BackgroundTransparency"] = 1;
-		
+
 		-- StarterGui.ScreenGui.Main
 		GUI["2"] = Instance.new("Frame", GUI["514"]);
 		GUI["2"]["ZIndex"] = 0;
@@ -78,14 +78,14 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["2"]["Size"] = UDim2.new(0, 450, 0, 300);
 		GUI["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["2"]["Position"] = UDim2.new(1, 50, 0, 0);
-			--UDim2.fromOffset((viewport.X / 2) - (GUI["2"].Size.X.Offset / 2), (viewport.Y / 2) - (GUI["2"].Size.Y.Offset / 2));
+		--UDim2.fromOffset((viewport.X / 2) - (GUI["2"].Size.X.Offset / 2), (viewport.Y / 2) - (GUI["2"].Size.Y.Offset / 2));
 		GUI["2"]["Name"] = [[Main]];
 
 		-- StarterGui.ScreenGui.Main.UICorner
 		GUI["3"] = Instance.new("UICorner", GUI["2"]);
 		GUI["3"]["CornerRadius"] = UDim.new(0, 9);
 	end
-	
+
 	do -- FPS and Ping Counters
 		-- StarterGui.ScreenGui.Main.FPS_Ping
 		GUI["4"] = Instance.new("Frame", GUI["2"]);
@@ -137,9 +137,9 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["8"]["BackgroundTransparency"] = 1;
 		GUI["8"]["Position"] = UDim2.new(0, 60, 1, 0);
 	end
-	
+
 	local pFPS = 0
-	
+
 	local function getFPS()
 		local oldTime
 		game:GetService("RunService").RenderStepped:Connect(function()
@@ -151,9 +151,9 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			end
 		end)
 	end
-	
+
 	task.spawn(getFPS)
-	
+
 	game:GetService("RunService").RenderStepped:Connect(function()
 		GUI["7"]["Text"] = "FPS: "..tostring(pFPS)
 		if pFPS > 40 then
@@ -164,14 +164,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			GUI["7"]["TextColor3"] = Color3.fromRGB(255,0,0)
 		end
 	end)
-	
-	--[[game:GetService("RunService").RenderStepped:Connect(function(v)
-		GUI["8"]["Text"] = "Ping: "..tostring(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(math.round(2 / v))).." ms"
-	end)
-	
-	print(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())--]]
 
-	
 	do -- Game Title
 		-- StarterGui.ScreenGui.Main.GameName
 		GUI["9"] = Instance.new("Frame", GUI["2"]);
@@ -229,7 +222,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["e"]["BackgroundTransparency"] = 1;
 		GUI["e"]["Position"] = UDim2.new(1,-40,0, 7);
 	end
-	
+
 	do --Tab List
 		-- StarterGui.ScreenGui.Main.Navigation
 		GUI["4d"] = Instance.new("Frame", GUI["2"]);
@@ -250,7 +243,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["4e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["4e"]["Position"] = UDim2.new(6.634255811377443e-08, 0, 0, 0);
 		GUI["4e"]["Name"] = [[NavigationHolder]];
-		
+
 		GUI["sc"] = Instance.new("ScrollingFrame", GUI["4e"]);
 		GUI["sc"]["Active"] = false;
 		GUI["sc"]["ScrollingDirection"] = Enum.ScrollingDirection.X;
@@ -262,15 +255,15 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["sc"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["sc"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["sc"]["ScrollBarThickness"] = 0;
-		
-		
+
+
 		-- StarterGui.ScreenGui.Main.Navigation.NavigationHolder.UIListLayout
 		GUI["4f"] = Instance.new("UIListLayout", GUI["sc"]);
 		GUI["4f"]["VerticalAlignment"] = Enum.VerticalAlignment.Center;
 		GUI["4f"]["FillDirection"] = Enum.FillDirection.Horizontal;
 		GUI["4f"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 	end
-	
+
 	do --Left Tab
 		-- StarterGui.ScreenGui.Main.LeftTab
 		GUI["48"] = Instance.new("Frame", GUI["2"]);
@@ -316,7 +309,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["4c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["4c"]["BackgroundTransparency"] = 1;
 		GUI["4c"]["Position"] = UDim2.new(0,9,1,-90);
-		
+
 		-- StarterGui.Main.Main.LeftTab.Key
 		GUI["65"] = Instance.new("ImageButton", GUI["48"]);
 		GUI["65"]["BorderSizePixel"] = 0;
@@ -334,7 +327,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["66"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(238, 202, 104)),ColorSequenceKeypoint.new(0.492, Color3.fromRGB(250, 243, 150)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(225, 171, 63))};
 
 	end
-	
+
 	do --Content Container of Tab Functions
 		-- StarterGui.ScreenGui.Main.ContentContainer
 		GUI["f"] = Instance.new("Frame", GUI["2"]);
@@ -346,7 +339,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["f"]["Position"] = UDim2.new(0, 45, 0, 60);
 		GUI["f"]["Name"] = [[ContentContainer]];
 	end
-	
+
 	function GUI:Minimize()
 		local Minimize = {
 			Active = false
@@ -378,9 +371,9 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			end)
 		end
 	end
-	
+
 	GUI:Minimize()
-	
+
 	function GUI:Close()
 		-- Logic
 		do
@@ -389,20 +382,20 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			end)
 		end
 	end
-	
+
 	GUI:Close()
-	
+
 	function GUI:CreateTab(options)
 		Library:Validate({
 			name = "Unnamed Tab",
 			icon = "rbxassetid://15116174139"
 		}, options or {})
-		
+
 		local Tab = {
 			Hover = false,
 			Active = false
 		}
-		
+
 		do --Tab
 			-- StarterGui.ScreenGui.Main.Navigation.NavigationHolder.PlayerInactive
 			Tab["53"] = Instance.new("TextButton", GUI["sc"]);
@@ -432,7 +425,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			-- StarterGui.ScreenGui.Main.Navigation.NavigationHolder.PlayerInactive.UIPadding
 			Tab["55"] = Instance.new("UIPadding", Tab["53"]);
 			Tab["55"]["PaddingLeft"] = UDim.new(0, 12);
-			
+
 			-- StarterGui.ScreenGui.Main.ContentContainer.PlayerTab
 			Tab["10"] = Instance.new("ScrollingFrame", GUI["f"]);
 			Tab["10"]["Active"] = true;
@@ -447,18 +440,18 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			Tab["10"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 			Tab["10"]["Visible"] = false;
 			Tab["10"]["Active"] = false;
-			
+
 			-- StarterGui.Main.Main.ContentContainer.PlayerTab.UIPadding
 			Tab["7b"] = Instance.new("UIPadding", Tab["10"]);
 			Tab["7b"]["PaddingTop"] = UDim.new(0, 4);
 			Tab["7b"]["PaddingLeft"] = UDim.new(0, 2);
-			
+
 			-- StarterGui.ScreenGui.Main.ContentContainer.PlayerTab.UIListLayout
 			GUI["17"] = Instance.new("UIListLayout", Tab["10"]);
 			GUI["17"]["Padding"] = UDim.new(0, 7);
 			GUI["17"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 		end
-		
+
 		function Tab:Activate()
 			if not Tab.Active then
 				spawn(function()
@@ -466,22 +459,22 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					GUI["f"]:WaitForChild("Profile").Visible = false;
 					GUI["f"]:WaitForChild("Credits").Visible = false;
 				end)
-				
+
 				if GUI.CurrentTab ~= nil then
 					GUI.CurrentTab:Deactivate()
 				end
-				
+
 				Tab.Active = true
 				Library:tween(Tab["53"], {TextColor3 = Color3.fromRGB(255,255,255)})
 				Library:tween(Tab["53"], {BackgroundColor3 = Color3.fromRGB(31,31,31)})
 				Library:tween(Tab["54"], {ImageColor3 = Color3.fromRGB(255,255,255)})
-				
+
 				GUI.CurrentTab = Tab
-				
+
 				Tab["10"]["Visible"] = true
 			end
 		end
-		
+
 		function Tab:Deactivate()
 			if Tab.Active then
 				Tab.Active = false
@@ -492,8 +485,8 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Tab["10"]["Visible"] = false
 			end
 		end
-		
-		
+
+
 		do --Logic
 			Tab["53"].MouseEnter:Connect(function()
 				Tab.Hover = true
@@ -511,7 +504,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Library:tween(Tab["54"], {ImageColor3 = Color3.fromRGB(136, 136, 136)})
 				end
 			end)
-			
+
 			Tab["53"].MouseButton1Click:Connect(function()
 				Tab:Activate()
 			end)
@@ -530,18 +523,18 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Tab:Activate()
 			end
 		end
-		
+
 		function Tab:Button(options)
 			Library:Validate({
 				name = "Unnamed Tab",
 				callback = function() end
 			}, options or {})
-			
+
 			local Button = {
 				Hover = false,
 				MouseDown = false
 			}
-			
+
 			--Button Create
 			do
 				-- StarterGui.ScreenGui.Main.ContentContainer.PlayerTab.TextButton
@@ -557,7 +550,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Button["11"]["FontFace"] = CustomFont
 				Button["11"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Button["11"]["AutoButtonColor"] = false;
-				
+
 				-- StarterGui.ScreenGui.Main.ContentContainer.PlayerTab.Button.ImageLabel
 				Button["16"] = Instance.new("ImageLabel", Button["11"]);
 				Button["16"]["BorderSizePixel"] = 0;
@@ -577,52 +570,52 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Button["13"] = Instance.new("UIStroke", Button["11"]);
 				Button["13"]["Color"] = Color3.fromRGB(38, 38, 39);
 				Button["13"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
-				
+
 				-- StarterGui.ScreenGui.Main.ContentContainer.PlayerTab.Button.TextLabel.UIPadding
 				Button["14"] = Instance.new("UIPadding", Button["11"]);
 				Button["14"]["PaddingLeft"] = UDim.new(0, 15);
 			end
-			
+
 			--Methods
 			function Button:SetText(text)
 				Button["11"].Text = text
 				options.name = text
 			end
-			
+
 			function Button:SetCallback(fn)
 				options.callback = fn
 			end
-			
+
 			--Logic
 			do
 				Button["11"].MouseEnter:Connect(function()
 					Button.Hover = true
 					Library:tween(Button["13"], {Color = Color3.fromRGB(80, 80, 80)})
 				end)
-				
+
 				Button["11"].MouseLeave:Connect(function()
 					Button.Hover = false
 					if not Button.MouseDown then
 						Library:tween(Button["13"], {Color = Color3.fromRGB(38, 38, 39)})
 					end
 				end)
-				
+
 				Button["11"].MouseButton1Click:Connect(function()
 					options.callback()
 				end)
 			end
-			
+
 			return Button
 		end
-		
+
 		function Tab:Warning(options)
 			Library:Validate({
 				name = "Warning",
 				text = "Warning"
 			}, options or {})
-			
+
 			local Warning = {}
-			
+
 			--Render
 			do
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Warning
@@ -695,30 +688,30 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					ColorSequenceKeypoint.new(1.000, Color3.fromRGB(134, 136, 0))
 				};
 			end
-			
+
 			--Methods
-			
+
 			function Warning:SetName(name)
 				options.name = name
 				Warning:_update()
 			end
-			
+
 			function Warning:SetText(text)
 				options.text = text
 				Warning["56"].Text = text
 			end
-			
+
 			function Warning:_update()
 				Warning["62"].Text = options.text
 				Warning["62"].Size = UDim2.new(Warning["62"].Size.X.Scale, Warning["62"].Size.X.Offset, 0, math.huge)
 				Warning["62"].Size = UDim2.new(Warning["62"].Size.X.Scale, Warning["62"].Size.X.Offset, 0, Warning["62"].TextBounds.Y)
 				Warning["5c"].Size = UDim2.new(Warning["5c"].Size.X.Scale, Warning["5c"].Size.X.Offset, 0, Warning["62"].TextBounds.Y + 40)
 			end
-			
+
 			Warning:_update()
 			return Warning
 		end
-		
+
 		function Tab:Information(options)
 			Library:Validate({
 				name = "Information",
@@ -820,7 +813,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			Information:_update()
 			return Information
 		end
-		
+
 		function Tab:Message(options)
 			Library:Validate({
 				name = "Message",
@@ -923,7 +916,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			Message:_update()
 			return Message
 		end
-		
+
 		function Tab:Slider(options)
 			Library:Validate({
 				name = "Slider",
@@ -932,18 +925,18 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				default = 10,
 				valuename = "sections",
 				gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
-				callback = function(v) print(v) end
+				callback = function(v) end
 			}, options or {})
-			
+
 			local Slider = {
 				MouseDown = false,
 				Hover = false,
 				Connection = nil
 			}
-			
+
 			--Render
 			do
-				
+
 				-- StarterGui.Main.Frame.Main.ContentContainer.PlayerTab.Slider
 				Slider["19"] = Instance.new("TextButton", Tab["10"]);
 				Slider["19"]["BorderSizePixel"] = 0;
@@ -953,7 +946,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Slider["19"]["Name"] = [[Slider]];
 				Slider["19"]["AutoButtonColor"] = false;
 				Slider["19"]["TextTransparency"] = 1;
-				
+
 				-- StarterGui.Main.Frame.Main.ContentContainer.PlayerTab.Slider.UICorner
 				Slider["1a"] = Instance.new("UICorner", Slider["19"]);
 				Slider["1a"]["CornerRadius"] = UDim.new(0, 4);
@@ -962,7 +955,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Slider["1b"] = Instance.new("UIStroke", Slider["19"]);
 				Slider["1b"]["Color"] = Color3.fromRGB(38, 38, 39);
 				Slider["1b"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
-				
+
 				-- StarterGui.Main.Frame.Main.ContentContainer.PlayerTab.Slider.TextLabel
 				Slider["1c"] = Instance.new("TextLabel", Slider["19"]);
 				Slider["1c"]["BorderSizePixel"] = 0;
@@ -1006,7 +999,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Slider["21"]["BorderSizePixel"] = 0;
 				Slider["21"]["BackgroundColor3"] = Color3.fromRGB(0, 106, 176);
 				Slider["21"]["Size"] = UDim2.new(0,((Slider["1e"].AbsoluteSize.X / options.maximum) * options.default),1,0);
-					--UDim2.new(0.5, 0, 1, 0);
+				--UDim2.new(0.5, 0, 1, 0);
 				Slider["21"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Slider["21"]["Name"] = [[Draggable]];
 
@@ -1035,7 +1028,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Slider["25"] = Instance.new("UIPadding", Slider["24"]);
 				Slider["25"]["PaddingLeft"] = UDim.new(0, 10);
 			end
-			
+
 			--Methods
 			function Slider:SetValue(v)
 				if v == nil then
@@ -1050,12 +1043,12 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				end
 				options.callback(Slider:GetValue())
 			end
-			
+
 			function Slider:GetValue()
 				return tonumber(Slider["24"]["Text"]:match("%d+"))
 			end
-		
-			
+
+
 			--Logic
 			do
 				Slider["19"].MouseEnter:Connect(function()
@@ -1071,7 +1064,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 						Library:tween(Slider["20"], {Color = Color3.fromRGB(38, 38, 39)})
 					end
 				end)
-				
+
 				Slider["19"].MouseButton1Down:Connect(function()
 					local frame = Slider["19"]
 					Slider.MouseDown = true
@@ -1080,14 +1073,14 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Library:tween(Slider["20"], {Color = Color3.fromRGB(200, 200, 200)})
 
 					--if not Slider.Connection then
-						--Slider.Connection = RunService.RenderStepped:Connect(function()
-						--	Slider:SetValue()
-						--end)
+					--Slider.Connection = RunService.RenderStepped:Connect(function()
+					--	Slider:SetValue()
+					--end)
 					while Slider.MouseDown and mouse.X >= frame.AbsolutePosition.X and mouse.X <= frame.AbsolutePosition.X + frame.AbsoluteSize.X
-					and mouse.Y >= frame.AbsolutePosition.Y and mouse.Y <= frame.AbsolutePosition.Y + frame.AbsoluteSize.Y do
-							Slider:SetValue()
-							game:GetService("RunService").RenderStepped:Wait()
-						end
+						and mouse.Y >= frame.AbsolutePosition.Y and mouse.Y <= frame.AbsolutePosition.Y + frame.AbsoluteSize.Y do
+						Slider:SetValue()
+						game:GetService("RunService").RenderStepped:Wait()
+					end
 					Slider.MouseDown = false
 
 					if Slider.Hover then
@@ -1122,13 +1115,13 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				end)
 			end
 		end
-		
+
 		function Tab:Toggle(options)
 			Library:Validate({
 				name = "Toggle",
 				callback = function() end
 			}, options or {})
-			
+
 			local Toggle = {
 				Hover = false,
 				MouseDown = false,
@@ -1146,11 +1139,11 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Toggle["36"]["Name"] = [[ToggleInactive]];
 				Toggle["36"]["TextTransparency"] = 1;
 				Toggle["36"]["AutoButtonColor"] = false;
-				
+
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.ToggleInactive.UICorner
 				Toggle["37"] = Instance.new("UICorner", Toggle["36"]);
 				Toggle["37"]["CornerRadius"] = UDim.new(0, 4);
-				
+
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.ToggleInactive.TextLabel
 				Toggle["38"] = Instance.new("TextLabel", Toggle["36"]);
 				Toggle["38"]["BorderSizePixel"] = 0;
@@ -1203,7 +1196,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Toggle["3e"]["Color"] = Color3.fromRGB(38, 38, 39);
 				Toggle["3e"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 			end
-			
+
 			--Methods
 			function Toggle:Toggle(b)
 				if b == nil then
@@ -1211,7 +1204,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				else
 					Toggle.State = b
 				end
-				
+
 				if Toggle.State then
 					Library:tween(Toggle["3a"], {BackgroundColor3 = Color3.fromRGB(0, 105, 175)})
 					Library:tween(Toggle["3d"], {ImageTransparency = 0})
@@ -1219,13 +1212,13 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Library:tween(Toggle["3a"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})
 					Library:tween(Toggle["3d"], {ImageTransparency = 1})
 				end
-				
+
 				options.callback(Toggle.State)
 			end
-			
+
 			--Logic
 			do
-				
+
 				Toggle["36"].MouseEnter:Connect(function()
 					Toggle.Hover = true
 					Library:tween(Toggle["3c"], {Color = Color3.fromRGB(60, 60, 60)})
@@ -1239,7 +1232,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 						Library:tween(Toggle["3e"], {Color = Color3.fromRGB(38, 38, 39)})
 					end
 				end)
-				
+
 				Toggle["36"].MouseButton1Click:Connect(function()
 					Toggle.MouseDown = true
 					Library:tween(Toggle["36"], {BackgroundColor3 = Color3.fromRGB(60, 60, 60)})		
@@ -1259,10 +1252,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					end
 				end)
 			end
-			
+
 			return Toggle
 		end
-		
+
 		function Tab:Dropdown(options)
 			Library:Validate({
 				name = "Toggle",
@@ -1270,7 +1263,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				opencallback = function() end,
 				items = {}
 			}, options or {})
-			
+
 			local Dropdown = {
 				Items = {
 					["id"] = {
@@ -1282,7 +1275,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Hover = false,
 				HoveringItem = false
 			}
-			
+
 			--Render
 			do
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown
@@ -1296,7 +1289,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["25"]["Name"] = [[Dropdown]];
 				Dropdown["25"]["TextTransparency"] = 1;
 				Dropdown["25"]["AutoButtonColor"] = false;
-				
+
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.UICorner
 				Dropdown["26"] = Instance.new("UICorner", Dropdown["25"]);
 				Dropdown["26"]["CornerRadius"] = UDim.new(0, 4);
@@ -1344,7 +1337,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["2b"]["Position"] = UDim2.new(0, 4, 0, 35);
 				Dropdown["2b"]["Visible"] = false;
 				Dropdown["2b"]["Name"] = [[OptionHolder]];
-				
+
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.TextLabel
 				Dropdown["2p"] = Instance.new("TextLabel", Dropdown["25"]);
 				Dropdown["2p"]["AnchorPoint"] = Vector2.new(1, 0);
@@ -1360,7 +1353,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["2p"]["Text"] = ". . .";
 				Dropdown["2p"]["BackgroundTransparency"] = 1;
 				Dropdown["2p"]["Position"] = UDim2.new(0, 345,0, -11)
-				
+
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.OptionHolder.ScrollingFrame
 				Dropdown["2c"] = Instance.new("ScrollingFrame", Dropdown["2b"]);
 				Dropdown["2c"]["Active"] = false;
@@ -1379,14 +1372,14 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["2d"]["VerticalAlignment"] = Enum.VerticalAlignment.Top;
 				Dropdown["2d"]["Padding"] = UDim.new(0, 6);
 				Dropdown["2d"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
-				
+
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.OptionHolder.ScrollingFrame.UIStroke
 				Dropdown["2j"] = Instance.new("UIStroke", Dropdown["2c"]);
 				Dropdown["2j"]["Color"] = Color3.fromRGB(36,36,36);
 				Dropdown["2j"]["Transparency"] = 0;
 				Dropdown["2j"]["Thickness"] = 2;
 				Dropdown["2j"]["LineJoinMode"] = Enum.LineJoinMode.Round;
-				
+
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.OptionHolder.ScrollingFrame.UIPadding
 				Dropdown["2g"] = Instance.new("UIPadding", Dropdown["2c"]);
 				Dropdown["2g"]["PaddingLeft"] = UDim.new(0, 6)
@@ -1394,7 +1387,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["2g"]["PaddingTop"] = UDim.new(0, 8)
 				Dropdown["2g"]["PaddingBottom"] = UDim.new(0, 8)
 			end
-			
+
 			--Methods
 			do
 				function Dropdown:Add(id, value)
@@ -1402,11 +1395,11 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 						Hover = false,
 						MouseDown = false,
 					}
-					
+
 					if Dropdown.Items[id] ~= nil then
 						return
 					end
-					
+
 					Dropdown.Items[id] = {
 						instance = {},
 						value = value
@@ -1435,7 +1428,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.OptionHolder.Inactive Option.UICorner
 					Dropdown.Items[id].instance["2f"] = Instance.new("UICorner", Dropdown.Items[id].instance["2v"]);
 					Dropdown.Items[id].instance["2f"]["CornerRadius"] = UDim.new(0, 5);
-					
+
 					Dropdown.Items[id].instance["2v"].MouseEnter:Connect(function()
 						Item.Hover = true
 						Dropdown.HoveringItem = true
@@ -1449,18 +1442,18 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 							Library:tween(Dropdown.Items[id].instance["2e"], {Color = Color3.fromRGB(76,76,76)})
 						end
 					end)
-					
+
 					Dropdown.Items[id].instance["2v"].MouseButton1Click:Connect(function()
 						if Dropdown.Items[id] == nil then return end
 						Item.MouseDown = true
 						Dropdown["2p"]["Text"] = Dropdown.Items[id].instance["2v"].Text
 						options.callback(Dropdown.Items[id].instance["2v"].Text, value)
 						Dropdown:Toggle()
-						
+
 						Item.MouseDown = false
 					end)
 
-					
+
 				end
 
 				function Dropdown:Remove(id)
@@ -1497,7 +1490,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 								count += 1
 							end
 						end
-						
+
 						Library:tween(Dropdown["2a"], {Rotation = 180})
 						Dropdown["2b"]["Visible"] = true
 						Library:tween(Dropdown["25"], {Size = UDim2.new(1,-5,0, 140)})
@@ -1505,9 +1498,9 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Dropdown.Open = not Dropdown.Open
 				end
 			end
-			
+
 			-- Logic
-			
+
 			do
 				Dropdown["25"].MouseEnter:Connect(function()
 					Dropdown.Hover = true
@@ -1520,7 +1513,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 						Library:tween(Dropdown["27"], {Color = Color3.fromRGB(38, 38, 39)})
 					end
 				end)
-				
+
 				Dropdown["25"].MouseButton1Click:Connect(function()
 					Dropdown.MouseDown = true
 					Library:tween(Dropdown["25"], {BackgroundColor3 = Color3.fromRGB(60, 60, 60)})		
@@ -1529,7 +1522,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					if not Dropdown.HoveringItem then
 						Dropdown:Toggle()
 					end
-					
+
 					Dropdown.MouseDown = false
 
 					if Dropdown.Hover then
@@ -1541,10 +1534,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					end
 				end)
 			end
-			
+
 			return Dropdown
 		end
-		
+
 		function Tab:Input(options)
 			Library:Validate({
 				name = "Input",
@@ -1552,11 +1545,11 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				cleartextonfocus = true,
 				callback = function(v) end
 			}, options or {})
-			
+
 			local Input = {
 				Hover = false
 			}
-			
+
 			--Render 
 			do
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Input
@@ -1609,7 +1602,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Input["91"]["Position"] = UDim2.new(1, -75,0, 7);
 				Input["91"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Input["91"]["ClearTextOnFocus"] = options.cleartextonfocus;
-				
+
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Input.TextBox.UICorner
 				Input["92"] = Instance.new("UICorner", Input["91"]);
 				Input["92"]["CornerRadius"] = UDim.new(0, 4);
@@ -1619,17 +1612,17 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Input["93"]["Color"] = Color3.fromRGB(33, 33, 33);
 				Input["93"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 			end
-			
+
 			--Methods
-			
+
 			function Input:TurnOnListener()
 				Input["91"].FocusLost:Connect(function()
 					options.callback(Input["91"].Text)
 				end)
 			end
-			
+
 			--Logic
-			
+
 			do
 				Input["8c"].MouseEnter:Connect(function()
 					Input.Hover = true
@@ -1673,20 +1666,20 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					end
 				end)
 			end
-			
+
 			Input:TurnOnListener()
-			
-			
+
+
 		end
-		
+
 		function Tab:Section(options)
-			
+
 			Library:Validate({
 				text = "Section Name",
 			}, options or {})
-			
+
 			local Section = {}
-			
+
 			--Render
 			do
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.TextLabel
@@ -1701,17 +1694,17 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Section["94"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Section["94"]["Text"] = options.text;
 				Section["94"]["BackgroundTransparency"] = 1;
-				
+
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.TextLabel.UIPadding
 				Section["95"] = Instance.new("UIPadding", Section["94"]);
 				Section["95"]["PaddingLeft"] = UDim.new(0, 4);
 			end
 		end
-		
+
 		function Tab:Key()
-			
+
 			local Key = {}
-			
+
 			--Render
 			do
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey
@@ -1755,11 +1748,11 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["103"]["Position"] = UDim2.new(0, 145, 0, 240);
 				Key["103"]["Name"] = [[1month]];
 				Key["103"]["TextTransparency"] = 1;
-				
+
 				Key["103"].MouseButton1Click:Connect(function()
 					setclipboard("https://funpay.com/en/lots/offer?id=22843788")
 				end)
-				
+
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.TextLabel
 				Key["104"] = Instance.new("TextLabel", Key["103"]);
 				Key["104"]["TextWrapped"] = true;
@@ -1791,7 +1784,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["105"]["BackgroundTransparency"] = 1;
 				Key["105"]["Position"] = UDim2.new(0, 0, 0, 5);
 				Key["105"]["Active"] = false;
-				
+
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.TextLabel
 				Key["106"] = Instance.new("TextLabel", Key["103"]);
 				Key["106"]["TextWrapped"] = true;
@@ -1807,7 +1800,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["106"]["BackgroundTransparency"] = 1;
 				Key["106"]["Position"] = UDim2.new(0, 0, 0, 30);
 				Key["106"]["Active"] = false;
-				
+
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UIStroke
 				Key["107"] = Instance.new("UIStroke", Key["103"]);
 				Key["107"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
@@ -1829,7 +1822,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["110"]["Position"] = UDim2.new(0, 265, 0, 240);
 				Key["110"]["Name"] = [[1month]];
 				Key["110"]["TextTransparency"] = 1;
-				
+
 				Key["110"].MouseButton1Click:Connect(function()
 					setclipboard("https://funpay.com/en/lots/offer?id=22843826")
 				end)
@@ -1849,7 +1842,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["97"]["BackgroundTransparency"] = 1;
 				Key["97"]["Position"] = UDim2.new(0, 0, 0, 5);
 				Key["97"]["Active"] = false;
-				
+
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.TextLabel
 				Key["98"] = Instance.new("TextLabel", Key["110"]);
 				Key["98"]["TextWrapped"] = true;
@@ -1865,7 +1858,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["98"]["BackgroundTransparency"] = 1;
 				Key["98"]["Position"] = UDim2.new(0, 0, 0, 30);
 				Key["98"]["Active"] = false;
-				
+
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UIStroke
 				Key["99"] = Instance.new("UIStroke", Key["110"]);
 				Key["99"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
@@ -1904,7 +1897,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["9d"]["Position"] = UDim2.new(0, 25, 0, 240);
 				Key["9d"]["Name"] = [[1month]];
 				Key["9d"]["TextTransparency"] = 1;
-				
+
 				Key["9d"].MouseButton1Click:Connect(function()
 					setclipboard("https://funpay.com/en/lots/offer?id=22843631")
 				end)
@@ -1924,7 +1917,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["9e"]["BackgroundTransparency"] = 1;
 				Key["9e"]["Position"] = UDim2.new(0, 0, 0, 30);
 				Key["9e"]["Active"] = false;
-				
+
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.TextLabel
 				Key["9f"] = Instance.new("TextLabel", Key["9d"]);
 				Key["9f"]["TextWrapped"] = true;
@@ -1941,7 +1934,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["9f"]["BackgroundTransparency"] = 1;
 				Key["9f"]["Position"] = UDim2.new(0, 0, 0, 5);
 				Key["9f"]["Active"] = false;
-				
+
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UIStroke
 				Key["a0"] = Instance.new("UIStroke", Key["9d"]);
 				Key["a0"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
@@ -1987,7 +1980,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["a4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Key["a4"]["Text"] = [[Io2A4i6t-GHjzvF]];
 				Key["a4"]["Position"] = UDim2.new(0, 105, 0, 120);
-				
+
 				do
 					-- Your Variables
 					local HowManyCharacters = 15
@@ -2022,7 +2015,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 						end
 						return returntable
 					end
-					
+
 					local temp3
 					temp3 = game:GetService("RunService").Stepped:connect(function()
 						if Key["100"]["Visible"] == true then
@@ -2115,7 +2108,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["ad"] = Instance.new("UIStroke", Key["ab"]);
 				Key["ad"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 			end
-			
+
 			--Logic
 			do
 				GUI["65"].MouseButton1Click:Connect(function()
@@ -2126,15 +2119,15 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				end)
 			end
 		end
-		
+
 		if not GUI["f"]:FindFirstChild("BuyKey") then
 			Tab:Key()
 		end
-		
+
 		function Tab:Profile()
-			
+
 			local Profile = {}
-			
+
 			--Render
 			do
 				-- StarterGui.Main.Frame.Main.ContentContainer.Profile
@@ -2248,27 +2241,27 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b9"]["BackgroundTransparency"] = 1;
 				Profile["b9"]["Position"] = UDim2.new(0, 5, 0, 125);
 			end
-			
+
 			--Logic
 			do
 				GUI["4b"].MouseButton1Click:Connect(function()
 					GUI["f"]:WaitForChild("BuyKey").Visible = false;	
 					GUI["f"]:WaitForChild("Credits").Visible = false;	
-					
+
 					GUI.CurrentTab:Deactivate()
 					Profile["ae"]["Visible"] = true
 				end)
 			end
 		end
-		
+
 		if not GUI["f"]:FindFirstChild("Profile") then
 			Tab:Profile()
 		end
-		
+
 		function Tab:Credits()
-			
+
 			local Credits = {}
-			
+
 			--Render
 			do
 				-- StarterGui.Main.Frame.Main.ContentContainer.Credits
@@ -2386,7 +2379,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["c3"]["BackgroundTransparency"] = 1;
 				Credits["c3"]["Position"] = UDim2.new(0, 95, 0, 140);
 			end
-			
+
 			--Logic
 			do
 				GUI["4c"].MouseButton1Click:Connect(function()
@@ -2397,132 +2390,14 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				end)
 			end
 		end
-		
+
 		if not GUI["f"]:FindFirstChild("Credits") then
 			Tab:Credits()
 		end
-		
+
 		return Tab
 	end
-	
-	
+
+
 	return GUI
 end
-	
-task.wait(0.1)
-
-local main = Library:Init({
-	name = "Brookhaven RP"
-})
-
-local tab = main:CreateTab({
-	name = "Player",
-	icon = "rbxassetid://15101013637"
-})
-
-local tab = main:CreateTab({
-	name = "Character",
-	icon = "rbxassetid://15101014644"
-})
-
-tab:Section({
-	text = "Get Gamepasses"
-})
-
-local button = tab:Button({
-	name = "Unlock All Premium Faces and Accessories",
-	callback = (function()
-		
-	end)
-})
-
-local tab2 = main:CreateTab({
-	name = "House",
-	icon = "rbxassetid://15101018631"
-})
-
-main:CreateTab({
-	name = "Vehicles",
-	icon = "rbxassetid://15101017615"
-})
-
-main:CreateTab({
-	name = "Teleport",
-	icon = "rbxassetid://15105266838"
-})
-
-main:CreateTab({
-	name = "Tools",
-	icon = "rbxassetid://15101015572"
-})
-
-main:CreateTab({
-	name = "Misc",
-	icon = "rbxassetid://15101016621"
-})
-
-local button = tab2:Button({
-	name = "Bad Button",
-	callback = (function()
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100
-	end)
-})
-
-local Warning2 = tab:Slider({
-	name = "Player Walk Speed",
-	minimum = 1,
-	maximum = 1000,
-	default = 100,
-	valuename = "walkspeed",
-	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
-	callback = function(v)
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v	
-	end
-})
-
-local Warning2 = tab:Toggle({
-	name = "Spam Sounds",
-	callback = function(Value)
-		print(Value)
-	end
-})
-
-local Warning2 = tab:Dropdown({
-	name = "Teleport to Player's House",
-	callback = function(Name, Value)
-		print(Name, Value)
-	end,
-	opencallback = function()
-		print("test")
-	end,
-})
-
-Warning2:Add("sexy bob1", 12)
-Warning2:Add("sexy bob2", 12)
-Warning2:Add("sexy bob3", 12)
-Warning2:Add("sexy bob4", 12)
-Warning2:Add("sexy bob5", 12)
-Warning2:Add("sexy bob6", 12)
-Warning2:Add("sexy bob7", 12)
-Warning2:Add("sexy bob8", 12)
-Warning2:Add("sexy bob9", 12)
-
-local Warning2 = tab:Section({
-	text = "Test"
-})
-
-local Warning2 = tab:Message({
-	name = "Test Message Title",
-	text = "Test Message"
-})
-
-local Warning2 = tab:Information({
-	name = "Test Information Title",
-	text = "Test Information"
-})
-
-
-local Warning2 = tab:Warning({
-	name = "Test Warning Title",
-	text = "Test Warning"
-})
