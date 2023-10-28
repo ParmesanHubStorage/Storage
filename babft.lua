@@ -1,4 +1,4 @@
-Library = loadstring(game:HttpGet(("https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/ParmesanHub_UI_Lib.lua"),true))()
+local Library = loadstring(game:HttpGet(("https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/ParmesanHub_UI_Lib.lua"),true))()
 
 local Rocks = {"PointedRock", "Rock", "Rock1", "Rock2", "Rock3", "Log", "GrassyRock1", "GrassyRock2", "Ticket", "Pizza", "Token", "Soldier1", "Soldier2", "Soldier3", "Soldier4", "Soldier5", "Soldier6", "Soldier7", "Soldier8", "Soldier9", "Soldier10", "Soldier11", "Soldier12", "Soldier13", "Soldier14", "Soldier15", "Soldier16", "Soldier17", "Soldier18", "DiceWhite", "DiceBlack", "CardPurple", "CardYellow", "CardGreen", "CardRed", "LED1", "LED2", "LED3", "Chip", "Resister1", "Resister2", "Pipe1", "Pipe2", "Pipe3", "Mine", "HoneyStream", "HoneyRock1", "HoneyRock2", "Box", "PaintBrush", "PoisonMushroom", "GrassyRock", "Film", "Hammer", "Pencil", "PagePeice", "MagnifyingGlass", "RoundTestTubeShocking", "RoundTestTubePoisonous", "RoundTestTubeExplosive", "Cattail1", "Cattail2", "Cattail3", "LilyPadSmall", "LilyPad", "Alligator", "Pretzel", "CottonCandy", "Hotdog", "Gear", "Tenticle", "Teal Gem", "Yellow Gem", "Red Gem", "LimeGem", "Acid", "Rusted Iron", "Toxic Barrel", "BatAndGlove", "IceCreamCone", "Popsicle", "Loly", "Popcorn", "Ammo", "BowlingBall1", "BowlingBall2", "BowlingBall3", "BowlingBall4", "BowlingBall5", "BowlingBall6", "Le beignet", "Onek", "Fork", "Twok", "Threek", "BallK", "BallM", "Lily1", "Lily2", "Lily3", "Weapon", "RockExplosive", "Hammer", "FireRock", "FallRock1", "FallRock2", "PufferFish1", "PufferFish2", "PufferFish3", "Lily1", "Lily2", "Lily3"}
 
@@ -79,3 +79,243 @@ local function AutofarmFunc()
 		end
 	end	
 end
+
+spawn(function()
+	while true do
+		LocalPlayer = game.Players.LocalPlayer.Character
+		task.wait(0.1)
+	end
+end)	
+
+local ParmesanLib = Library:Init({
+	name = "Build a Boat for Treasure"
+})
+
+local Tab = ParmesanLib:CreateTab({
+	name = "Player",
+	icon = "rbxassetid://15101013637"
+})
+
+Tab:Section({
+	text = "Player"
+})
+
+local Slider = Tab:Slider({
+	name = "Walk Speed",
+	minimum = 1,
+	maximum = 1000,
+	default = 100,
+	valuename = "Walk Speed",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(Value)
+	end
+})
+
+local Slider = Tab:Slider({
+	name = "Jump Power",
+	minimum = 1,
+	maximum = 1000,
+	default = 100,
+	valuename = "Jump Power",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = tonumber(Value)
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Noclip",
+	callback = function(Value)
+		Noclip = Value
+		local Mouse = game.Players.LocalPlayer:GetMouse()
+		getgenv().noclips = true
+
+		noclips = not noclips
+		local temp
+		temp = game:GetService("RunService").Stepped:connect(function()
+			if noclips then
+				for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+					if v:IsA("BasePart") then
+						v.CanCollide = false
+					end
+				end
+			else
+				temp:Disconnect()
+				for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+					if v.Name == "LowerTorso" or v.Name == "UpperTorso" then
+						v.CanCollide = true
+					end
+				end
+			end
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Infinite Jump",
+	callback = function(Value)
+		InfJump = Value
+		local InfJumpFunc
+		if InfJumpFunc then InfJumpFunc:Disconnect() end
+		if InfJump == true then
+			while not game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") do
+				task.wait()
+			end
+			InfJumpFunc = game:GetService("UserInputService").JumpRequest:Connect(function()
+				if InfJump == true then
+					game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+				end
+			end)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Fly (PC Only, Press [F] Button to Toggle)",
+	callback = function(Value)
+		FlyOn = Value
+		local Max = 0
+		local Players = game.Players
+		local LP = Players.LocalPlayer
+		local Mouse = LP:GetMouse()
+		Mouse.KeyDown:connect(
+			function(k)
+				if k:lower() == "f" then
+					Max = Max + 1
+					getgenv().Fly = false
+					if FlyOn then
+						local T = LP.Character.UpperTorso
+						local S = {
+							F = 0,
+							B = 0,
+							L = 0,
+							R = 0
+						}
+						local S2 = {
+							F = 0,
+							B = 0,
+							L = 0,
+							R = 0
+						}
+						local SPEED = 500
+						local function FLY()
+							getgenv().Fly = true
+							local BodyGyro = Instance.new("BodyGyro", T)
+							local BodyVelocity = Instance.new("BodyVelocity", T)
+							BodyGyro.P = 9e4
+							BodyGyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+							BodyGyro.cframe = T.CFrame
+							BodyVelocity.velocity = Vector3.new(0, 0.1, 0)
+							BodyVelocity.maxForce = Vector3.new(9e9, 9e9, 9e9)
+							spawn(function()
+								repeat
+									game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Ragdoll")
+									task.wait()
+								until not getgenv().Fly
+							end)
+							spawn(
+								function()
+									repeat
+
+										wait()
+										if LP.Character:FindFirstChildOfClass("Humanoid") then LP.Character.Humanoid.PlatformStand = false end
+										if S.L + S.R ~= 0 or S.F + S.B ~= 0 then
+											SPEED = FlySpeed * 40
+										elseif not (S.L + S.R ~= 0 or S.F + S.B ~= 0) and SPEED ~= 0 then
+											SPEED = 0
+										end
+										if (S.L + S.R) ~= 0 or (S.F + S.B) ~= 0 then
+											BodyVelocity.velocity =
+												((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (S.F + S.B)) +
+													((game.Workspace.CurrentCamera.CoordinateFrame *
+														CFrame.new(S.L + S.R, (S.F + S.B) * 0.2, 0).p) -
+														game.Workspace.CurrentCamera.CoordinateFrame.p)) *
+												SPEED
+											S2 = {
+												F = S.F,
+												B = S.B,
+												L = S.L,
+												R = S.R
+											}
+										elseif (S.L + S.R) == 0 and (S.F + S.B) == 0 and SPEED ~= 0 then
+											BodyVelocity.velocity =
+												((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (S2.F + S2.B)) +
+													((game.Workspace.CurrentCamera.CoordinateFrame *
+														CFrame.new(S2.L + S2.R, (S2.F + S2.B) * 0.2, 0).p) -
+														game.Workspace.CurrentCamera.CoordinateFrame.p)) *
+												SPEED
+										else
+											BodyVelocity.velocity = Vector3.new(0, 0.1, 0)
+										end
+										BodyGyro.cframe = game.Workspace.CurrentCamera.CoordinateFrame
+									until not getgenv().Fly
+									S = {
+										F = 0,
+										B = 0,
+										L = 0,
+										R = 0
+									}
+									S2 = {
+										F = 0,
+										B = 0,
+										L = 0,
+										R = 0
+									}
+									SPEED = 0
+									BodyGyro:destroy()
+									BodyVelocity:destroy()
+									LP.Character.Humanoid.PlatformStand = false
+									game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("GettingUp")
+								end
+							)
+						end
+						Mouse.KeyDown:connect(
+							function(k)
+								if k:lower() == "w" then
+									S.F = 1
+								elseif k:lower() == "s" then
+									S.B = -1
+								elseif k:lower() == "a" then
+									S.L = -1
+								elseif k:lower() == "d" then
+									S.R = 1
+								end
+							end
+						)
+						Mouse.KeyUp:connect(
+							function(k)
+								if k:lower() == "w" then
+									S.F = 0
+								elseif k:lower() == "s" then
+									S.B = 0
+								elseif k:lower() == "a" then
+									S.L = 0
+								elseif k:lower() == "d" then
+									S.R = 0
+								end
+							end
+						)
+						FLY()
+						if Max == 2 then
+							getgenv().Fly = false
+							Max = 0
+						end
+					end
+				end
+			end
+		)
+	end
+})
+
+local Slider = Tab:Slider({
+	name = "Change Fly Speed",
+	minimum = 1,
+	maximum = 250,
+	default = 1,
+	valuename = "walkspeed",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
+		FlySpeed = tonumber(Value)
+	end
+})
