@@ -1,5 +1,3 @@
-repeat task.wait() until game:IsLoaded()
-
 --services
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
@@ -20,7 +18,7 @@ else
 	CustomFont = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 end
 
-local Library = {}
+Library = {}
 
 function Library:Validate(defaults, options)
 	for i,v in pairs(defaults) do
