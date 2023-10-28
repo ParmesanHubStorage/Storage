@@ -35,7 +35,7 @@ end
 local function CheckKey(EnteredKey)
     local http = game.HttpService
     local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
-    if url ~= nil then
+    if http:JSONDecode(url) ~= nil then
 	    for index, DocumentName in pairs(http:JSONDecode(url)) do
 		if DocumentName["Key"] == EnteredKey then
 		    if DocumentName["HWID"] == "N/A" then
