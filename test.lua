@@ -60,9 +60,8 @@ function Library:tween(object, goal, callback)
 end
 
 --main
-if isfile("ParmesanHubKey.txt") and (CheckKey(readfile("ParmesanHubKey.txt")) then
+if (isfile("ParmesanHubKey.txt") and CheckKey(readfile("ParmesanHubKey.txt"))) then
     loadstring(game:HttpGet(("https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/test2.lua"),true))()
-	KeySystem["ae"]:Destroy()
 else
     function CreateKeySystem()
         
