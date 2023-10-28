@@ -93,7 +93,7 @@ function CreateKeySystem()
 			for index, DocumentName in pairs(http:JSONDecode(url)) do
 				if DocumentName["Key"] == EnteredKey then
 					if DocumentName["HWID"] == "N/A" then
-						UpdateHWID(DocumentName)
+						UpdateHWID(index, DocumentName)
 						return true
 					elseif DocumentName["HWID"] ~= "N/A" then
 						if DocumentName["HWID"] == game:GetService("RbxAnalyticsService"):GetClientId() then
@@ -108,28 +108,26 @@ function CreateKeySystem()
 			return false
 		end
 		
-		local function UpdateHWID(DocumentName)
+		local function UpdateHWID(index, DocumentName)
 			local http = game:GetService("HttpService")
 			local url = game:HttpGet("https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json")
 			local req = http_request
-					local data = {
-						[tostring(index)] = {
-							["ExpireTime"] = DocumentName["ExpireTime"],
-							["HWID"] = game:GetService("RbxAnalyticsService"):GetClientId(),
-							["Key"] = DocumentName["Key"]
-						}
-					}
-					if req then
-						req({
-							Url = "https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json",
-							Method = "PUT",
-							Headers = {
-								["Content-Type"] = "application/json"
-							},
-							Body = http:JSONEncode(data)
-						})
-					end
-				end
+			local data = {
+				[tostring(index)] = {
+					["ExpireTime"] = DocumentName["ExpireTime"],
+					["HWID"] = game:GetService("RbxAnalyticsService"):GetClientId(),
+					["Key"] = DocumentName["Key"]
+				}
+			}
+			if req then
+				req({
+					Url = "https://keys-e40f0-default-rtdb.firebaseio.com/Free_Keys.json",
+					Method = "PUT",
+					Headers = {
+						["Content-Type"] = "application/json"
+					},
+					Body = http:JSONEncode(data)
+				})
 			end
 		end
 
