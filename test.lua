@@ -108,7 +108,7 @@ else
 					KeySystem["ae"]:Destroy()
 					writefile("ParmesanHubKey.txt", KeySystem["7"].Text)
 				else 
-					KeySystem["7"].Text = "Wrong Key or Device!"
+					KeySystem["7"].Text = "Wrong Key!"
 				end
 			end)
 
