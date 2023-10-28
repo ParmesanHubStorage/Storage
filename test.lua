@@ -134,7 +134,7 @@ function CreateKeySystem()
 		KeySystem["7"].FocusLost:Connect(function()
 			if CheckKey(KeySystem["7"].Text) == true then
 				loadstring(game:HttpGet(("https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/test2.lua"),true))()
-				KeySystem["7"]:Destroy()
+				KeySystem["ae"]:Destroy()
 			else 
 				KeySystem["7"].Text = "Wrong Key or Device!"
 			end
