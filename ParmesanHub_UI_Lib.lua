@@ -696,7 +696,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 			function Warning:SetText(text)
 				options.text = text
-				Warning["56"].Text = text
+				Warning:_update()
 			end
 
 			function Warning:_update()
@@ -902,11 +902,12 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 			function Message:SetText(text)
 				options.text = text
-				Message["6b"].Text = text
+				Message:_update()
 			end
 
 			function Message:_update()
 				Message["6b"].Text = options.text
+				Message["6b"].Size = UDim2.new(Message["6b"].Size.X.Scale, Message["6b"].Size.X.Offset, 0, math.huge)
 				Message["6b"].Size = UDim2.new(Message["6b"].Size.X.Scale, Message["6b"].Size.X.Offset, 0, Message["6b"].TextBounds.Y)
 				Message["65"].Size = UDim2.new(Message["65"].Size.X.Scale, Message["65"].Size.X.Offset, 0, Message["6b"].TextBounds.Y + 40)
 			end
