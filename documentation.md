@@ -132,7 +132,7 @@ local Input = Tab:Input({
 ```lua
 local Message = Tab:Message({
     name = "Message",
-    test = "Message"
+    text = "Message"
 })
 ```
 
@@ -155,7 +155,7 @@ Message:SetText(text)
 ```lua
 local Information = Tab:Information({
     name = "Information",
-    test = "Information"
+    text = "Information"
 })
 ```
 
@@ -178,7 +178,7 @@ Information:SetText(text)
 ```lua
 local Warning = Tab:Warning({
     name = "Warning",
-    test = "v"
+    text = "Warning"
 })
 ```
 
