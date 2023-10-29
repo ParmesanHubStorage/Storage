@@ -669,7 +669,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Warning["62"]["FontFace"] = CustomFont
 				Warning["62"]["TextSize"] = 14;
 				Warning["62"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-				Warning["62"]["Size"] = UDim2.new(1, 0, 0, 20);
+				Warning["62"]["Size"] = UDim2.new(1, -10, 0, 20);
 				Warning["62"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
 				Warning["62"]["Text"] = options.text;
 				Warning["62"]["BackgroundTransparency"] = 1;
