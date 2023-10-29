@@ -592,8 +592,8 @@ Tab:Section({
 local Dropdown = Tab:Dropdown({
 	name = "Choose a Block",
 	callback = function(Name, Value)
-		Name = string.gsub(tostring(Value), " ", "")
-		Name = string.gsub(tostring(Value), "-", "")
+		Name = string.gsub(tostring(Name), " ", "")
+		Name = string.gsub(tostring(Name), "-", "")
 		_G.CurrentBlock = Name
 	end,
 	opencallback = function()
