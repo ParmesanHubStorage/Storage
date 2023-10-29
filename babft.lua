@@ -71,7 +71,7 @@ local function MoveToEnd()
 	TweenPart.Parent.Humanoid:ChangeState("Ragdoll")
 
 	local Info = TweenInfo.new(
-		WaitTime,
+		_G.WaitTime,
 		Enum.EasingStyle.Linear,
 		Enum.EasingDirection.InOut,
 		0,
@@ -263,7 +263,7 @@ local Toggle = Tab:Toggle({
 										wait()
 										if LP.Character:FindFirstChildOfClass("Humanoid") then LP.Character.Humanoid.PlatformStand = false end
 										if S.L + S.R ~= 0 or S.F + S.B ~= 0 then
-											SPEED = FlySpeed * 40
+											SPEED = _G.FlySpeed * 40
 										elseif not (S.L + S.R ~= 0 or S.F + S.B ~= 0) and SPEED ~= 0 then
 											SPEED = 0
 										end
