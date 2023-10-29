@@ -1,9 +1,9 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local Window = OrionLib:MakeWindow({Name = "Parmesan Hub - Build a Boat for Treasure", HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "OrionTest"})
 local TweenService = game:GetService("TweenService")
 
 local Rocks = {"PointedRock", "Rock", "Rock1", "Rock2", "Rock3", "Log", "GrassyRock1", "GrassyRock2", "Ticket", "Pizza", "Token", "Soldier1", "Soldier2", "Soldier3", "Soldier4", "Soldier5", "Soldier6", "Soldier7", "Soldier8", "Soldier9", "Soldier10", "Soldier11", "Soldier12", "Soldier13", "Soldier14", "Soldier15", "Soldier16", "Soldier17", "Soldier18", "DiceWhite", "DiceBlack", "CardPurple", "CardYellow", "CardGreen", "CardRed", "LED1", "LED2", "LED3", "Chip", "Resister1", "Resister2", "Pipe1", "Pipe2", "Pipe3", "Mine", "HoneyStream", "HoneyRock1", "HoneyRock2", "Box", "PaintBrush", "PoisonMushroom", "GrassyRock", "Film", "Hammer", "Pencil", "PagePeice", "MagnifyingGlass", "RoundTestTubeShocking", "RoundTestTubePoisonous", "RoundTestTubeExplosive", "Cattail1", "Cattail2", "Cattail3", "LilyPadSmall", "LilyPad", "Alligator", "Pretzel", "CottonCandy", "Hotdog", "Gear", "Tenticle", "Teal Gem", "Yellow Gem", "Red Gem", "LimeGem", "Acid", "Rusted Iron", "Toxic Barrel", "BatAndGlove", "IceCreamCone", "Popsicle", "Loly", "Popcorn", "Ammo", "BowlingBall1", "BowlingBall2", "BowlingBall3", "BowlingBall4", "BowlingBall5", "BowlingBall6", "Le beignet", "Onek", "Fork", "Twok", "Threek", "BallK", "BallM", "Lily1", "Lily2", "Lily3", "Weapon", "RockExplosive", "Hammer", "FireRock", "FallRock1", "FallRock2", "PufferFish1", "PufferFish2", "PufferFish3", "Lily1", "Lily2", "Lily3"}
+local Blocks = {"Boat Motor", "Bouncy Block", "Brick Block", "Button", "Camera", "Camera Dome", "Candle", "Cannon", "Cannon Turret", "Car Parts", "Chair", "Coal Block", "Concrete Block", "Concrete Rod", "Corner Wedge", "Delay", "Fabric Block", "Flag", "Glass Block", "Glue", "Grass Block", "Harpoon", "Helm", "Hinge", "Ice Block", "Jack-O-Lantern", "Jetpack", "Lamp", "Legacy Car Pack", "Light Bulb", "Locked Door", "Magnet", "Marble Block", "Marble Rod", "Mast", "Metal Block", "Metal Rod", "Minigun", "Motor", "Note", "Obsidian Block", "Parachute Block", "Pine Tree", "Piston", "Plane Parts", "Plastic Block", "PVP Pack", "Rusted Block", "Rusted Rod", "Sand Block", "Seat", "Servo", "Shield Generator", "Sign", "Smooth Wood Block", "Spike Trap", "Spring", "Steel I-Beam", "Step", "Sticks Of TNT", "Stone Block", "Stone Rod", "Switch", "Throne", "Titanium Block", "Titanium Rod", "TNT", "Torch", "Truss", "Wedge", "Window", "Wood Block", "Wood Door", "Wood Rod", "Wood Trap Door"}
 
 _G.LocalPlayer = game.Players.LocalPlayer.Character
 _G.Autofarm = false
@@ -130,46 +130,46 @@ spawn(function()
 	end
 end)	
 
-local PlayerTab = Window:MakeTab({
-	Name = "Player",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+local Main = Library:Init({
+	name = "Parmesan Hub - Build a Boat for Treasure"
 })
 
-local Section = PlayerTab:AddSection({
-	Name = "Player"
+local Tab = Main:CreateTab({
+	name = "Player",
+	icon = "rbxassetid://15101013637"
 })
 
-PlayerTab:AddSlider({
-	Name = "Walk Speed",
-	Min = 1,
-	Max = 500,
-	Default = 16,
-	Color = Color3.fromRGB(127,199,255),
-	Increment = 1,
-	ValueName = "Walk Speed",
-	Callback = function(Value)
+Tab:Section({
+	text = "Player"
+})
+
+local Slider = Tab:Slider({
+	name = "Walk Speed",
+	minimum = 1,
+	maximum = 1000,
+	default = 100,
+	valuename = "Walk Speed",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(Value)
-	end    
+	end
 })
 
-PlayerTab:AddSlider({
-	Name = "Jump Power",
-	Min = 1,
-	Max = 500,
-	Default = 50,
-	Color = Color3.fromRGB(127,199,255),
-	Increment = 1,
-	ValueName = "Jump Power",
-	Callback = function(Value)
+local Slider = Tab:Slider({
+	name = "Jump Power",
+	minimum = 1,
+	maximum = 1000,
+	default = 100,
+	valuename = "Jump Power",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
 		game.Players.LocalPlayer.Character.Humanoid.JumpPower = tonumber(Value)
-	end    
+	end
 })
 
-PlayerTab:AddToggle({
-	Name = "Noclip",
-	Default = false,
-	Callback = function(Value)
+local Toggle = Tab:Toggle({
+	name = "Noclip",
+	callback = function(Value)
 		Noclip = Value
 		local Mouse = game.Players.LocalPlayer:GetMouse()
 		_G.noclips = true
@@ -192,14 +192,12 @@ PlayerTab:AddToggle({
 				end
 			end
 		end)
-
-	end    
+	end
 })
 
-PlayerTab:AddToggle({
-	Name = "Infinite Jump",
-	Default = false,
-	Callback = function(Value)
+local Toggle = Tab:Toggle({
+	name = "Infinite Jump",
+	callback = function(Value)
 		InfJump = Value
 		local InfJumpFunc
 		if InfJumpFunc then InfJumpFunc:Disconnect() end
@@ -213,13 +211,12 @@ PlayerTab:AddToggle({
 				end
 			end)
 		end
-	end    
+	end
 })
 
-PlayerTab:AddToggle({
-	Name = "Fly (PC Only, Press [F] Button to Toggle)",
-	Default = false,
-	Callback = function(Value)
+local Toggle = Tab:Toggle({
+	name = "Fly (PC Only, Press [F] Button to Toggle)",
+	callback = function(Value)
 		FlyOn = Value
 		local Max = 0
 		local Players = game.Players
@@ -351,54 +348,47 @@ PlayerTab:AddToggle({
 				end
 			end
 		)
-
-	end    
+	end
 })
 
-PlayerTab:AddSlider({
-	Name = "Change Fly Speed",
-	Min = 1,
-	Max = 250,
-	Default = 1,
-	Color = Color3.fromRGB(127,199,255),
-	Increment = 1,
-	ValueName = "Fly Speed",
-	Callback = function(Value)
+local Slider = Tab:Slider({
+	name = "Change Fly Speed",
+	minimum = 1,
+	maximum = 1000,
+	default = 100,
+	valuename = "Fly Speed",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
 		FlySpeed = tonumber(Value)
-	end    
+	end
 })
 
-local GameTab = Window:MakeTab({
-	Name = "Game",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+local Tab = Main:CreateTab({
+	name = "Game",
+	icon = "rbxassetid://15101013637"
 })
 
-local Section = GameTab:AddSection({
-	Name = "Game"
+Tab:Section({
+	text = "Game"
 })
 
-GameTab:AddDropdown({
-	Name = "Start Deleted Quest",
-	Default = "",
-	Options = {"Gift Battle", "Nutcracker Army Invasion", "The Boss (Fabbi the Duck)"},
-	Callback = function(Value)
-		local QuestId = nil
-		if Value == "Gift Battle" then
-			QuestId = 99
-		elseif Value == "Nutcracker Army Invasion" then
-			QuestId = 101
-		elseif Value == "The Boss (Fabbi the Duck)" then
-			QuestId = 100
-		end
-		workspace.QuestMakerEvent:FireServer(QuestId)
-	end    
+local Dropdown = Tab:Dropdown({
+	name = "Start Deleted Quest",
+	callback = function(Name, Value)
+		workspace.QuestMakerEvent:FireServer(Value)
+	end,
+	opencallback = function()
+
+	end,
 })
 
-GameTab:AddToggle({
-	Name = "Auto Turn On / Turn Off Isolation Mode",
-	Default = false,
-	Callback = function(Value)
+Dropdown:Add("Gift Battle", 99)
+Dropdown:Add("Nutcracker Army Invasion", 101)
+Dropdown:Add("The Boss (Fabbi the Duck)", 100)
+
+local Toggle = Tab:Toggle({
+	name = "Auto Turn On / Turn Off Isolation Mode",
+	callback = function(Value)
 		UpdateIsolationMode = Value
 		while UpdateIsolationMode == true do
 			workspace.RefreshLocks:FireServer(true)
@@ -406,60 +396,57 @@ GameTab:AddToggle({
 			workspace.RefreshLocks:FireServer(false)
 			task.wait(1)
 		end
-	end    
+	end
 })
 
-GameTab:AddButton({
-	Name = "Turn Off Isolation Mode (Quests)",
-	Callback = function()
+local Button = Tab:Button({
+	name = "Turn Off Isolation Mode (Quests)",
+	callback = (function()
 		workspace.RefreshLocks:FireServer(false)
-	end    
+	end)
 })
 
-GameTab:AddButton({
-	Name = "Delete Isolation Mode Parts",
-	Callback = function()
+local Button = Tab:Button({
+	name = "Delete Isolation Mode Parts",
+	callback = (function()
 		for i,v in pairs(workspace:GetDescendants()) do
 			if (v.Name == "IsolationBeams" or v.Name == "Lock") and v.ClassName == "Folder" then
 				v:Destroy()
 			end
 		end
-	end    
+	end)
 })
 
-
-GameTab:AddButton({
-	Name = "Delete All Stage Obstacles",
-	Callback = function()
+local Button = Tab:Button({
+	name = "Delete All Stage Obstacles",
+	callback = (function()
 		for i,v in pairs(workspace.BoatStages:GetDescendants()) do
 			if table.find(Rocks, v.Name) then
 				v:Destroy()
 			end
 		end
-	end    
+	end)
 })
 
-GameTab:AddButton({
-	Name = "Dont Destroy the Boat at the End",
-	Callback = function()
+local Button = Tab:Button({
+	name = "Dont Destroy the Boat at the End",
+	callback = (function()
 		game:GetService("Workspace").BoatStages.NormalStages.TheEnd.DestroyBoatPart:Destroy()
-	end    
+	end)
 })
 
-local AutofarmTab = Window:MakeTab({
-	Name = "Auto Farm",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+local Tab = Main:CreateTab({
+	name = "Auto Farm",
+	icon = "rbxassetid://15101013637"
 })
 
-local Section = AutofarmTab:AddSection({
-	Name = "Auto Farm"
+Tab:Section({
+	text = "Auto Farm"
 })
 
-AutofarmTab:AddToggle({
-	Name = "Auto Farm",
-	Default = false,
-	Callback = function(Value)
+local Toggle = Tab:Toggle({
+	name = "Auto Farm",
+	callback = function(Value)
 		Autofarm = Value	
 		while Autofarm == true do
 			AutofarmFunc()
@@ -468,140 +455,139 @@ AutofarmTab:AddToggle({
 			end
 			wait(0.5)
 		end
-	end    
+	end
 })
 
-AutofarmTab:AddToggle({
-	Name = "Teleport to the Treasure at the End",
-	Default = false,
-	Callback = function(Value)
+local Toggle = Tab:Toggle({
+	name = "Teleport to the Treasure at the End",
+	callback = function(Value)
 		AutofarmChest = Value
-	end    
+	end
 })
 
-AutofarmTab:AddSlider({
-	Name = "Autofarm Speed (seconds)",
-	Min = 1,
-	Max = 60,
-	Default = 26,
-	Color = Color3.fromRGB(127,199,255),
-	Increment = 1,
-	ValueName = "second(s)",
-	Callback = function(Value)
+local Slider = Tab:Slider({
+	name = "Autofarm Speed (seconds)",
+	minimum = 1,
+	maximum = 60,
+	default = 26,
+	valuename = "second(s)",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
 		WaitTime = Value
-	end    
+	end
 })
 
-local TeleportTab = Window:MakeTab({
-	Name = "Teleports",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+local Tab = Main:CreateTab({
+	name = "Teleports",
+	icon = "rbxassetid://15101013637"
 })
 
-local TeleportSection = TeleportTab:AddSection({
-	Name = "Teleport to Team"
+Tab:Section({
+	text = "Teleport to Team"
 })
 
-TeleportTab:AddDropdown({
-	Name = "Teleport to Team",
-	Default = "",
-	Options = {"White Team", "Red Team", "Black Team", "Blue Team", "Green Team", "Yellow Team", "Magenta Team"},
-	Callback = function(Value)
-		if Value == "White Team" then
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-48.6634, 41.2634, -370.777)
-		elseif Value == "Black Team" then
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-322.895, 23.2286, -71.8433)
-		elseif Value == "Red Team" then
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(223.892, 46.4826, -64.6442)
-		elseif Value == "Blue Team" then
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(225.93, 46.4834, 303.061)
-		elseif Value == "Magenta Team" then
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227.84, 46.4834, 648.887)
-		elseif Value == "Green Team" then
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-309.565, 32.5871, 284.978)
-		elseif Value == "Yellow Team" then
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-301.885, 32.5871, 640.103)
-		end
-	end    
+local Dropdown = Tab:Dropdown({
+	name = "Teleport to Team",
+	callback = function(Name, Value)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Value
+	end,
+	opencallback = function()
+
+	end,
 })
 
-local TeleportSection = TeleportTab:AddSection({
-	Name = "Teleport to Place"
+Dropdown:Add("White Team", CFrame.new(-48.6634, 41.2634, -370.777))
+Dropdown:Add("Red Team", CFrame.new(223.892, 46.4826, -64.6442))
+Dropdown:Add("Black Team", CFrame.new(-322.895, 23.2286, -71.8433))
+Dropdown:Add("Blue Team", CFrame.new(225.93, 46.4834, 303.061))
+Dropdown:Add("Green Team", CFrame.new(-309.565, 32.5871, 284.978))
+Dropdown:Add("Yellow Team", CFrame.new(-301.885, 32.5871, 640.103))
+Dropdown:Add("Magenta Team", CFrame.new(227.84, 46.4834, 648.887))
+
+Tab:Section({
+	text = "Teleport to Place"
 })
 
-TeleportTab:AddDropdown({
-	Name = "Teleport to Place",
-	Default = "",
-	Options = {"Main Game", "Inner Cloud", "Winter Place", "Project Zeg"},
-	Callback = function(Value)
-		if Value == "Main Name" then
-			game:GetService("TeleportService"):Teleport(537413528)
-		elseif Value == "Inner Cloud" then
-			game:GetService("TeleportService"):Teleport(1930863474)
-		elseif Value == "Winter Place" then
-			game:GetService("TeleportService"):Teleport(1930866268)
-		elseif Value == "Project Zeg" then
-			game:GetService("TeleportService"):Teleport(5178049460)
-		end
-	end    --2500111229
+local Dropdown = Tab:Dropdown({
+	name = "Teleport to Place",
+	callback = function(Name, Value)
+		game:GetService("TeleportService"):Teleport(Value)
+	end,
+	opencallback = function()
+
+	end,
 })
 
-local TeleportSection = TeleportTab:AddSection({
-	Name = "Miscellaneous"
+Dropdown:Add("Main Game", 537413528)
+Dropdown:Add("Inner Cloud", 1930863474)
+Dropdown:Add("Winter Place", 1930866268)
+Dropdown:Add("Project Zeg", 5178049460)
+
+Tab:Section({
+	text = "Miscellaneous"
 })
 
-TeleportTab:AddButton({
-	Name = "Teleport to Treasure",
-	Callback = function()
+local Button = Tab:Button({
+	name = "Teleport to Treasure",
+	callback = (function()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-53.998, -222.51, 9386.49)
-	end    
+	end)
 })
 
-local ShopTab = Window:MakeTab({
-	Name = "Shop",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+local Tab = Main:CreateTab({
+	name = "Shop",
+	icon = "rbxassetid://15101013637"
 })
 
-local ShopSection = ShopTab:AddSection({
-	Name = "Buy Chest"
+Tab:Section({
+	text = "Buy Chest"
 })
 
-ShopSection:AddDropdown({
-	Name = "Choose a Chest",
-	Default = "",
-	Options = {"Common Chest", "Uncommon Chest", "Rare Chest", "Epic Chest", "Legendary Chest"},
-	Callback = function(Value)
-		CurrentChest = Value
-	end    
+local Dropdown = Tab:Dropdown({
+	name = "Choose a Chest",
+	callback = function(Name, Value)
+		CurrentChest = Name
+	end,
+	opencallback = function()
+
+	end,
 })
 
-ShopSection:AddButton({
-	Name = "Buy a Chest",
-	Callback = function()
+Dropdown:Add("Common Chest", nil)
+Dropdown:Add("Uncommon Chest", nil)
+Dropdown:Add("Rare Chest", nil)
+Dropdown:Add("Epic Chest", nil)
+Dropdown:Add("Legendary Chest", nil)
+
+local Button = Tab:Button({
+	name = "Buy a Chest",
+	callback = (function()
 		workspace.ItemBoughtFromShop:InvokeServer(CurrentChest, BuyChestValue)
-	end    
+	end)
 })
 
-ShopSection:AddToggle({
-	Name = "Auto Buy Chest",
-	Default = false,
-	Callback = function(Value)
+local Toggle = Tab:Toggle({
+	name = "Auto Buy Chest",
+	callback = function(Value)
 		AutoBuyChest = Value
 		while AutoBuyChest == true do
 			workspace.ItemBoughtFromShop:InvokeServer(CurrentChest, BuyChestValue)
 			task.wait(0.1)
 		end
-	end    
+	end
 })
 
-ShopSection:AddTextbox({
-	Name = "Buy / Auto Buy Number of Chests",
-	Default = "",
-	TextDisappear = false,
-	Callback = function(Value)
+local Input = Tab:Input({
+	name = "Buy / Auto Buy Number of Chests",
+	placeholdertext = "number",
+	cleartextonfocus = true,
+	callback = function(Value)
 		BuyChestValue = tonumber(Value)
-	end	  
+	end
+})
+
+Tab:Section({
+	text = "Buy Block"
 })
 
 local ShopSection = ShopTab:AddSection({
@@ -619,86 +605,90 @@ ShopSection:AddDropdown({
 	end    
 })
 
-ShopSection:AddButton({
-	Name = "Buy a Block",
-	Callback = function()
-		workspace.ItemBoughtFromShop:InvokeServer(CurrentBlock, BuyBlockValue)
-	end    
+local Dropdown = Tab:Dropdown({
+	name = "Dropdown Name",
+	callback = function(Name, Value)
+		Name = string.gsub(tostring(Value), " ", "")
+		Name = string.gsub(tostring(Value), "-", "")
+		CurrentBlock = Name
+	end,
+	opencallback = function()
+
+	end,
 })
 
-ShopSection:AddToggle({
-	Name = "Auto Buy Block",
-	Default = false,
-	Callback = function(Value)
+for i,v in pairs(Blocks) do
+	Dropdown:Add(v, nil)
+end
+
+local Button = Tab:Button({
+	name = "Buy a Block",
+	callback = (function()
+		workspace.ItemBoughtFromShop:InvokeServer(CurrentBlock, BuyBlockValue)
+	end)
+})
+
+local Toggle = Tab:Toggle({
+	name = "Auto Buy Block",
+	callback = function(Value)
 		AutoBuyBlock = Value
 		while AutoBuyBlock == true do
 			workspace.ItemBoughtFromShop:InvokeServer(CurrentBlock, BuyBlockValue)
 			task.wait(0.1)
 		end
-	end    
+	end
 })
 
-ShopSection:AddTextbox({
-	Name = "Buy / Auto Buy Number of Blocks",
-	Default = "",
-	TextDisappear = false,
-	Callback = function(Value)
+local Input = Tab:Input({
+	name = "Buy / Auto Buy Number of Blocks",
+	placeholdertext = "number",
+	cleartextonfocus = true,
+	callback = function(Value)
 		BuyBlockValue = tonumber(Value)
-	end	  
+	end
 })
 
-
-local ShopSection = ShopTab:AddSection({
-	Name = "Miscellaneous"
+Tab:Section({
+	text = "Miscellaneous"
 })
 
-ShopTab:AddDropdown({
-	Name = "Buy Deleted Robux Items",
-	Default = "",
-	Options = {"+5 Mega Thrusters", "+5 Dragon Harpoons", "+4 Cookie Wheels", "+5 Christmas Harpoons", "Easter Bundle"},
-	Callback = function(Value)
-		local ShopRobuxId = nil
-		if Value == "+5 Mega Thrusters" then
-			ShopRobuxId = 139121474
-		elseif Value == "+5 Dragon Harpoons" then
-			ShopRobuxId = 1109792341
-		elseif Value == "+4 Cookie Wheels" then
-			ShopRobuxId = 1126385328
-		elseif Value == "+5 Christmas Harpoons" then
-			ShopRobuxId = 915766549
-		elseif Value == "Easter Bundle" then
-			ShopRobuxId = 1161573715
-		end
-		workspace.PromptRobuxEvent:InvokeServer(ShopRobuxId, "Product")
-	end    
+local Dropdown = Tab:Dropdown({
+	name = "Buy Deleted Robux Items",
+	callback = function(Name, Value)
+		workspace.PromptRobuxEvent:InvokeServer(Value, "Product")
+	end,
+	opencallback = function()
+
+	end,
 })
 
-ShopTab:AddDropdown({
-	Name = "Gift Deleted Robux Items",
-	Default = "",
-	Options = {"+4 Cookie Wheels [Gift]", "+5 Christmas Harpoons [Gift]", "+100 Glass Blocks [Gift]", "+100 Wood Blocks [Gift]", "Easter Bundle [Gift]"},
-	Callback = function(Value)
-		local ShopRobuxId = nil
-		if Value == "+4 Cookie Wheels [Gift]" then
-			ShopRobuxId = 1126385548
-		elseif Value == "Easter Bundle [Gift]" then
-			ShopRobuxId = 1161573830
-		elseif Value == "+5 Christmas Harpoons [Gift]" then
-			ShopRobuxId = 1126344149
-		elseif Value == "+100 Glass Blocks [Gift]" then
-			ShopRobuxId = 964160023
-		elseif Value == "+100 Wood Blocks [Gift]" then
-			ShopRobuxId = 963875471
-		end
-		workspace.PromptRobuxEvent:InvokeServer(ShopRobuxId, "Product")
-	end    
+Dropdown:Add("+5 Mega Thrusters", 139121474)
+Dropdown:Add("+5 Dragon Harpoons", 1109792341)
+Dropdown:Add("+4 Cookie Wheels", 1126385328)
+Dropdown:Add("+5 Christmas Harpoons", 915766549)
+Dropdown:Add("Easter Bundle", 915766549)
+
+local Dropdown = Tab:Dropdown({
+	name = "Gift Deleted Robux Items",
+	callback = function(Name, Value)
+		workspace.PromptRobuxEvent:InvokeServer(Value, "Product")
+	end,
+	opencallback = function()
+
+	end,
 })
 
-ShopTab:AddTextbox({
-	Name = "Choose a Gift Target (Input Player Name)",
-	Default = "",
-	TextDisappear = false,
-	Callback = function(Value)
+Dropdown:Add("+4 Cookie Wheels [Gift]", 1126385548)
+Dropdown:Add("+5 Christmas Harpoons [Gift]", 1161573830)
+Dropdown:Add("+100 Glass Blocks [Gift]", 1126344149)
+Dropdown:Add("+100 Wood Blocks [Gift]", 964160023)
+Dropdown:Add("Easter Bundle [Gift]", 963875471)
+
+local Input = Tab:Input({
+	name = "Choose a Gift Target (Input Player Name)",
+	placeholdertext = "player",
+	cleartextonfocus = true,
+	callback = function(Value)
 		local Player = nil
 
 		for i,v in pairs (game.Players:GetChildren()) do
@@ -708,192 +698,196 @@ ShopTab:AddTextbox({
 		end
 
 		workspace.UpdateLastGiftedIDRE:FireServer(Player.UserId, Player.Name)
-	end	  
+	end
 })
 
-ShopTab:AddButton({
-	Name = "Set Yourself as a Gift Target",
-	Callback = function()
+local Button = Tab:Button({
+	name = "Set Yourself as a Gift Target",
+	callback = (function()
 		workspace.UpdateLastGiftedIDRE:FireServer(game.Players.LocalPlayer.UserId, game.Players.LocalPlayer.Name)
-	end    
+	end)
 })
 
-local MiscTab = Window:MakeTab({
-	Name = "Miscellaneous",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+local Tab = Main:CreateTab({
+	name = "Misc",
+	icon = "rbxassetid://15101013637"
 })
 
-local MiscSection = MiscTab:AddSection({
-	Name = "Miscellaneous"
+Tab:Section({
+	text = "Miscellaneous"
 })
 
-MiscTab:AddTextbox({
-	Name = "Change Gold Value (Fake)",
-	Default = "",
-	TextDisappear = false,
-	Callback = function(Value)
+local Input = Tab:Input({
+	name = "Change Gold Value (Fake)",
+	placeholdertext = "number",
+	cleartextonfocus = true,
+	callback = function(Value)
 		game.Players.LocalPlayer.Data.Gold.Value = tonumber(Value)
-	end	  
+	end	
 })
 
-MiscTab:AddButton({
-	Name = "Get Infinite Blocks (Fake) - Rejoin to Reset",
-	Callback = function()
+local Button = Tab:Button({
+	name = "Get Infinite Blocks (Fake) - Rejoin to Reset",
+	callback = (function()
 		for i,v in pairs(game.Players.LocalPlayer.Data:GetChildren()) do
 			if v.Name ~= "Gold" then
 				v.Value = 10000000
 			end
 		end
-	end    
+	end)
 })
 
-local MiscSection = MiscTab:AddSection({
-	Name = "Advanced Auto Save (Saves Buildings Every Second)"
+Tab:Section({
+	text = "Advanced Auto Save (Saves Buildings Every Second)"
 })
 
-MiscTab:AddTextbox({
-	Name = "Choose Save Slot",
-	Default = "",
-	TextDisappear = false,
-	Callback = function(Value)
+local Input = Tab:Input({
+	name = "Choose Save Slot",
+	placeholdertext = "number",
+	cleartextonfocus = true,
+	callback = function(Value)
 		if Value == "1" then
 			CurrentSaveSlot = ""
 		else
 			CurrentSaveSlot = tostring(Value)
 		end
-	end	  
+	end
 })
 
-MiscTab:AddToggle({
-	Name = "Auto Save",
-	Default = false,
-	Callback = function(Value)
+local Toggle = Tab:Toggle({
+	name = "Auto Save",
+	callback = function(Value)
 		AutosaveSlot = Value
 		while AutosaveSlot == true and task.wait(0.1) do
 			workspace.SaveBoatData:InvokeServer(CurrentSaveSlot)
 		end
-	end    
+	end
 })
 
-
-MiscTab:AddParagraph("Auto Save","Save slots are compiled in this order:\n\n1 2 3 4 5 6\n\n7 8 9 ...\n\nвљ пёЏ Dont choose the main slot of your building for auto save, otherwise if you make a mistake when building, your bulding with a mistake will be saved almost instantly")
-
-local MiscSection = MiscTab:AddSection({
-	Name = "Show Player Data"
+local Warning = Tab:Warning({
+	name = "Auto Save",
+	text = "Save slots are compiled in this order:\n\n1 2 3 4 5 6\n\n7 8 9 ...\n\nDont choose the main slot of your building for auto save, otherwise if you make a mistake when building, your bulding with a mistake will be saved almost instantly"
 })
 
-MiscTab:AddTextbox({
-	Name = "Get Player Information (Input Player Name First)",
-	Default = "",
-	TextDisappear = false,
-	Callback = function(Value)
+Tab:Section({
+	text = "Show Player Data"
+})
+
+local Input = Tab:Input({
+	name = "Get Player Information (Input Player Name First)",
+	placeholdertext = "player",
+	cleartextonfocus = true,
+	callback = function(Value)
 		for i,v in pairs (game.Players:GetChildren()) do
 			if v.Name == tostring(Value) then
 				CurrentPlayer = v
 			end
 		end
-	end	  
+	end
 })
 
-MiscTab:AddButton({
-	Name = "Show Amount of Gold",
-	Callback = function()
-		Info1 = ""
-		Info1 = CurrentPlayer.Data.Gold.Value
-		PlayerInfo1:Set(Info1)
-	end    
+local Information = Tab:Information({
+	name = "Gold Amount",
+	text = ""
 })
 
-local Info1 = ""
-PlayerInfo1 = MiscTab:AddParagraph("Player Amount of Gold:","")
+local Button = Tab:Button({
+	name = "Show Amount of the Gold",
+	callback = (function()
+		Information:SetText(CurrentPlayer.Data.Gold.Value)
+	end)
+})
 
-MiscTab:AddButton({
-	Name = "Show Save Data Slot Names",
-	Callback = function()
-		Info2 = ""
+local Information = Tab:Information({
+	name = "Data Slots",
+	text = ""
+})
+
+local Button = Tab:Button({
+	name = "Show Save Data Slot Names",
+	callback = (function()
+		local Info2 = ""
 		for i,v in pairs (CurrentPlayer.OtherData:GetChildren()) do
 			if string.find(v.Name, "NameOfSlot") then
 				Info2 = Info2.."\n"..v.Name.."\t"..v.Value
 			end
 		end
-		PlayerInfo2:Set(Info2)
-	end    
+		Information:SetText(Info2)
+	end)
 })
 
-local Info2 = ""
-PlayerInfo2 = MiscTab:AddParagraph("Player Slot Names","")
+local Information = Tab:Information({
+	name = "Player Tools",
+	text = ""
+})
 
-MiscTab:AddButton({
-	Name = "Show Player Tools",
-	Callback = function()
-		Info3 = ""
+local Button = Tab:Button({
+	name = "Show Player Tools",
+	callback = (function()
+		local Info3 = ""
 		for i,v in pairs (CurrentPlayer.Backpack:GetChildren()) do
 			if v.ClassName == "Tool" then
 				Info3 = Info3.."\n"..v.Name
 			end
 		end
-		PlayerInfo3:Set(Info3)
-	end    
+		Information:SetText(Info3)
+	end)
 })
 
-local Info3 = ""
-PlayerInfo3 = MiscTab:AddParagraph("Player Tools","")
+local Information = Tab:Information({
+	name = "Player Blocks",
+	text = ""
+})
 
-MiscTab:AddButton({
-	Name = "Show Player Blocks",
-	Callback = function()
-		Info4 = ""
+local Button = Tab:Button({
+	name = "Show Player Blocks",
+	callback = (function()
+		local Info4 = ""
 		task.wait(0.1)
 		for i,v in pairs (CurrentPlayer.Data:GetChildren()) do
 			if v.Name ~= "Gold" and v.Name ~= "PaintingTool" and v.Name ~= "BindTool" and v.Name ~= "ScalingTool" and v.Name ~= "TrowelTool" and v.Name ~= "PropertiesTool" and v.Value ~= 0 then
 				Info4 = Info4.."\n"..v.Name.." "..v.Value
 			end
 		end
-		PlayerInfo4:Set(Info4)
-	end    
+		Information:SetText(Info4)
+	end)
 })
 
-local Info4 = ""
-PlayerInfo4 = MiscTab:AddParagraph("Player Blocks","")
-
-local WebhookTab = Window:MakeTab({
-	Name = "Webhooks",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+local Tab = Main:CreateTab({
+	name = "Webhooks",
+	icon = "rbxassetid://15101013637"
 })
 
-local WebhookSection = WebhookTab:AddSection({
-	Name = "Send a Webhook"
+Tab:Section({
+	text = "Send a Webhook"
 })
 
-WebhookTab:AddToggle({
-	Name = "Enabled",
-	Default = false,
-	Callback = function(Value)
+local Toggle = Tab:Toggle({
+	name = "Enabled",
+	callback = function(Value)
 		SendWebhooks = Value 
 		spawn(function()
 			while SendWebhooks == true and task.wait(WebhookTime) do
 				SendWebhook(WebhookURL)
 			end
 		end)
-	end    
+	end
 })
 
-WebhookTab:AddTextbox({
-	Name = "Send Webhook Every (minutes)",
-	Default = "",
-	TextDisappear = false,
-	Callback = function(Value)
+local Input = Tab:Input({
+	name = "Send Webhook Every (minutes)",
+	placeholdertext = "minutes",
+	cleartextonfocus = true,
+	callback = function(Value)
 		WebhookTime = tonumber(Value) * 60
-	end	  
+	end
 })
 
-WebhookTab:AddTextbox({
-	Name = "Webhook URL",
-	Default = "",
-	TextDisappear = true,
-	Callback = function(Value)
+local Input = Tab:Input({
+	name = "Webhook URL",
+	placeholdertext = "URL",
+	cleartextonfocus = true,
+	callback = function(Value)
 		WebhookURL = Value
-	end	  
+	end
 })
