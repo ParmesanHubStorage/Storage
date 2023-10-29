@@ -662,7 +662,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Warning.TextLabel
 				Warning["62"] = Instance.new("TextLabel", Warning["5c"]);
-				Warning["62"]["TextWrapped"] = false;
+				Warning["62"]["TextWrapped"] = true;
 				Warning["62"]["BorderSizePixel"] = 0;
 				Warning["62"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Warning["62"]["TextXAlignment"] = Enum.TextXAlignment.Left;
