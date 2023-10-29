@@ -1207,7 +1207,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Library:tween(Toggle["3a"], {BackgroundColor3 = Color3.fromRGB(0, 105, 175)})
 					Library:tween(Toggle["3d"], {ImageTransparency = 0})
 				else
-					Library:tween(Toggle["3a"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})
+					Library:tween(Toggle["3a"], {BackgroundColor3 = Color3.fromRGB(60, 60, 60)})
 					Library:tween(Toggle["3d"], {ImageTransparency = 1})
 				end
 
@@ -1219,30 +1219,15 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				Toggle["36"].MouseEnter:Connect(function()
 					Toggle.Hover = true
-					Library:tween(Toggle["3c"], {Color = Color3.fromRGB(60, 60, 60)})
-					Library:tween(Toggle["3e"], {Color = Color3.fromRGB(60, 60, 60)})
 				end)
 
 				Toggle["36"].MouseLeave:Connect(function()
 					Toggle.Hover = false
-					if not Toggle.MouseDown then
-						Library:tween(Toggle["3c"], {Color = Color3.fromRGB(38, 38, 39)})
-						Library:tween(Toggle["3e"], {Color = Color3.fromRGB(38, 38, 39)})
-					end
 				end)
 
 				Toggle["36"].MouseButton1Click:Connect(function()
-					Toggle.MouseDown = true
-					Library:tween(Toggle["36"], {BackgroundColor3 = Color3.fromRGB(60, 60, 60)})		
-					Library:tween(Toggle["3c"], {Color = Color3.fromRGB(200, 200, 200)})
-					Library:tween(Toggle["3e"], {Color = Color3.fromRGB(200, 200, 200)})
+
 					Toggle:Toggle()
-					Toggle.MouseDown = false
-
-
-						Library:tween(Toggle["36"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})
-						Library:tween(Toggle["3c"], {Color = Color3.fromRGB(60, 60, 60)})
-						Library:tween(Toggle["3e"], {Color = Color3.fromRGB(60, 60, 60)})
 
 
 				end)
