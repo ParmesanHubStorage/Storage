@@ -130,7 +130,7 @@ spawn(function()
 end)	
 
 local Main = Library:Init({
-	name = "Parmesan Hub - Build a Boat for Treasure"
+	name = "Build a Boat for Treasure"
 })
 
 local Tab = Main:CreateTab({
