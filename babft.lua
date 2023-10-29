@@ -589,10 +589,6 @@ Tab:Section({
 	text = "Buy Block"
 })
 
-local ShopSection = ShopTab:AddSection({
-	Name = "Buy Block"
-})
-
 ShopSection:AddDropdown({
 	Name = "Choose a Block",
 	Default = "",
