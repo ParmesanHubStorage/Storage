@@ -1,4 +1,4 @@
-local Library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/ParmesanHub_UI_Lib')))()
+local Library = loadstring(game:HttpGet(('local Library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/ParmesanHub_UI_Lib.lua')))()')))()
 
 local TweenService = game:GetService("TweenService")
 
