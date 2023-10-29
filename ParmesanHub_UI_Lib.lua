@@ -669,7 +669,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Warning["62"]["FontFace"] = CustomFont
 				Warning["62"]["TextSize"] = 14;
 				Warning["62"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-				Warning["62"]["Size"] = UDim2.new(1, -10, 0, 20);
+				Warning["62"]["Size"] = UDim2.new(1, -7, 0, 20);
 				Warning["62"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
 				Warning["62"]["Text"] = options.text;
 				Warning["62"]["BackgroundTransparency"] = 1;
@@ -773,7 +773,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Information["59"]["FontFace"] = CustomFont
 				Information["59"]["TextSize"] = 14;
 				Information["59"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-				Information["59"]["Size"] = UDim2.new(1, 0, 0, 15);
+				Information["59"]["Size"] = UDim2.new(1, -7, 0, 15);
 				Information["59"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
 				Information["59"]["Text"] = options.text;
 				Information["59"]["BackgroundTransparency"] = 1;
@@ -875,7 +875,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Message["6b"]["FontFace"] = CustomFont
 				Message["6b"]["TextSize"] = 14;
 				Message["6b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-				Message["6b"]["Size"] = UDim2.new(1, 0, 0, 20);
+				Message["6b"]["Size"] = UDim2.new(1, -7, 0, 20);
 				Message["6b"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
 				Message["6b"]["Text"] = options.text;
 				Message["6b"]["BackgroundTransparency"] = 1;
