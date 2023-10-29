@@ -875,8 +875,3 @@ local Input = Tab:Input({
 		WebhookURL = Value
 	end
 })
-
-loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/babft.lua')))()
-
-
-loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/ParmesanHub_UI_Lib.lua')))()
