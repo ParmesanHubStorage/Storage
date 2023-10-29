@@ -589,19 +589,8 @@ Tab:Section({
 	text = "Buy Block"
 })
 
-ShopSection:AddDropdown({
-	Name = "Choose a Block",
-	Default = "",
-	Options = {"Boat Motor", "Bouncy Block", "Brick Block", "Button", "Camera", "Camera Dome", "Candle", "Cannon", "Cannon Turret", "Car Parts", "Chair", "Coal Block", "Concrete Block", "Concrete Rod", "Corner Wedge", "Delay", "Fabric Block", "Flag", "Glass Block", "Glue", "Grass Block", "Harpoon", "Helm", "Hinge", "Ice Block", "Jack-O-Lantern", "Jetpack", "Lamp", "Legacy Car Pack", "Light Bulb", "Locked Door", "Magnet", "Marble Block", "Marble Rod", "Mast", "Metal Block", "Metal Rod", "Minigun", "Motor", "Note", "Obsidian Block", "Parachute Block", "Pine Tree", "Piston", "Plane Parts", "Plastic Block", "PVP Pack", "Rusted Block", "Rusted Rod", "Sand Block", "Seat", "Servo", "Shield Generator", "Sign", "Smooth Wood Block", "Spike Trap", "Spring", "Steel I-Beam", "Step", "Sticks Of TNT", "Stone Block", "Stone Rod", "Switch", "Throne", "Titanium Block", "Titanium Rod", "TNT", "Torch", "Truss", "Wedge", "Window", "Wood Block", "Wood Door", "Wood Rod", "Wood Trap Door"},
-	Callback = function(Value)
-		Value = string.gsub(tostring(Value), " ", "")
-		Value = string.gsub(tostring(Value), "-", "")
-		CurrentBlock = Value
-	end    
-})
-
 local Dropdown = Tab:Dropdown({
-	name = "Dropdown Name",
+	name = "Choose a Block",
 	callback = function(Name, Value)
 		Name = string.gsub(tostring(Value), " ", "")
 		Name = string.gsub(tostring(Value), "-", "")
