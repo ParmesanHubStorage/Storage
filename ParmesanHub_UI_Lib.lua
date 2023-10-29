@@ -798,7 +798,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 			function Information:SetText(text)
 				options.text = text
-				Information["59"].Text = text
+				Information:_update()
 			end
 
 			function Information:_update()
