@@ -45,9 +45,9 @@ local function SendWebhook(webhook)
 					["name"] = game.Players.LocalPlayer.Name,
 					["value"] = 
 						"Current Gold Amount: "..game:GetService("Players").LocalPlayer.Data.Gold.Value..
-						"\nEarned Gold per This Session: "..game:GetService("Players").LocalPlayer.Data.Gold.Value - FirstGold..
+						"\nEarned Gold per This Session: "..game:GetService("Players").LocalPlayer.Data.Gold.Value - _G.FirstGold..
 						"\nCurrent Gold Blocks Amount: "..game:GetService("Players").LocalPlayer.Data.GoldBlock.Value..
-						"\nEarned Gold Blocks per This Session: "..game:GetService("Players").LocalPlayer.Data.GoldBlock.Value - FirstGoldBlock,
+						"\nEarned Gold Blocks per This Session: "..game:GetService("Players").LocalPlayer.Data.GoldBlock.Value - _G.FirstGoldBlock,
 					["inline"] = true
 				}
 			}
@@ -110,7 +110,7 @@ local function AutofarmFunc()
 		task.wait()
 	end
 	if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
-		if AutofarmChest == true then
+		if _G.AutofarmChest == true then
 			while game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") do
 				Player.HumanoidRootPart.CFrame = game.workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger.CFrame
 				task.wait(0.1)
@@ -169,14 +169,14 @@ local Slider = Tab:Slider({
 local Toggle = Tab:Toggle({
 	name = "Noclip",
 	callback = function(Value)
-		Noclip = Value
+		_G.Noclip = Value
 		local Mouse = game.Players.LocalPlayer:GetMouse()
 		_G.noclips = true
 
-		noclips = not noclips
+		_G.noclips = not _G.noclips
 		local temp
 		temp = game:GetService("RunService").Stepped:connect(function()
-			if noclips then
+			if _G.noclips then
 				for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 					if v:IsA("BasePart") then
 						v.CanCollide = false
@@ -197,15 +197,15 @@ local Toggle = Tab:Toggle({
 local Toggle = Tab:Toggle({
 	name = "Infinite Jump",
 	callback = function(Value)
-		InfJump = Value
+		_G.InfJump = Value
 		local InfJumpFunc
 		if InfJumpFunc then InfJumpFunc:Disconnect() end
-		if InfJump == true then
+		if _G.InfJump == true then
 			while not game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") do
 				task.wait()
 			end
 			InfJumpFunc = game:GetService("UserInputService").JumpRequest:Connect(function()
-				if InfJump == true then
+				if _G.InfJump == true then
 					game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
 				end
 			end)
@@ -216,7 +216,7 @@ local Toggle = Tab:Toggle({
 local Toggle = Tab:Toggle({
 	name = "Fly (PC Only, Press [F] Button to Toggle)",
 	callback = function(Value)
-		FlyOn = Value
+		_G.FlyOn = Value
 		local Max = 0
 		local Players = game.Players
 		local LP = Players.LocalPlayer
@@ -226,7 +226,7 @@ local Toggle = Tab:Toggle({
 				if k:lower() == "f" then
 					Max = Max + 1
 					_G.Fly = false
-					if FlyOn then
+					if _G.FlyOn then
 						local T = LP.Character.UpperTorso
 						local S = {
 							F = 0,
@@ -358,7 +358,7 @@ local Slider = Tab:Slider({
 	valuename = "Fly Speed",
 	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
 	callback = function(Value)
-		FlySpeed = tonumber(Value)
+		_G.FlySpeed = tonumber(Value)
 	end
 })
 
@@ -388,8 +388,8 @@ Dropdown:Add("The Boss (Fabbi the Duck)", 100)
 local Toggle = Tab:Toggle({
 	name = "Auto Turn On / Turn Off Isolation Mode",
 	callback = function(Value)
-		UpdateIsolationMode = Value
-		while UpdateIsolationMode == true do
+		_G.UpdateIsolationMode = Value
+		while _G.UpdateIsolationMode == true do
 			workspace.RefreshLocks:FireServer(true)
 			task.wait(1)
 			workspace.RefreshLocks:FireServer(false)
@@ -446,8 +446,8 @@ Tab:Section({
 local Toggle = Tab:Toggle({
 	name = "Auto Farm",
 	callback = function(Value)
-		Autofarm = Value	
-		while Autofarm == true do
+		_G.Autofarm = Value	
+		while _G.Autofarm == true do
 			AutofarmFunc()
 			while LocalPlayer:FindFirstChild("Humanoid") do
 				task.wait()
@@ -460,7 +460,7 @@ local Toggle = Tab:Toggle({
 local Toggle = Tab:Toggle({
 	name = "Teleport to the Treasure at the End",
 	callback = function(Value)
-		AutofarmChest = Value
+		_G.AutofarmChest = Value
 	end
 })
 
@@ -472,7 +472,7 @@ local Slider = Tab:Slider({
 	valuename = "second(s)",
 	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
 	callback = function(Value)
-		WaitTime = Value
+		_G.WaitTime = Value
 	end
 })
 
@@ -545,7 +545,7 @@ Tab:Section({
 local Dropdown = Tab:Dropdown({
 	name = "Choose a Chest",
 	callback = function(Name, Value)
-		CurrentChest = Name
+		_G.CurrentChest = Name
 	end,
 	opencallback = function()
 
@@ -561,16 +561,16 @@ Dropdown:Add("Legendary Chest", nil)
 local Button = Tab:Button({
 	name = "Buy a Chest",
 	callback = (function()
-		workspace.ItemBoughtFromShop:InvokeServer(CurrentChest, BuyChestValue)
+		workspace.ItemBoughtFromShop:InvokeServer(_G.CurrentChest, _G.BuyChestValue)
 	end)
 })
 
 local Toggle = Tab:Toggle({
 	name = "Auto Buy Chest",
 	callback = function(Value)
-		AutoBuyChest = Value
-		while AutoBuyChest == true do
-			workspace.ItemBoughtFromShop:InvokeServer(CurrentChest, BuyChestValue)
+		_G.AutoBuyChest = Value
+		while _G.AutoBuyChest == true do
+			workspace.ItemBoughtFromShop:InvokeServer(_G.CurrentChest, _G.BuyChestValue)
 			task.wait(0.1)
 		end
 	end
@@ -581,7 +581,7 @@ local Input = Tab:Input({
 	placeholdertext = "number",
 	cleartextonfocus = true,
 	callback = function(Value)
-		BuyChestValue = tonumber(Value)
+		_G.BuyChestValue = tonumber(Value)
 	end
 })
 
@@ -594,7 +594,7 @@ local Dropdown = Tab:Dropdown({
 	callback = function(Name, Value)
 		Name = string.gsub(tostring(Value), " ", "")
 		Name = string.gsub(tostring(Value), "-", "")
-		CurrentBlock = Name
+		_G.CurrentBlock = Name
 	end,
 	opencallback = function()
 
@@ -608,16 +608,16 @@ end
 local Button = Tab:Button({
 	name = "Buy a Block",
 	callback = (function()
-		workspace.ItemBoughtFromShop:InvokeServer(CurrentBlock, BuyBlockValue)
+		workspace.ItemBoughtFromShop:InvokeServer(_G.CurrentBlock, _G.BuyBlockValue)
 	end)
 })
 
 local Toggle = Tab:Toggle({
 	name = "Auto Buy Block",
 	callback = function(Value)
-		AutoBuyBlock = Value
-		while AutoBuyBlock == true do
-			workspace.ItemBoughtFromShop:InvokeServer(CurrentBlock, BuyBlockValue)
+		_G.AutoBuyBlock = Value
+		while _G.AutoBuyBlock == true do
+			workspace.ItemBoughtFromShop:InvokeServer(_G.CurrentBlock, _G.BuyBlockValue)
 			task.wait(0.1)
 		end
 	end
@@ -628,7 +628,7 @@ local Input = Tab:Input({
 	placeholdertext = "number",
 	cleartextonfocus = true,
 	callback = function(Value)
-		BuyBlockValue = tonumber(Value)
+		_G.BuyBlockValue = tonumber(Value)
 	end
 })
 
@@ -731,9 +731,9 @@ local Input = Tab:Input({
 	cleartextonfocus = true,
 	callback = function(Value)
 		if Value == "1" then
-			CurrentSaveSlot = ""
+			_G.CurrentSaveSlot = ""
 		else
-			CurrentSaveSlot = tostring(Value)
+			_G.CurrentSaveSlot = tostring(Value)
 		end
 	end
 })
@@ -741,9 +741,9 @@ local Input = Tab:Input({
 local Toggle = Tab:Toggle({
 	name = "Auto Save",
 	callback = function(Value)
-		AutosaveSlot = Value
-		while AutosaveSlot == true and task.wait(0.1) do
-			workspace.SaveBoatData:InvokeServer(CurrentSaveSlot)
+		_G.AutosaveSlot = Value
+		while _G.AutosaveSlot == true and task.wait(0.1) do
+			workspace.SaveBoatData:InvokeServer(_G.CurrentSaveSlot)
 		end
 	end
 })
@@ -764,7 +764,7 @@ local Input = Tab:Input({
 	callback = function(Value)
 		for i,v in pairs (game.Players:GetChildren()) do
 			if v.Name == tostring(Value) then
-				CurrentPlayer = v
+				_G.CurrentPlayer = v
 			end
 		end
 	end
@@ -778,7 +778,7 @@ local Information = Tab:Information({
 local Button = Tab:Button({
 	name = "Show Amount of the Gold",
 	callback = (function()
-		Information:SetText(CurrentPlayer.Data.Gold.Value)
+		Information:SetText(_G.CurrentPlayer.Data.Gold.Value)
 	end)
 })
 
@@ -791,7 +791,7 @@ local Button = Tab:Button({
 	name = "Show Save Data Slot Names",
 	callback = (function()
 		local Info2 = ""
-		for i,v in pairs (CurrentPlayer.OtherData:GetChildren()) do
+		for i,v in pairs (_G.CurrentPlayer.OtherData:GetChildren()) do
 			if string.find(v.Name, "NameOfSlot") then
 				Info2 = Info2.."\n"..v.Name.."\t"..v.Value
 			end
@@ -809,7 +809,7 @@ local Button = Tab:Button({
 	name = "Show Player Tools",
 	callback = (function()
 		local Info3 = ""
-		for i,v in pairs (CurrentPlayer.Backpack:GetChildren()) do
+		for i,v in pairs (_G.CurrentPlayer.Backpack:GetChildren()) do
 			if v.ClassName == "Tool" then
 				Info3 = Info3.."\n"..v.Name
 			end
@@ -828,7 +828,7 @@ local Button = Tab:Button({
 	callback = (function()
 		local Info4 = ""
 		task.wait(0.1)
-		for i,v in pairs (CurrentPlayer.Data:GetChildren()) do
+		for i,v in pairs (_G.CurrentPlayer.Data:GetChildren()) do
 			if v.Name ~= "Gold" and v.Name ~= "PaintingTool" and v.Name ~= "BindTool" and v.Name ~= "ScalingTool" and v.Name ~= "TrowelTool" and v.Name ~= "PropertiesTool" and v.Value ~= 0 then
 				Info4 = Info4.."\n"..v.Name.." "..v.Value
 			end
@@ -875,3 +875,8 @@ local Input = Tab:Input({
 		WebhookURL = Value
 	end
 })
+
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/babft.lua')))()
+
+
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/ParmesanHub_UI_Lib.lua')))()
