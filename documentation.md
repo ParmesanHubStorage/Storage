@@ -62,7 +62,7 @@ end)
 ## Adding the Toggle
 
 ```lua
-local Toggle = tab:Toggle({
+local Toggle = Tab:Toggle({
 	name = "Toggle Name",
 	callback = function(Value)
 		
