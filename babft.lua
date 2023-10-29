@@ -750,7 +750,7 @@ local Toggle = Tab:Toggle({
 
 local Warning = Tab:Warning({
 	name = "Auto Save",
-	text = "Save slots are compiled in this order:\n\n1 2 3 4 5 6\n\n7 8 9 ...\n\nDont choose the main slot of your building for auto save, otherwise if you make a mistake when building, your bulding with a mistake will be saved almost instantly"
+	text = "Save slots are compiled in this order:\n\n1 2 3 4 5 6\n\n7 8 9 ...\n\nDont choose the main slot of your building for auto save, otherwise if you make a mistake when building, your bulding with a mistake will be saved almost instantly."
 })
 
 Tab:Section({
