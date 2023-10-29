@@ -1239,15 +1239,12 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Toggle:Toggle()
 					Toggle.MouseDown = false
 
-					if Toggle.Hover then
+
 						Library:tween(Toggle["36"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})
 						Library:tween(Toggle["3c"], {Color = Color3.fromRGB(60, 60, 60)})
 						Library:tween(Toggle["3e"], {Color = Color3.fromRGB(60, 60, 60)})
-					else	
-						Library:tween(Toggle["36"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})		
-						Library:tween(Toggle["3c"], {Color = Color3.fromRGB(33, 33, 33)})
-						Library:tween(Toggle["3e"], {Color = Color3.fromRGB(38, 38, 39)})
-					end
+
+
 				end)
 			end
 
