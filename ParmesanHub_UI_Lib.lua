@@ -185,7 +185,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["8"]["TextSize"] = 12;
 		GUI["8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["8"]["AnchorPoint"] = Vector2.new(0, 1);
-		GUI["8"]["Size"] = UDim2.new(0, 65, 1, 0);
+		GUI["8"]["Size"] = UDim2.new(0, 80, 1, 0);
 		GUI["8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["8"]["Text"] = [[Ping: 120 ms]];
 		GUI["8"]["Name"] = [[Ping]];
