@@ -421,7 +421,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Library:tween(GUI["2"], {Size = UDim2.new(0, 450, 0, 300)})
 				Library:tween(GUI["514"], {Size = UDim2.new(0,400,0,25)})
 				Minimize.Active = false
-				task.wait(0.3)
+				task.wait(0.2)
 				GUI["48"]["Visible"] = true
 				GUI["4d"]["Visible"] = true
 				GUI["f"]["Visible"] = true
