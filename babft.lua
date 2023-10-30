@@ -176,7 +176,7 @@ local Toggle = Tab:Toggle({
 		_G.noclips = not _G.noclips
 		local temp
 		temp = game:GetService("RunService").Stepped:connect(function()
-			if _G.noclips then
+			if _G.noclips == true then
 				for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 					if v:IsA("BasePart") then
 						v.CanCollide = false
