@@ -68,7 +68,7 @@ local function MoveToEnd()
 		task.wait()
 	end
 	local TweenPart = game.Players.LocalPlayer.Character.HumanoidRootPart
-	TweenPart.Parent.Humanoid:ChangeState("Ragdoll")
+	TweenPart.Parent:WaitForChild("Humanoid"):ChangeState("Ragdoll")
 
 	local Info = TweenInfo.new(
 		_G.WaitTime,
@@ -353,8 +353,8 @@ local Toggle = Tab:Toggle({
 local Slider = Tab:Slider({
 	name = "Change Fly Speed",
 	minimum = 1,
-	maximum = 1000,
-	default = 100,
+	maximum = 250,
+	default = 1,
 	valuename = "Fly Speed",
 	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
 	callback = function(Value)
