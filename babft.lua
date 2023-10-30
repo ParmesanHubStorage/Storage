@@ -70,7 +70,7 @@ local function MoveToEnd()
 		task.wait()
 	end
 	local TweenPart = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
-
+	TweenPart.Parent:WaitForChild("Humanoid"):ChangeState("Ragdoll")
 	local Info = TweenInfo.new(
 		_G.WaitTime,
 		Enum.EasingStyle.Linear,
@@ -117,7 +117,7 @@ local function AutofarmFunc()
 			end
 		else
 			game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health = -1
-			game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").:Destroy()
+			game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"):Destroy()
 		end
 	end
 end
