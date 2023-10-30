@@ -69,16 +69,6 @@ local function MoveToEnd()
 	while not game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") do
 		task.wait()
 	end
-	spawn(function()
-		local Timer = 0
-		while Timer <= _G.WaitTime + 5 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health ~= 0 and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame.Z < 8345 do
-			task.wait(1)
-			Timer += 1
-		end
-		if Timer > _G.WaitTime and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame.Z < 8345 then
-			game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health = -1
-		end
-	end)
 	local TweenPart = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
 
 	local Info = TweenInfo.new(
@@ -103,30 +93,34 @@ local function AutofarmFunc()
 	end
 	local Player = game.Players.LocalPlayer.Character
 	spawn(function()
-		pcall (function()
-			while game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health ~= 0 do
+		while game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 do
+			if Player:FindFirstChild("HumanoidRootPart") then
 				Player.HumanoidRootPart.Anchored = true
-				task.wait(0.5)
-				Player.HumanoidRootPart.Anchored = false
-				task.wait(0.1)
 			end
-		end)
+			task.wait(0.5)
+			if Player:FindFirstChild("HumanoidRootPart") then
+				Player.HumanoidRootPart.Anchored = false
+			end
+			task.wait(0.1)
+		end
 	end)
-	Player:WaitForChild("HumanoidRootPart").Anchored = true
-	Player:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(-60.2082, 55.7433, 1184.53)
+	Player.HumanoidRootPart.Anchored = true
+	Player.HumanoidRootPart.CFrame = CFrame.new(-60.2082, 55.7433, 1184.53)
 	MoveToEnd()
-	while game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health ~= 0 and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame.Z < 8345 do
+	while game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z < 8345 do
 		task.wait()
 	end
 	if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health ~= 0 then
 		if _G.AutofarmChest == true then
 			while game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") do
-				Player:WaitForChild("HumanoidRootPart").CFrame = game.workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger.CFrame
+				Player.HumanoidRootPart.CFrame = game.workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger.CFrame
 				task.wait(0.1)
 			end
 		else
-			Player:WaitForChild("Humanoid").Health = -1
-			Player:WaitForChild("HumanoidRootPart"):Destroy()
+			pcall(function()
+				Player.Humanoid.Health = -1
+				Player.HumanoidRootPart.:Destroy()
+			end)
 		end
 	end
 end
