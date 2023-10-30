@@ -170,27 +170,25 @@ local Toggle = Tab:Toggle({
 	name = "Noclip",
 	callback = function(Value)
 		_G.Noclip = Value
-		local Mouse = game.Players.LocalPlayer:GetMouse()
-		_G.noclips = true
-
-		_G.noclips = not _G.noclips
-		local temp
-		temp = game:GetService("RunService").Stepped:connect(function()
-			if _G.noclips == true then
-				for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-					if v:IsA("BasePart") then
-						v.CanCollide = false
+		if _G.Noclip == true then
+			local temp
+			temp = game:GetService("RunService").Stepped:connect(function()
+				if _G.Noclip == true then
+					for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+						if v:IsA("BasePart") then
+							v.CanCollide = false
+						end
 					end
-				end
-			else
-				temp:Disconnect()
-				for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-					if v.Name == "LowerTorso" or v.Name == "UpperTorso" then
-						v.CanCollide = true
+				else
+					for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+						if v.Name == "LowerTorso" or v.Name == "UpperTorso" then
+							v.CanCollide = true
+						end
 					end
+					temp:Disconnect()
 				end
-			end
-		end)
+			end)
+		end
 	end
 })
 
