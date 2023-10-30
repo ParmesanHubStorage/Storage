@@ -68,7 +68,7 @@ local function MoveToEnd()
 	while not game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") do
 		task.wait()
 	end
-	local TweenPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+	local TweenPart = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
 	TweenPart.Parent:WaitForChild("Humanoid"):ChangeState("Ragdoll")
 
 	local Info = TweenInfo.new(
@@ -93,13 +93,13 @@ local function AutofarmFunc()
 	end
 	local Player = game.Players.LocalPlayer.Character
 	spawn(function()
-		while game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 do
+		while game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health ~= 0 do
 			if Player:FindFirstChild("HumanoidRootPart") then
-				Player.HumanoidRootPart.Anchored = true
+				Player:WaitForChild("HumanoidRootPart").Anchored = true
 			end
 			task.wait(0.5)
 			if Player:FindFirstChild("HumanoidRootPart") then
-				Player.HumanoidRootPart.Anchored = false
+				Player:WaitForChild("HumanoidRootPart").Anchored = false
 			end
 			task.wait(0.1)
 		end
@@ -110,15 +110,15 @@ local function AutofarmFunc()
 	while game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health ~= 0 and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame.Z < 8345 do
 		task.wait()
 	end
-	if game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
+	if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health ~= 0 then
 		if _G.AutofarmChest == true then
 			while game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") do
-				Player.HumanoidRootPart.CFrame = game.workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger.CFrame
+				Player:WaitForChild("HumanoidRootPart").CFrame = game.workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger.CFrame
 				task.wait(0.1)
 			end
 		else
-			Player.Humanoid.Health = -1
-			Player.HumanoidRootPart:Destroy()
+			Player:WaitForChild("Humanoid").Health = -1
+			Player:WaitForChild("HumanoidRootPart"):Destroy()
 		end
 	end
 end
