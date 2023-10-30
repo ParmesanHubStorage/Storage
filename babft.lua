@@ -483,7 +483,7 @@ local Toggle = Tab:Toggle({
 	name = "Autofarm Candies [Halloween]",
 	callback = function(Value)
 		_G.AutofarmCandies = Value
-		while _G.AutofarmCandies == true and task.wait(0.1) do
+		while _G.AutofarmCandies == true and task.wait(1) do
 			pcall (function()
 				for i,v in pairs(workspace.Houses:GetChildren()) do
 					firetouchinterest(v.Door.DoorInnerTouch, game.Players.LocalPlayer.Character.HumanoidRootPart, 0)
