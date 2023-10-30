@@ -46,9 +46,66 @@ else
 			KeySystem["ae"] = Instance.new("Frame", KeySystem["1"]);
 			KeySystem["ae"]["Size"] = UDim2.new(0, 200, 0, 25);
 			KeySystem["ae"]["Position"] = UDim2.fromOffset((viewport.X / 2) - (250 / 2), (viewport.Y / 2) - (300 / 2));
-			KeySystem["ae"]["Draggable"] = true;
+			KeySystem["ae"]["Draggable"] = false;
 			KeySystem["ae"]["BackgroundTransparency"] = 1;
 			KeySystem["ae"]["Active"] = true;
+
+			local function TurnOnDraggable()
+				local Players = game:GetService('Players')
+				local UIS = game:GetService("UserInputService")
+	
+				--// Variables
+				local UI = KeySystem["ae"]
+	
+				local Player = Players.LocalPlayer
+				local Mouse = Player:GetMouse()
+	
+				local Hovered = false
+				local Holding = false
+				local MoveCon = nil
+	
+				local InitialX, InitialY, UIInitialPos
+	
+				--// Functions
+	
+				local function Drag()
+					if Holding == false then MoveCon:Disconnect(); return end
+					local distanceMovedX = InitialX - Mouse.X
+					local distanceMovedY = InitialY - Mouse.Y
+	
+					UI.Position = UIInitialPos - UDim2.new(0, distanceMovedX, 0, distanceMovedY)
+				end
+	
+				--// Connections
+	
+				UI.MouseEnter:Connect(function()
+					Hovered = true
+				end)
+	
+				UI.MouseLeave:Connect(function()
+					Hovered = false
+				end)
+	
+				UIS.InputBegan:Connect(function(input)
+					if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+						Holding = Hovered
+						if Holding then
+							InitialX, InitialY = Mouse.X, Mouse.Y
+							UIInitialPos = UI.Position
+	
+							MoveCon = Mouse.Move:Connect(Drag)
+						end
+					end
+				end)
+	
+				UIS.InputEnded:Connect(function(input)
+					if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+						Holding = false
+					end
+				end)
+			end
+			
+			TurnOnDraggable()
 
 			-- StarterGui.KeySystem.Frame
 			KeySystem["2"] = Instance.new("Frame", KeySystem["ae"]);
