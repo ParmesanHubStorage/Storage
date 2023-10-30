@@ -190,7 +190,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["8"]["Text"] = [[Ping: 120 ms]];
 		GUI["8"]["Name"] = [[Ping]];
 		GUI["8"]["BackgroundTransparency"] = 1;
-		GUI["8"]["Position"] = UDim2.new(0, 60, 1, 0);
+		GUI["8"]["Position"] = UDim2.new(0, 40, 1, 0);
 	end
 
 	local function getPing()
