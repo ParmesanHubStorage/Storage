@@ -64,26 +64,28 @@ local function SendWebhook(webhook)
 end
 
 local function MoveToEnd()
-	while not game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") do
-		task.wait()
-	end
-	local TweenPart = game.Players.LocalPlayer.Character.HumanoidRootPart
-	TweenPart.Parent:WaitForChild("Humanoid"):ChangeState("Ragdoll")
-
-	local Info = TweenInfo.new(
-		_G.WaitTime,
-		Enum.EasingStyle.Linear,
-		Enum.EasingDirection.InOut,
-		0,
-		false,
-		0
-	)
-
-	local TweenGoals = {CFrame = CFrame.new(-47.8657, 55.775, 8350.74)}
-
-	local Tween = TweenService:Create(TweenPart,Info,TweenGoals)
-
-	do Tween:Play() end
+	pcall (function()
+		while not game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") do
+			task.wait()
+		end
+		local TweenPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+		TweenPart.Parent:WaitForChild("Humanoid"):ChangeState("Ragdoll")
+	
+		local Info = TweenInfo.new(
+			_G.WaitTime,
+			Enum.EasingStyle.Linear,
+			Enum.EasingDirection.InOut,
+			0,
+			false,
+			0
+		)
+	
+		local TweenGoals = {CFrame = CFrame.new(-47.8657, 55.775, 8350.74)}
+	
+		local Tween = TweenService:Create(TweenPart,Info,TweenGoals)
+	
+		do Tween:Play() end
+	end)
 end
 
 local function AutofarmFunc()
