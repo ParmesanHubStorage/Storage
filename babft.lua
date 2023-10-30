@@ -109,7 +109,7 @@ local function AutofarmFunc()
 	while game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z < 8345 do
 		task.wait()
 	end
-	if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health ~= 0 then
+	if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
 		if _G.AutofarmChest == true then
 			while game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") do
 				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.BoatStages.NormalStages.TheEnd.GoldenChest.Trigger.CFrame
@@ -117,7 +117,9 @@ local function AutofarmFunc()
 			end
 		else
 			game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health = -1
-			game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"):Destroy()
+			if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				game.Players.LocalPlayer.Character.HumanoidRootPart:Destroy()
+			end
 		end
 	end
 end
