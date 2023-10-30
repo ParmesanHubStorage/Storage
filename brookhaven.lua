@@ -175,7 +175,8 @@ local function CandiesTracers()
 				if v.EggTouched.Value == false then
 					local one
 					local two
-
+					local beam
+							
 					if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild(i) then
 						beam = Instance.new('Beam', game.Players.LocalPlayer.Character.HumanoidRootPart)
 						beam.Width0 = 0.05
