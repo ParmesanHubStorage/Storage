@@ -503,7 +503,7 @@ local Toggle = Tab:Toggle({
 	name = "Anti AFK",
 	callback = function(Value)
 		_G.AntiAfk = Value
-		while _G.AntiAfk == true and task.wait(1) do
+		while _G.AntiAfk == true and task.wait(1000) do
 			local bb=game:service'VirtualUser'
 			game:service'Players'.LocalPlayer.Idled:connect(function()
 				bb:CaptureController()bb:ClickButton2(Vector2.new())
