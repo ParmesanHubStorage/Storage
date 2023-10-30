@@ -94,16 +94,14 @@ local function AutofarmFunc()
 	end
 	local Player = game.Players.LocalPlayer.Character
 	spawn(function()
-		while game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health ~= 0 do
-			if Player:FindFirstChild("HumanoidRootPart") then
-				Player:WaitForChild("HumanoidRootPart").Anchored = true
+		pcall (function()
+			while game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health ~= 0 do
+				Player.HumanoidRootPart.Anchored = true
+				task.wait(0.5)
+				Player.HumanoidRootPart.Anchored = false
+				task.wait(0.1)
 			end
-			task.wait(0.5)
-			if Player:FindFirstChild("HumanoidRootPart") then
-				Player:WaitForChild("HumanoidRootPart").Anchored = false
-			end
-			task.wait(0.1)
-		end
+		end)
 	end)
 	Player:WaitForChild("HumanoidRootPart").Anchored = true
 	Player:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(-60.2082, 55.7433, 1184.53)
