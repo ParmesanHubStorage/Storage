@@ -506,7 +506,8 @@ local Toggle = Tab:Toggle({
 		while _G.AntiAfk == true and task.wait(1) do
 			local bb=game:service'VirtualUser'
 			game:service'Players'.LocalPlayer.Idled:connect(function()
-			bb:CaptureController()bb:ClickButton2(Vector2.new())
+				bb:CaptureController()bb:ClickButton2(Vector2.new())
+			end)
 		end
 	end
 })
