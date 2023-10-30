@@ -199,6 +199,8 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		end)
 	end
 
+	getPing()
+
 	local pFPS = 0
 
 	local function getFPS()
