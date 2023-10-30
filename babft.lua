@@ -125,6 +125,10 @@ local function AutofarmFunc()
 			end
 		end
 	end
+	pcall(function()
+		game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health = -1
+		game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"):Destroy()
+	end)
 end
 
 spawn(function()
