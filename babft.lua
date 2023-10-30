@@ -105,8 +105,8 @@ local function AutofarmFunc()
 			task.wait(0.1)
 		end
 	end)
-	Player.HumanoidRootPart.Anchored = true
-	Player.HumanoidRootPart.CFrame = CFrame.new(-60.2082, 55.7433, 1184.53)
+	Player:WaitForChild("HumanoidRootPart").Anchored = true
+	Player:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(-60.2082, 55.7433, 1184.53)
 	MoveToEnd()
 	while game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 and game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z < 8345 do
 		task.wait()
