@@ -62,8 +62,65 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["514"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["514"]["Position"] = UDim2.fromOffset((viewport.X / 2) - (450 / 2), (viewport.Y / 2) - (300 / 2));
 		GUI["514"]["Active"] = true;
-		GUI["514"]["Draggable"] = true;
+		GUI["514"]["Draggable"] = false;
 		GUI["514"]["BackgroundTransparency"] = 1;
+
+		local function TurnOnDraggable()
+			local Players = game:GetService('Players')
+			local UIS = game:GetService("UserInputService")
+
+			--// Variables
+			local UI = GUI["514"]
+
+			local Player = Players.LocalPlayer
+			local Mouse = Player:GetMouse()
+
+			local Hovered = false
+			local Holding = false
+			local MoveCon = nil
+
+			local InitialX, InitialY, UIInitialPos
+
+			--// Functions
+
+			local function Drag()
+				if Holding == false then MoveCon:Disconnect(); return end
+				local distanceMovedX = InitialX - Mouse.X
+				local distanceMovedY = InitialY - Mouse.Y
+
+				UI.Position = UIInitialPos - UDim2.new(0, distanceMovedX, 0, distanceMovedY)
+			end
+
+			--// Connections
+
+			UI.MouseEnter:Connect(function()
+				Hovered = true
+			end)
+
+			UI.MouseLeave:Connect(function()
+				Hovered = false
+			end)
+
+			UIS.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+					Holding = Hovered
+					if Holding then
+						InitialX, InitialY = Mouse.X, Mouse.Y
+						UIInitialPos = UI.Position
+
+						MoveCon = Mouse.Move:Connect(Drag)
+					end
+				end
+			end)
+
+			UIS.InputEnded:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+					Holding = false
+				end
+			end)
+		end
+		
+		TurnOnDraggable()
 
 		-- StarterGui.ScreenGui.Main
 		GUI["2"] = Instance.new("Frame", GUI["514"]);
