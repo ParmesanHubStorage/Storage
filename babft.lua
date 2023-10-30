@@ -103,6 +103,9 @@ local function AutofarmFunc()
 			task.wait(0.1)
 		end
 	end)
+	while not game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") do
+		task.wait()
+	end
 	game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-60.2082, 55.7433, 1184.53)
 	MoveToEnd()
