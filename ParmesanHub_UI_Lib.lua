@@ -195,7 +195,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 	local function getPing()
 		game:GetService("RunService").RenderStepped:Connect(function()
-			GUI["8"]["Text"] = tostring(math.ceil(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()))
+			GUI["8"]["Text"] = "Ping: "..tostring(math.ceil(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()))
 		end)
 	end
 
