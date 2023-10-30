@@ -31,6 +31,7 @@ _G.FlySpeed = 1
 
 _G.FirstGold = game:GetService("Players").LocalPlayer.Data.Gold.Value
 _G.FirstGoldBlock = game:GetService("Players").LocalPlayer.Data.GoldBlock.Value
+_G.AntiAfk = false
 
 local function SendWebhook(webhook)
 	local url = webhook
@@ -490,6 +491,22 @@ local Toggle = Tab:Toggle({
 					firetouchinterest(v.Door.DoorInnerTouch, game.Players.LocalPlayer.Character.HumanoidRootPart, 1)
 				end
 			end)
+		end
+	end
+})
+
+Tab:Section({
+	text = "Anti AFK"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Anti AFK",
+	callback = function(Value)
+		_G.AntiAfk = Value
+		while _G.AntiAfk == true and task.wait(1) do
+			local bb=game:service'VirtualUser'
+			game:service'Players'.LocalPlayer.Idled:connect(function()
+			bb:CaptureController()bb:ClickButton2(Vector2.new())
 		end
 	end
 })
