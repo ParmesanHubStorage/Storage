@@ -193,6 +193,12 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["8"]["Position"] = UDim2.new(0, 60, 1, 0);
 	end
 
+	local function getPing()
+		game:GetService("RunService").RenderStepped:Connect(function()
+			GUI["8"]["Text"] = tostring(math.ceil(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()))
+		end)
+	end
+
 	local pFPS = 0
 
 	local function getFPS()
