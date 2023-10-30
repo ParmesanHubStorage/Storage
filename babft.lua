@@ -7,6 +7,7 @@ local Blocks = {"Boat Motor", "Bouncy Block", "Brick Block", "Button", "Camera",
 _G.LocalPlayer = game.Players.LocalPlayer.Character
 _G.Autofarm = false
 _G.AutofarmChest = false
+_G.AutofarmCandies = false
 _G.WaitTime = 26
 _G.CurrentChest = "Common Chest"
 _G.AutoBuyChest = false
@@ -471,6 +472,25 @@ local Slider = Tab:Slider({
 	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
 	callback = function(Value)
 		_G.WaitTime = Value
+	end
+})
+
+Tab:Section({
+	text = "Autofarm Candies"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Autofarm Candies [Halloween]",
+	callback = function(Value)
+		_G.AutofarmCandies = Value
+		while _G.AutofarmCandies == true and task.wait(0.1) do
+			pcall (function()
+				for i,v in pairs(workspace.Houses:GetChildren()) do
+					firetouchinterest(v.Door.DoorInnerTouch, game.Players.LocalPlayer.Character.HumanoidRootPart, 0)
+					firetouchinterest(v.Door.DoorInnerTouch, game.Players.LocalPlayer.Character.HumanoidRootPart, 1)
+				end
+			end)
+		end
 	end
 })
 
