@@ -2516,43 +2516,43 @@ Tab:Section({
 })
 
 local Button = Tab:Button({
-	Name = "Agency Red Book",
-	callback = function()
+	name = "Agency Red Book",
+	callback = (function()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-142.33779907226562, 12.924863815307617, 260.3987121582031)
 	end)   
 })
 
 local Button = Tab:Button({
-	Name = "Bunker",
-	callback = function()
+	name = "Bunker",
+	callback = (function()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(177.38230895996094, 3.650165557861328, -466.6908264160156)
 	end)   
 })
 
 local Button = Tab:Button({
-	Name = "Abandoned Hospital Floor",
-	callback = function()
+	name = "Abandoned Hospital Floor",
+	callback = (function()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-297.2627868652344, 16.811140060424805, 59.182010650634766)
 	end)   
 })
 
 local Button = Tab:Button({
-	Name = "Hospital Secret Room",
-	callback = function()
+	name = "Hospital Secret Room",
+	callback = (function()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-349.6976623535156, 3.711090087890625, 97.45501708984375)
 	end)   
 })
 
 local Button = Tab:Button({
-	Name = "Criminal Base",
-	callback = function()
+	name = "Criminal Base",
+	callback = (function()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-106.30924987792969, -27.275146484375, 236.49752807617188)
 	end)   
 })
 
 local Button = Tab:Button({
-	Name = "Underground Pool",
-	callback = function()
+	name = "Underground Pool",
+	callback = (function()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-54.77513885498047, -17.829505920410156, 107.04366302490234)
 	end)   
 })
