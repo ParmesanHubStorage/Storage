@@ -69,8 +69,17 @@ local function MoveToEnd()
 	while not game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") do
 		task.wait()
 	end
+	spawn(function()
+		local Timer = 0
+		while Timer <= _G.WaitTime + 5 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health ~= 0 and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame.Z < 8345 do
+			task.wait(1)
+			Timer += 1
+		end
+		if Timer > _G.WaitTime and game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame.Z < 8345 then
+			game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health = -1
+		end
+	end)
 	local TweenPart = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
-	TweenPart.Parent:WaitForChild("Humanoid"):ChangeState("Ragdoll")
 
 	local Info = TweenInfo.new(
 		_G.WaitTime,
