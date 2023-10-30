@@ -2229,7 +2229,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b3"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Profile["b3"]["Size"] = UDim2.new(0, 180, 0, 25);
 				Profile["b3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-				Profile["b3"]["Text"] = [[BT_OyBqLwt69553kH8zQ]];
+				Profile["b3"]["Text"] = [[N/A]];
 				Profile["b3"]["Position"] = UDim2.new(0, 50, 0, 129);
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.Profile.TextLabel.UICorner
@@ -2270,7 +2270,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				Profile["b8"]["Size"] = UDim2.new(0, 150, 0, 25);
 				Profile["b8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-				Profile["b8"]["Text"] = "Key Type: ";
+				Profile["b8"]["Text"] = "Key Type: N/A";
 				Profile["b8"]["BackgroundTransparency"] = 1;
 				Profile["b8"]["Position"] = UDim2.new(0, 105, 0, 55);
 
