@@ -8,7 +8,7 @@ local CoreGui = game:GetService("CoreGui")
 --variables
 local viewport = workspace.CurrentCamera.ViewportSize
 local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
-local lp = Players.LocalPlayer
+local lp = game:GetService("Players").LocalPlayer
 local mouse = lp:GetMouse()
 
 local CustomFont
@@ -48,7 +48,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 	do -- Main Window
 		-- StarterGui.ScreenGui
-		GUI["1"] = Instance.new("ScreenGui", RunService:IsStudio() and Players.LocalPlayer:WaitForChild("PlayerGui") or CoreGui);
+		GUI["1"] = Instance.new("ScreenGui", CoreGui);
 		GUI["1"]["IgnoreGuiInset"] = true;
 		GUI["1"]["ScreenInsets"] = Enum.ScreenInsets.DeviceSafeInsets;
 		GUI["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
@@ -119,7 +119,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				end
 			end)
 		end
-		
+
 		TurnOnDraggable()
 
 		-- StarterGui.ScreenGui.Main
