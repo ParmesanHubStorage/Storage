@@ -1,9 +1,9 @@
-loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/ParmesanHub_UI_Lib.lua')))()
-local TweenService = game:GetService("TweenService")
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/ParmesanHub_UI_Lib.lua')))() 
+
 
 local Children = {"Baby Boy", "Baby Girl", "Baby Boy [Premium 1]", "Baby Boy [Premium 2]", "Baby Boy [Premium 3]", "Baby Girl [Premium 1]", "Baby Girl [Premium 2]", "Baby Girl [Premium 3]"}
 local Houses = {"1 [Motel]", "2 [Motel]", "3 [Motel]", "4 [Motel]", "5 [Motel]", "6 [Apartment]", "7 [Apartment]", "11 [House]", "12 [House]", "13 [House]", "14 [House]", "15 [House]", "13 [House]", "14 [House]", "15 [House]", "16 [House]", "17 [House]", "18 [House]", "19 [House]", "20 [House]", "21 [House]", "22 [House]", "23 [House]", "24 [House]", "28 [Lake Side House]", "29 [Hidden Valley House]", "30 [Lake House]", "31 [Eagle View House]", "32 [Gold Ranch House]", "33 [North Estate]", "34 [South Estate]"}
---[[
+
 _G.PlayersHighlightOn = false
 _G.PlayersTracersOn = false
 _G.CandyHighlightOn = false
@@ -94,8 +94,7 @@ _G.PlayerForKill = nil
 
 _G.SpamChildren = false
 _G.RainbowChildName = false
-]]--
---[[
+
 local function PlayersHighlight()
 	for i,v in pairs(game.Players:GetChildren()) do
 		pcall(function()
@@ -287,7 +286,7 @@ local function ChangeAvatar(Avatar)
 	local ohString3 = ""
 
 	game:GetService("ReplicatedStorage").RE["1Avata1rOrigina1l"]:FireServer(ohString1, ohTable2, ohString3)
-end]]--
+end
 
 local Main = Library:Init({
 	name = "Brookhaven RP"
