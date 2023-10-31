@@ -743,13 +743,6 @@ local Button = Tab:Button({
 
 		UpdateAvatar:FireServer("wear", tonumber(HumanoidDescription.Face))
 		task.wait(0.5)
-		local proportion
-
-		if HumanoidDescription.ProportionScale < 0.5 then propotion = 0.5
-		elseif HumanoidDescription.ProportionScale > 1 then proportion = 1
-		else proportion = HumanoidDescription.ProportionScale end
-
-		game:GetService("ReplicatedStorage").RE["1Clothe1s"]:FireServer("CharacterSizeUp", proportion)
 
 		if _G.IncludeWalkStyle == true then
 			UpdateAvatar:FireServer("wearWalkStyle", HumanoidDescription.ClimbAnimation)
@@ -1318,12 +1311,12 @@ local Toggle = Tab:Toggle({
 			if game.Players.LocalPlayer:DistanceFromCharacter(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_DoorBell"].TouchBell.Position) < 35 then
 				fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_DoorBell"].TouchBell.ClickDetector)
 			else
-				OrionLib:MakeNotification({
+				--[[OrionLib:MakeNotification({
 					Name = "Parmesan Hub",
 					Content = "You are too far away from the bell!",
 					Image = "rbxassetid://4483345998",
 					Time = 1
-				})
+				})]]--
 			end
 			task.wait(1)
 		end
@@ -1338,12 +1331,12 @@ local Toggle = Tab:Toggle({
 			if game.Players.LocalPlayer:DistanceFromCharacter(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_HouseDoors"].HouseDoorFront.Knock.TouchBell.Position) < 35 then
 				fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_HouseDoors"].HouseDoorFront.Knock.TouchBell.ClickDetector)
 			else
-				OrionLib:MakeNotification({
+				--[[OrionLib:MakeNotification({
 					Name = "Parmesan Hub",
 					Content = "You are too far away from the door!",
 					Image = "rbxassetid://4483345998",
 					Time = 1
-				})
+				})]]--
 			end
 			task.wait(1)
 		end
