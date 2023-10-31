@@ -173,7 +173,7 @@ local function CandiesTracers()
 					local one
 					local two
 					local beam
-							
+
 					if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild(i) then
 						beam = Instance.new('Beam', game.Players.LocalPlayer.Character.HumanoidRootPart)
 						beam.Width0 = 0.05
@@ -536,6 +536,7 @@ local Toggle = Tab:Toggle({
 	callback = function(Value)
 		_G.PlayersHighlightOn = Value
 		if _G.PlayersHighlightOn == true then
+			local testtest1
 			testtest1 = game:GetService("RunService").Stepped:connect(function()
 				if _G.PlayersHighlightOn == true then
 					PlayersHighlight()
@@ -557,6 +558,7 @@ local Toggle = Tab:Toggle({
 	callback = function(Value)
 		_G.PlayersTracersOn = Value
 		if _G.PlayersTracersOn == true then
+			local testtest2
 			testtest2 = game:GetService("RunService").Stepped:connect(function()
 				if _G.PlayersTracersOn == true then
 					playersTracers()
@@ -581,6 +583,7 @@ local Toggle = Tab:Toggle({
 	callback = function(Value)
 		_G.CandyHighlightOn = Value
 		if _G.CandyHighlightOn == true then
+			local testtest3
 			testtest3 = game:GetService("RunService").Stepped:connect(function()
 				if _G.CandyHighlightOn == true then
 					CandiesHighlight()
@@ -600,6 +603,7 @@ local Toggle = Tab:Toggle({
 	callback = function(Value)
 		_G.CandyTracersOn = Value
 		if _G.CandyTracersOn == true then
+			local testtest4
 			testtest4 = game:GetService("RunService").Stepped:connect(function()
 				if _G.CandyTracersOn == true then
 					CandiesTracers()
@@ -1044,7 +1048,7 @@ local Toggle = Tab:Toggle({
 			task.wait(0.1)
 			firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_BrooksDiner"].CatchFire, 1)
 			firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_Mall"]["001_HappyBurger"].CatchFire, 1)
-			
+
 		end
 	end
 })
@@ -1413,7 +1417,8 @@ local Toggle = Tab:Toggle({
 	callback = function(Value)
 		_G.AutoUnban = Value
 		if _G.AutoUnban == true then
-			temp = game:GetService("RunService").Stepped:connect(function()
+			local temp2
+			temp2 = game:GetService("RunService").Stepped:connect(function()
 				if _G.AutoUnban == true then
 					for i,v in pairs(game:GetService("Workspace")["001_Lots"]:GetChildren()) do
 						if v:IsA("Part") and v:FindFirstChild("HousePickedByPlayer") then
@@ -1426,7 +1431,7 @@ local Toggle = Tab:Toggle({
 						end
 					end
 				else
-					temp:Disconnect()
+					temp2:Disconnect()
 				end
 			end)
 		end
@@ -2879,4 +2884,3 @@ local Button = Tab:Button({
 		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
 	end)
 })
-
