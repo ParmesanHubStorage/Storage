@@ -1,16 +1,3 @@
---services
-local Players = game:GetService("Players")
-local TweenService = game:GetService("TweenService")
-local uis = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
-local CoreGui = game:GetService("CoreGui")
-
---variables
-local viewport = workspace.CurrentCamera.ViewportSize
-local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
-local lp = game:GetService("Players").LocalPlayer
-local mouse = lp:GetMouse()
-
 local CustomFont
 if game:GetService("UserInputService").TouchEnabled == true or game:GetService("UserInputService").KeyboardEnabled == false then
 	CustomFont = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -29,9 +16,9 @@ function Library:Validate(defaults, options)
 end
 
 function Library:tween(object, goal, callback)
-	local tween = TweenService:Create(object, tweenInfo, goal)
+	local tween = game:GetService("TweenService"):Create(object, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), goal)
 	tween.Completed:Connect(callback or function() end)
-	tween:Play()
+	do tween:Play() end
 end
 
 local GUI = {
@@ -48,7 +35,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 	do -- Main Window
 		-- StarterGui.ScreenGui
-		GUI["1"] = Instance.new("ScreenGui", CoreGui);
+		GUI["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
 		GUI["1"]["IgnoreGuiInset"] = true;
 		GUI["1"]["ScreenInsets"] = Enum.ScreenInsets.DeviceSafeInsets;
 		GUI["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
@@ -60,20 +47,15 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["514"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["514"]["Size"] = UDim2.new(0, 400, 0, 25);
 		GUI["514"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-		GUI["514"]["Position"] = UDim2.fromOffset((viewport.X / 2) - (450 / 2), (viewport.Y / 2) - (300 / 2));
+		GUI["514"]["Position"] = UDim2.fromOffset((workspace.CurrentCamera.ViewportSize.X / 2) - (450 / 2), (workspace.CurrentCamera.ViewportSize.Y / 2) - (300 / 2));
 		GUI["514"]["Active"] = true;
 		GUI["514"]["Draggable"] = false;
 		GUI["514"]["BackgroundTransparency"] = 1;
 
 		local function TurnOnDraggable()
-			local Players = game:GetService('Players')
-			local UIS = game:GetService("UserInputService")
-
 			--// Variables
 			local UI = GUI["514"]
 
-			local Player = Players.LocalPlayer
-			local Mouse = Player:GetMouse()
 
 			local Hovered = false
 			local Holding = false
@@ -85,8 +67,8 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 			local function Drag()
 				if Holding == false then MoveCon:Disconnect(); return end
-				local distanceMovedX = InitialX - Mouse.X
-				local distanceMovedY = InitialY - Mouse.Y
+				local distanceMovedX = InitialX - game:GetService("Players").LocalPlayer:GetMouse().X
+				local distanceMovedY = InitialY - game:GetService("Players").LocalPlayer:GetMouse().Y
 
 				UI.Position = UIInitialPos - UDim2.new(0, distanceMovedX, 0, distanceMovedY)
 			end
@@ -101,19 +83,19 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Hovered = false
 			end)
 
-			UIS.InputBegan:Connect(function(input)
+			game:GetService("UserInputService").InputBegan:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 					Holding = Hovered
 					if Holding then
-						InitialX, InitialY = Mouse.X, Mouse.Y
+						InitialX, InitialY = game:GetService("Players").LocalPlayer:GetMouse().X, game:GetService("Players").LocalPlayer:GetMouse().Y
 						UIInitialPos = UI.Position
 
-						MoveCon = Mouse.Move:Connect(Drag)
+						MoveCon = game:GetService("Players").LocalPlayer:GetMouse().Move:Connect(Drag)
 					end
 				end
 			end)
 
-			UIS.InputEnded:Connect(function(input)
+			game:GetService("UserInputService").InputEnded:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 					Holding = false
 				end
@@ -122,18 +104,14 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 		TurnOnDraggable()
 
-		-- StarterGui.ScreenGui.Main
 		GUI["2"] = Instance.new("Frame", GUI["514"]);
 		GUI["2"]["ZIndex"] = 0;
-		--GUI["2"].Draggable = true;
-		--GUI["2"].Active = true;
 		GUI["2"]["BorderSizePixel"] = 0;
 		GUI["2"]["BackgroundColor3"] = Color3.fromRGB(31, 31, 31);
 		GUI["2"]["AnchorPoint"] = Vector2.new(1,0);
 		GUI["2"]["Size"] = UDim2.new(0, 450, 0, 300);
 		GUI["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["2"]["Position"] = UDim2.new(1, 50, 0, 0);
-		--UDim2.fromOffset((viewport.X / 2) - (GUI["2"].Size.X.Offset / 2), (viewport.Y / 2) - (GUI["2"].Size.Y.Offset / 2));
 		GUI["2"]["Name"] = [[Main]];
 
 		-- StarterGui.ScreenGui.Main.UICorner
@@ -199,7 +177,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		end)
 	end
 
-	getPing()
+	do getPing() end
 
 	local pFPS = 0
 
@@ -572,16 +550,6 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			Tab["53"].MouseButton1Click:Connect(function()
 				Tab:Activate()
 			end)
-			--[[
-			uis.InputBegan:Connect(function(input, gpe)
-				if gpe then return end
-
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					if Tab.Hover then
-						Tab:Activate()
-					end
-				end
-			end)]]--
 
 			if GUI.CurrentTab == nil then
 				Tab:Activate()
@@ -772,7 +740,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Warning["5c"].Size = UDim2.new(Warning["5c"].Size.X.Scale, Warning["5c"].Size.X.Offset, 0, Warning["62"].TextBounds.Y + 40)
 			end
 
-			Warning:_update()
+			do Warning:_update() end
 			return Warning
 		end
 
@@ -874,7 +842,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Information["53"].Size = UDim2.new(Information["53"].Size.X.Scale, Information["53"].Size.X.Offset, 0, Information["59"].TextBounds.Y + 40)
 			end
 
-			Information:_update()
+			do Information:_update() end
 			return Information
 		end
 
@@ -978,7 +946,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Message["65"].Size = UDim2.new(Message["65"].Size.X.Scale, Message["65"].Size.X.Offset, 0, Message["6b"].TextBounds.Y + 40)
 			end
 
-			Message:_update()
+			do Message:_update() end
 			return Message
 		end
 
@@ -1097,7 +1065,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			--Methods
 			function Slider:SetValue(v)
 				if v == nil then
-					local percentage = math.clamp((mouse.X - Slider["1e"].AbsolutePosition.X) / (Slider["1e"].AbsoluteSize.X), 0, 1)
+					local percentage = math.clamp((game:GetService("Players").LocalPlayer:GetMouse().X - Slider["1e"].AbsolutePosition.X) / (Slider["1e"].AbsoluteSize.X), 0, 1)
 					local value = ((options.maximum - options.minimum) * percentage) + options.minimum
 					value = math.floor(value)
 					Slider["24"]["Text"] = tostring(value.." "..options.valuename)
@@ -1137,12 +1105,8 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Library:tween(Slider["1b"], {Color = Color3.fromRGB(60, 60, 60)})
 					Library:tween(Slider["20"], {Color = Color3.fromRGB(200, 200, 200)})
 
-					--if not Slider.Connection then
-					--Slider.Connection = RunService.RenderStepped:Connect(function()
-					--	Slider:SetValue()
-					--end)
-					while Slider.MouseDown and mouse.X >= frame.AbsolutePosition.X and mouse.X <= frame.AbsolutePosition.X + frame.AbsoluteSize.X
-						and mouse.Y >= frame.AbsolutePosition.Y and mouse.Y <= frame.AbsolutePosition.Y + frame.AbsoluteSize.Y do
+					while Slider.MouseDown and game:GetService("Players").LocalPlayer:GetMouse().X >= frame.AbsolutePosition.X and game:GetService("Players").LocalPlayer:GetMouse().X <= frame.AbsolutePosition.X + frame.AbsoluteSize.X
+						and game:GetService("Players").LocalPlayer:GetMouse().Y >= frame.AbsolutePosition.Y and game:GetService("Players").LocalPlayer:GetMouse().Y <= frame.AbsolutePosition.Y + frame.AbsoluteSize.Y do
 						Slider:SetValue()
 						game:GetService("RunService").RenderStepped:Wait()
 					end
@@ -1293,10 +1257,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				end)
 
 				Toggle["36"].MouseButton1Click:Connect(function()
-
 					Toggle:Toggle()
-
-
 				end)
 			end
 
@@ -1685,7 +1646,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					end
 				end)
 
-				uis.InputBegan:Connect(function(input, gpe)
+				game:GetService("UserInputService").InputBegan:Connect(function(input, gpe)
 					if gpe then return end
 					if input.UserInputType == Enum.UserInputType.MouseButton1 and Input.Hover then
 						Input.MouseDown = true
@@ -1695,7 +1656,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					end
 				end)
 
-				uis.InputEnded:Connect(function(input, gpe)
+				game:GetService("UserInputService").InputEnded:Connect(function(input, gpe)
 					if gpe then return end
 
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -1714,7 +1675,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				end)
 			end
 
-			Input:TurnOnListener()
+			do Input:TurnOnListener() end
 
 
 		end
