@@ -10,7 +10,7 @@ _G.CandyHighlightOn = false
 _G.CandyTracersOn = false
 _G.VehiclesHighlightOn = false
 
-_G.CopyPlayerAvatarName = game.Players.LocalPlayer.Name
+_G.CopyPlayerAvatarName = nil
 _G.CopyPlayerIncludeWalkStyle = false
 _G.IncludeWalkStyle = false
 _G.RainbowName = false
@@ -40,15 +40,15 @@ _G.SpamPool = false
 
 _G.SpamKnock = false
 _G.SpamBell = false
-_G.BellKnockTarget = game.Players.LocalPlayer.Name
+_G.BellKnockTarget = nil
 
-_G.RoomMateTarget = game.Players.LocalPlayer.Name
-_G.RoomMateHouseTarget = game.Players.LocalPlayer.Name
+_G.RoomMateTarget = nil
+_G.RoomMateHouseTarget = nil
 
 _G.LoopBurnAvatar = false
 _G.LoopSmokeAvatar = false
 
-_G.TargetVehicle = ""
+_G.TargetVehicle = nil
 _G.RainbowCar = false
 _G.RainbowBike = false
 _G.SpamFire = false
