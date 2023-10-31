@@ -46,7 +46,7 @@ _G.RoomMateTarget = game.Players.LocalPlayer.Name
 _G.RoomMateHouseTarget = game.Players.LocalPlayer.Name
 
 _G.LoopBurnAvatar = false
-_G._G.LoopSmokeAvatar = false
+_G.LoopSmokeAvatar = false
 
 _G.TargetVehicle = ""
 _G.RainbowCar = false
