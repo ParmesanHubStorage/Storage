@@ -1,3 +1,4 @@
+pcall(function()
 loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/ParmesanHub_UI_Lib.lua')))()
 local TweenService = game:GetService("TweenService")
 
@@ -2870,3 +2871,4 @@ local Button = Tab:Button({
 		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
 	end)
 })
+end)
