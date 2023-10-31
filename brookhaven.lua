@@ -1310,13 +1310,6 @@ local Toggle = Tab:Toggle({
 		while _G.SpamBell == true do
 			if game.Players.LocalPlayer:DistanceFromCharacter(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_DoorBell"].TouchBell.Position) < 35 then
 				fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_DoorBell"].TouchBell.ClickDetector)
-			else
-				--[[OrionLib:MakeNotification({
-					Name = "Parmesan Hub",
-					Content = "You are too far away from the bell!",
-					Image = "rbxassetid://4483345998",
-					Time = 1
-				})]]--
 			end
 			task.wait(1)
 		end
@@ -1330,13 +1323,6 @@ local Toggle = Tab:Toggle({
 		while _G.SpamKnock == true do
 			if game.Players.LocalPlayer:DistanceFromCharacter(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_HouseDoors"].HouseDoorFront.Knock.TouchBell.Position) < 35 then
 				fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_HouseDoors"].HouseDoorFront.Knock.TouchBell.ClickDetector)
-			else
-				--[[OrionLib:MakeNotification({
-					Name = "Parmesan Hub",
-					Content = "You are too far away from the door!",
-					Image = "rbxassetid://4483345998",
-					Time = 1
-				})]]--
 			end
 			task.wait(1)
 		end
