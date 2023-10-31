@@ -94,7 +94,7 @@ _G.PlayerForKill = nil
 
 _G.SpamChildren = false
 _G.RainbowChildName = false
-
+--[[
 local function PlayersHighlight()
 	for i,v in pairs(game.Players:GetChildren()) do
 		pcall(function()
@@ -287,7 +287,7 @@ local function ChangeAvatar(Avatar)
 
 	game:GetService("ReplicatedStorage").RE["1Avata1rOrigina1l"]:FireServer(ohString1, ohTable2, ohString3)
 end
-
+]]--
 local Main = Library:Init({
 	name = "Brookhaven RP"
 })
