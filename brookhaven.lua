@@ -1579,8 +1579,8 @@ local Toggle = Tab:Toggle({
 local Toggle = Tab:Toggle({
 	name = "Spam Hazards",
 	callback = function(Value)
-		_G._G.SpamHazards = Value
-		while _G._G.SpamHazards == true do
+		_G.SpamHazard = Value
+		while _G.SpamHazard == true do
 			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("Hazards")
 			task.wait(0.5)
 		end
