@@ -1,4 +1,4 @@
-OneDayKey = "KLG_RpNj0w"
+OneDayKey = "d4CeRH-pVD"
 
 PremiumKeys = {
 	OneDayKey,
