@@ -2605,4 +2605,54 @@ local Toggle = Tab:Toggle({
 	end
 })
 
+Tab:Section({
+	text = "Turn On Airport Alarms"
+})
+
+local Button = Tab:Button({
+	name = "Airport",
+	callback = (function()
+		local FirstPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		if not game.Players.LocalPlayer.Character:FindFirstChild("Glock") and not game.Players.LocalPlayer.Backpack:FindFirstChild("Glock") then
+			game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Glock")
+		elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Glock") then
+			game.Players.LocalPlayer.Backpack.Glock.Parent = game.Players.LocalPlayer.Character
+		end
+		game.Players.LocalPlayer.Character:WaitForChild("Glock")
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.WorkspaceCom["001_Airport"]["001_MetalDetector"].CFrame
+		task.wait(0.5)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FirstPos
+	end)
+})
+
+Tab:Section({
+	text = "Hand Trail"
+})
+
+local Button = Tab:Button({
+	name = "Enable Hand Trail",
+	callback = (function()
+		local FirstPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.WorkspaceCom["001_Hospital"].PoolClick.CFrame
+		task.wait(0.5)
+		fireclickdetector(workspace.WorkspaceCom["001_Hospital"].PoolClick.ClickDetector)
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FirstPos
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Disable Hand Trail",
+	callback = (function()
+		local FirstPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.WorkspaceCom["001_Hospital"]["Error Code# 11"].CFrame + Vector3.new(0,2,0)
+		task.wait(0.5)
+		fireclickdetector(workspace.WorkspaceCom["001_Hospital"]["Error Code# 11"].ClickDetector)
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FirstPos
+	end)
+})
+
 print("9")
