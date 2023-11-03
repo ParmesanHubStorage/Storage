@@ -245,3 +245,5 @@ local function ChangeAvatar(Avatar)
 	}
 	game:GetService("ReplicatedStorage").RE["1Avata1rOrigina1l"]:FireServer("CharacterChange", ohTable2, "")
 end
+
+print("1")
