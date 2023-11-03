@@ -2557,4 +2557,32 @@ Dropdown:Add("Fast Fart [1]", 6811876591)
 Dropdown:Add("Fast Fart [2]", 9059590824)
 Dropdown:Add("Long Fart", 7914322871)
 
+local Toggle = Tab:Toggle({
+	name = "Spam Sounds",
+	callback = function(Value)
+		_G.SpamSounds = Value
+		while _G.SpamSounds == true do
+			task.wait(_G.SpamSoundsSpeed)
+			pcall (function()
+				for count = 1, 50, 1 do
+					game:GetService("ReplicatedStorage").RE["1Gu1nSound1s"]:FireServer(workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+					game:GetService("Players").LocalPlayer.PlayerScripts.BulletVisualizerScript.GunSounds:Fire(nil, workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+				end
+			end)
+		end	
+	end
+})
+
+local Slider = Tab:Slider({
+	name = "Spam Sounds Speed",
+	minimum = 0,
+	maximum = 5,
+	default = 1,
+	valuename = "Seconds",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
+		_G.SpamSoundsSpeed = tonumber(Value)
+	end
+})
+
 print("9")
