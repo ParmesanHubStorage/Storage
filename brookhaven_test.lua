@@ -2091,4 +2091,350 @@ local Button = Tab:Button({
 	end)
 })
 
-print("7")
+
+local Tab = Main:CreateTab({
+	name = "Teleport",
+	icon = "rbxassetid://15105266838"
+})
+
+Tab:Section({
+	text = "Teleport to Player"
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Teleport to Player",
+	callback = function(Name, Value)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace:FindFirstChild(Name).HumanoidRootPart.CFrame
+	end,
+	opencallback = function()
+		Dropdown:Clear()
+		for i,v in pairs(game.Players:GetChildren()) do
+			Dropdown:Add(v.Name, nil)
+		end
+	end,
+})
+
+Tab:Section({
+	text = "Places"
+})
+
+local Button = Tab:Button({
+	name = "Cemetery",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-486.3172302246094, 3.62484073638916, 53.34157943725586)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Car Wash",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(279.3940734863281, 3.62484073638916, -296.33111572265625)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Camping",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-349.626220703125, 3.224841356277466, 540.8662109375)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Happy Burger",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(187.38507080078125, 20.399837493896484, -203.4929962158203)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "TV Station",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(212.9704132080078, 20.399404525756836, -167.0987548828125)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Rosie's Gym",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(192.148681640625, 20.499013900756836, -147.99249267578125)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Dance Studio",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(165.79281616210938, 20.487205505371094, -200.68260192871094)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Starbrooks Coffee",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-95.72335815429688, 3.7248406410217285, 245.7701416015625)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Starbrooks Coffee [2]",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-96.5374755859375, 3.684840679168701, 244.6674041748047)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Library and Books",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-129.79335021972656, 3.7248406410217285, 253.23648071289062)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Dentist",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-60.096107482910156, 21.224842071533203, 272.0447692871094)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Shelter",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-78.48543548583984, 21.12483787536621, 271.8721923828125)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "RockStar",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-41.1353759765625, 3.7248406410217285, 252.2581787109375)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Bank",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-41.1353759765625, 3.7248406410217285, 252.2581787109375)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Post Office",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-167.1441192626953, 3.7248406410217285, 260.38519287109375)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "The Brick Restaurant",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-179.65536499023438, 20.2248477935791, 272.7030029296875)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Los Panchos Resturant",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-179.65536499023438, 20.2248477935791, 272.7030029296875)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven School",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-311.805908203125, 3.8248422145843506, 212.73416137695312)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "St.Lukes Hospital",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-303.8172607421875, 3.711090087890625, 26.172260284423828)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Fire Station",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-465.7425231933594, 3.2498409748077393, -83.22677612304688)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Town Hall",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-354.1650695800781, 7.630406856536865, -102.70242309570312)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Police",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-119.82024383544922, 3.62484073638916, -11.593236923217773)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Arcade",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-167.50559997558594, 3.6248419284820557, -101.6902084350586)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Ice Cream",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-127.41191864013672, 3.6248421669006348, -105.03018951416016)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Club Brooks",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-96.55874633789062, 21.20216178894043, -138.99465942382812)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Hair And Nails",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-74.98171997070312, 3.6248421669006348, -102.49715423583984)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Apartments",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-41.79927444458008, 3.624842643737793, -101.74720001220703)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Grocery",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(16.58240509033203, 3.6248421669006348, -106.73407745361328)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Tan Studios",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-168.53213500976562, 19.624839782714844, -122.80098724365234)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Modeling Agency",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-114.10633850097656, 21.224843978881836, -140.1024932861328)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Club",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(162.36705017089844, 3.824845552444458, -168.65599060058594)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Rotten Robbie",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(113.07081604003906, 3.62484073638916, -297.2552795410156)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Auto Shop",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(22.48087501525879, 3.624840259552002, -339.7799072265625)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Funerals",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-82.9734115600586, 37.224830627441406, -207.90890502929688)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Stables",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-771.9862060546875, 3.2248406410217285, -64.02125549316406)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Gold Ranch",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-840.4502563476562, 3.2248408794403076, -343.7743225097656)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Abandoned House",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(998.4240112304688, 3.2248408794403076, 54.60097885131836)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Airport",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(273.5235595703125, 3.6248373985290527, 31.453336715698242)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Yacht",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-121.69788360595703, 23.027076721191406, 865.6168212890625)
+	end)   
+})
+
+Tab:Section({
+	text = "Teleport to Secrets"
+})
+
+local Button = Tab:Button({
+	name = "Agency Red Book",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-142.33779907226562, 12.924863815307617, 260.3987121582031)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Bunker",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(177.38230895996094, 3.650165557861328, -466.6908264160156)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Abandoned Hospital Floor",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-297.2627868652344, 16.811140060424805, 59.182010650634766)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Hospital Secret Room",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-349.6976623535156, 3.711090087890625, 97.45501708984375)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Criminal Base",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-106.30924987792969, -27.275146484375, 236.49752807617188)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Underground Pool",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-54.77513885498047, -17.829505920410156, 107.04366302490234)
+	end)   
+})
+
+print("8")
