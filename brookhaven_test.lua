@@ -94,6 +94,11 @@ _G.PlayerForKill = nil
 _G.SpamChildren = false
 _G.RainbowChildName = false
 
+_G.Noclip = false
+_G.InfJump = false
+_G.FlyOn = false
+_G.FlySpeed = 1
+
 local function PlayersHighlight()
 	for i,v in pairs(game.Players:GetChildren()) do
 		pcall(function()
@@ -269,4 +274,210 @@ local Slider = Tab:Slider({
 	end
 })
 
-print("2")
+local Slider = Tab:Slider({
+	name = "Gravity",
+	minimum = -1,
+	maximum = 1000,
+	default = 196,
+	valuename = "Gravity",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
+		workspace.Gravity = tonumber(Value)
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Noclip",
+	callback = function(Value)
+		_G.Noclip = Value
+		if _G.Noclip == true then
+			local temp
+			temp = game:GetService("RunService").Stepped:connect(function()
+				if _G.Noclip == true then
+					for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+						if v:IsA("BasePart") then
+							v.CanCollide = false
+						end
+					end
+				else
+					for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+						if v.Name == "LowerTorso" or v.Name == "UpperTorso" then
+							v.CanCollide = true
+						end
+					end
+					temp:Disconnect()
+				end
+			end)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Infinite Jump",
+	callback = function(Value)
+		_G.InfJump = Value
+		local InfJumpFunc
+		if InfJumpFunc then InfJumpFunc:Disconnect() end
+		if _G.InfJump == true then
+			while not game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") do
+				task.wait()
+			end
+			InfJumpFunc = game:GetService("UserInputService").JumpRequest:Connect(function()
+				if _G.InfJump == true then
+					game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+				end
+			end)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Fly (PC Only, Press [F] Button to Toggle)",
+	callback = function(Value)
+		_G.FlyOn = Value
+		local Max = 0
+		local Players = game.Players
+		local LP = Players.LocalPlayer
+		local Mouse = LP:GetMouse()
+		Mouse.KeyDown:connect(
+			function(k)
+				if k:lower() == "f" then
+					Max = Max + 1
+					_G.Fly = false
+					if _G.FlyOn then
+						local T = LP.Character.UpperTorso
+						local S = {
+							F = 0,
+							B = 0,
+							L = 0,
+							R = 0
+						}
+						local S2 = {
+							F = 0,
+							B = 0,
+							L = 0,
+							R = 0
+						}
+						local SPEED = 500
+						local function FLY()
+							_G.Fly = true
+							local BodyGyro = Instance.new("BodyGyro", T)
+							local BodyVelocity = Instance.new("BodyVelocity", T)
+							BodyGyro.P = 9e4
+							BodyGyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+							BodyGyro.cframe = T.CFrame
+							BodyVelocity.velocity = Vector3.new(0, 0.1, 0)
+							BodyVelocity.maxForce = Vector3.new(9e9, 9e9, 9e9)
+							spawn(function()
+								repeat
+									game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Ragdoll")
+									task.wait()
+								until not _G.Fly
+							end)
+							spawn(
+								function()
+									repeat
+
+										wait()
+										if LP.Character:FindFirstChildOfClass("Humanoid") then LP.Character.Humanoid.PlatformStand = false end
+										if S.L + S.R ~= 0 or S.F + S.B ~= 0 then
+											SPEED = _G.FlySpeed * 40
+										elseif not (S.L + S.R ~= 0 or S.F + S.B ~= 0) and SPEED ~= 0 then
+											SPEED = 0
+										end
+										if (S.L + S.R) ~= 0 or (S.F + S.B) ~= 0 then
+											BodyVelocity.velocity =
+												((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (S.F + S.B)) +
+													((game.Workspace.CurrentCamera.CoordinateFrame *
+														CFrame.new(S.L + S.R, (S.F + S.B) * 0.2, 0).p) -
+														game.Workspace.CurrentCamera.CoordinateFrame.p)) *
+												SPEED
+											S2 = {
+												F = S.F,
+												B = S.B,
+												L = S.L,
+												R = S.R
+											}
+										elseif (S.L + S.R) == 0 and (S.F + S.B) == 0 and SPEED ~= 0 then
+											BodyVelocity.velocity =
+												((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (S2.F + S2.B)) +
+													((game.Workspace.CurrentCamera.CoordinateFrame *
+														CFrame.new(S2.L + S2.R, (S2.F + S2.B) * 0.2, 0).p) -
+														game.Workspace.CurrentCamera.CoordinateFrame.p)) *
+												SPEED
+										else
+											BodyVelocity.velocity = Vector3.new(0, 0.1, 0)
+										end
+										BodyGyro.cframe = game.Workspace.CurrentCamera.CoordinateFrame
+									until not _G.Fly
+									S = {
+										F = 0,
+										B = 0,
+										L = 0,
+										R = 0
+									}
+									S2 = {
+										F = 0,
+										B = 0,
+										L = 0,
+										R = 0
+									}
+									SPEED = 0
+									BodyGyro:destroy()
+									BodyVelocity:destroy()
+									LP.Character.Humanoid.PlatformStand = false
+									game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("GettingUp")
+								end
+							)
+						end
+						Mouse.KeyDown:connect(
+							function(k)
+								if k:lower() == "w" then
+									S.F = 1
+								elseif k:lower() == "s" then
+									S.B = -1
+								elseif k:lower() == "a" then
+									S.L = -1
+								elseif k:lower() == "d" then
+									S.R = 1
+								end
+							end
+						)
+						Mouse.KeyUp:connect(
+							function(k)
+								if k:lower() == "w" then
+									S.F = 0
+								elseif k:lower() == "s" then
+									S.B = 0
+								elseif k:lower() == "a" then
+									S.L = 0
+								elseif k:lower() == "d" then
+									S.R = 0
+								end
+							end
+						)
+						FLY()
+						if Max == 2 then
+							_G.Fly = false
+							Max = 0
+						end
+					end
+				end
+			end
+		)
+	end
+})
+
+local Slider = Tab:Slider({
+	name = "Change Fly Speed",
+	minimum = 1,
+	maximum = 250,
+	default = 1,
+	valuename = "Fly Speed",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
+		_G.FlySpeed = tonumber(Value)
+	end
+})
+
+print("3")
