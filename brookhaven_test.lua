@@ -1347,4 +1347,1416 @@ local Input = Tab:Input({
 })
 
 
-print("5")
+local Tab = Main:CreateTab({
+	name = "Vehicles",
+	icon = "rbxassetid://15101017615"
+})
+
+Tab:Section({
+	text = "Vehicles List"
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Remove Vehicle",
+	callback = function(Name, Value)
+		_G.TargetVehicle = Name
+	end,
+	opencallback = function()
+		Dropdown:Clear()
+		for i,v in pairs(workspace.Vehicles:GetChildren()) do
+			Dropdown:Add(v.Name, nil)
+		end
+	end,
+})
+
+local Button = Tab:Button({
+	name = "Teleport To Vehicle",
+	callback = (function()
+		for i,v in pairs(workspace.Vehicles:FindFirstChild(_G.TargetVehicle):GetDescendants()) do
+			if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("Seat") then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+			end
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Remove Vehicle",
+	callback = (function()
+		while game.Players.LocalPlayer.Character.Humanoid.Sit == false and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 do
+			for i,v in pairs(workspace.Vehicles:FindFirstChild(_G.TargetVehicle):GetDescendants()) do
+				if v:IsA("Seat") then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+					task.wait(0.05)
+				end
+			end
+			task.wait(0.05)
+		end
+		while game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 do
+			tpNpc(workspace.Vehicles:FindFirstChild(_G.TargetVehicle), Vector3.new(-2500000, -2500000, 0), 1)
+			for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if v:IsA("BasePart") then
+					v.CanCollide = false
+				end
+			end
+			task.wait(1)
+		end
+	end)
+})
+
+Tab:Section({
+	text = "Free Vehicle Section"
+})
+
+local Input = Tab:Input({
+	name = "Set Car Speed",
+	placeholdertext = "number",
+	cleartextonfocus = true,
+	callback = function(Value)
+		workspace.Vehicles:FindFirstChild(game.Players.LocalPlayer.Name.."Car").Body.VehicleSeat.TopSpeed.Value = tonumber(Value)
+	end
+})
+
+local Input = Tab:Input({
+	name = "Set Car Turbo Multiplier",
+	placeholdertext = "number",
+	cleartextonfocus = true,
+	callback = function(Value)
+		workspace.Vehicles:FindFirstChild(game.Players.LocalPlayer.Name.."Car").Body.VehicleSeat.Turbo.Value = tonumber(Value)
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Horn",
+	callback = function(Value)
+		_G.SpamHorn = Value
+		while _G.SpamHorn == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("Horn")
+			task.wait(0.25)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("HornStop")
+			task.wait(0.1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Lights",
+	callback = function(Value)
+		_G.SpamLight = Value
+		while _G.SpamLight == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("Lights")
+			task.wait(0.5)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Hazards",
+	callback = function(Value)
+		_G.SpamHazard = Value
+		while _G.SpamHazard == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("Hazards")
+			task.wait(0.5)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Height",
+	callback = function(Value)
+		_G.SpamHeight = Value
+		while _G.SpamHeight == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("VehicleHeight", 1)
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("VehicleHeight", 2)
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("VehicleHeight", 3)
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("VehicleHeight", 4)
+			task.wait(0.5)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Wheel",
+	callback = function(Value)
+		_G.SpamWheel = Value
+		while _G.SpamWheel == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("WheelNumber")
+			task.wait(0.5)
+		end
+	end
+})
+
+Tab:Section({
+	text = "Premium Vehicle Section"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Toggle Name",
+	callback = function(Value)
+		_G.RainbowCar = Value
+		while _G.RainbowCar == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("PickingCarColor", Color3.new(1, 0, 0))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("PickingCarColor", Color3.new(1, 0, 1))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("PickingCarColor", Color3.new(0.666667, 0, 0))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("PickingCarColor", Color3.new(0, 0, 1))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("PickingCarColor", Color3.new(0, 1, 1))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("PickingCarColor", Color3.new(0, 1, 0))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("PickingCarColor", Color3.new(1, 1, 0))
+			task.wait(1)
+		end
+	end
+})
+
+local Button = Tab:Button({
+	name = "Blow All Wheels",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("BlowFrontLeft")
+		game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("BlowFrontRight")
+		game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("BlowRearRight")
+		game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("BlowRearLeft")
+	end)
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Blow a Specific Wheel",
+	callback = function(Name, Value)
+		game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer(Value)
+	end,
+	opencallback = function()
+
+	end,
+})
+
+Dropdown:Add("Front Left", "BlowFrontLeft")
+Dropdown:Add("Front Right", "BlowFrontRight")
+Dropdown:Add("Rear Left", "BlowRearLeft")
+Dropdown:Add("Rear Right", "BlowRearRight")
+
+local Toggle = Tab:Toggle({
+	name = "Spam Fire",
+	callback = function(Value)
+		_G.SpamFire = Value
+		while _G.SpamFire == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("Fire")
+			task.wait(0.5)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Duke [1]",
+	callback = function(Value)
+		_G.SpamDuke1 = Value
+		while _G.SpamDuke1 == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("Duke")
+			task.wait(0.5)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Duke [2]",
+	callback = function(Value)
+		_G.SpamDuke2 = Value
+		while _G.SpamDuke2 == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("Duke1")
+			task.wait(0.5)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Turbo",
+	callback = function(Value)
+		_G.SpamTurbo = Value
+		while _G.SpamTurbo == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("TurboStage", 1)
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("TurboStage", 2)
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("TurboStage", 3)
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("TurboStage", 4)
+			task.wait(0.5)
+		end
+	end
+})
+
+local Input = Tab:Input({
+	name = "Set Car Music",
+	placeholdertext = "ID",
+	cleartextonfocus = true,
+	callback = function(Value)
+		game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("PickingCarMusicText", Value)
+	end
+})
+
+Tab:Section({
+	text = "Bike Section"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Bike",
+	callback = function(Value)
+		_G.RainbowBike = Value
+		while _G.RainbowBike == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("NoMotorColor", Color3.new(1, 0, 0))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("NoMotorColor", Color3.new(1, 0, 1))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("NoMotorColor", Color3.new(0.666667, 0, 0))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("NoMotorColor", Color3.new(0, 0, 1))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("NoMotorColor", Color3.new(0, 1, 1))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("NoMotorColor", Color3.new(0, 1, 0))
+			task.wait(1)
+			game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]:FireServer("NoMotorColor", Color3.new(1, 1, 0))
+			task.wait(1)
+		end
+	end
+})
+
+Tab:Section({
+	text = "Tank Section"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Shoot",
+	callback = function(Value)
+		_G.SpamShoot = Value
+		while _G.SpamShoot == true do
+			for i,v in pairs (workspace.Vehicles:FindFirstChild(game.Players.LocalPlayer.Name.."Car"):GetDescendants()) do
+				if v.Name == "Shoot" then
+					fireclickdetector(v.ClickDetector)
+				end
+			end
+			task.wait(0.5)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Shoot All Tanks",
+	callback = function(Value)
+		_G.SpamShootAll = Value
+		while _G.SpamShootAll == true do
+			for i,v in pairs (workspace.Vehicles:GetDescendants()) do
+				if v.Name == "Shoot" then
+					fireclickdetector(v.ClickDetector)
+				end
+			end
+			task.wait(0.5)
+		end
+	end
+})
+
+Tab:Section({
+	text = "Nascar Truck Section"
+})
+
+local Input = Tab:Input({
+	name = "Nascar Truck Name",
+	placeholdertext = "name",
+	cleartextonfocus = true,
+	callback = function(Value)
+		game:GetService("ReplicatedStorage").RE["1Cemeter1y"]:FireServer("ReturningNascarTruckName", Value)
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Nascar Truck Text",
+	callback = function(Value)
+		_G.RainbowNascarTruck = Value
+		while _G.RainbowNascarTruck == true do
+			for i,v in pairs(game:GetService("Players").averylocalcheese.PlayerGui.MainGUIHandler.Menu.NascarTruckName.A.B.C.Frame:GetChildren()) do
+				if v.Name == "Colors" then
+					game:GetService("ReplicatedStorage").RE["1Cemeter1y"]:FireServer("PickingNascarTruckNameColor", v.Color)
+				end
+				task.wait(0.5)
+			end
+			task.wait()
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Nascar Truck Text [Premium]",
+	callback = function(Value)
+		_G.RainbowNascarTruckPremium = Value
+		while _G.RainbowNascarTruckPremium == true do
+			for i,v in pairs(game:GetService("Players").averylocalcheese.PlayerGui.MainGUIHandler.Menu.NascarPremiumName.A.B.C.Frame:GetChildren()) do
+				if v.Name == "Colors" then
+					game:GetService("ReplicatedStorage").RE["1Cemeter1y"]:FireServer("PickingNascarPremiumNameColor", v.Color)
+				end
+				task.wait(0.5)
+			end
+			task.wait()
+		end
+	end
+})
+
+Tab:Section({
+	text = "Food Truck Section"
+})
+
+local Input = Tab:Input({
+	name = "Food Truck Name",
+	placeholdertext = "name",
+	cleartextonfocus = true,
+	callback = function(Value)
+		game:GetService("ReplicatedStorage").RE["1Cemeter1y"]:FireServer("ReturningFoodTruckName", Value)
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Food Truck Text",
+	callback = function(Value)
+		_G.RainbowFoodTruck = Value
+		while _G.RainbowFoodTruck == true do
+			for i,v in pairs(game:GetService("Players").averylocalcheese.PlayerGui.MainGUIHandler.Menu.FoodTruckName.A.B.C.Frame:GetChildren()) do
+				if v.Name == "Colors" then
+					game:GetService("ReplicatedStorage").RE["1Cemeter1y"]:FireServer("PickingFoodTruckNameColor", v.Color)
+				end
+				task.wait(0.5)
+			end
+			task.wait()
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Window",
+	callback = function(Value)
+		_G.LoopFoodTruckWindow = Value
+		while _G.LoopFoodTruckWindow == true do
+			for i,v in pairs(workspace.Vehicles:FindFirstChild(game.Players.LocalPlayer.Name.."Car"):GetDescendants()) do
+				if v.Name == "MovePart" then
+					fireclickdetector(v.ClickDetector)
+				end
+			end
+			task.wait(0.5)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Design",
+	callback = function(Value)
+		_G.LoopFoodTruckDesign = Value
+		while _G.LoopFoodTruckDesign == true do
+			for i,v in pairs(workspace.Vehicles:FindFirstChild(game.Players.LocalPlayer.Name.."Car"):GetDescendants()) do
+				if v.Name == "FlipThrough" then
+					fireclickdetector(v.ClickDetector)
+				end
+			end
+			task.wait(0.5)
+		end
+	end
+})
+
+Tab:Section({
+	text = "Horse Section"
+})
+
+local Input = Tab:Input({
+	name = "Change Horse Name",
+	placeholdertext = "name",
+	cleartextonfocus = true,
+	callback = function(Value)
+		game:GetService("ReplicatedStorage").RE["1Hors1eRemot1e"]:FireServer("HorseName", Value)
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Horse Name",
+	callback = function(Value)
+		_G.RainbowHorse = Value
+		while _G.RainbowHorse == true do
+			for i,v in pairs(game:GetService("Players").averylocalcheese.PlayerGui.MainGUIHandler.HorseControl.HorseText.HorseText.Picks.Frame:GetChildren()) do
+				if v.Name == "Colors" then
+					game:GetService("ReplicatedStorage").RE["1Cemeter1y"]:FireServer("PickingNascarTruckNameColor", v.Color)
+				end
+				task.wait(0.5)
+			end
+			task.wait()
+		end
+	end
+})
+
+local Button = Tab:Button({
+	name = "Black Horse",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Hors1eRemot1e"]:FireServer("BlackHorseFree")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Brown Horse",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Hors1eRemot1e"]:FireServer("BrownHorseFree")
+	end)
+})
+
+Tab:Section({
+	text = "Horse Section (Horse Pass)"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Saddle",
+	callback = function(Value)
+		_G.RainbowSaddle = Value
+		while _G.RainbowSaddle == true do
+			for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.HorseControl.SaddleColorPicks.ColorPicks.Picks.Frame:GetChildren()) do
+				if v.Name == "Colors" then
+					game:GetService("ReplicatedStorage").RE["1Cemeter1y"]:FireServer("PickingNascarTruckNameColor", v.Color)
+				end
+				task.wait(0.5)
+			end
+			task.wait()
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Horse Hair",
+	callback = function(Value)
+		_G.RainbowHorseHair = Value
+		while _G.RainbowHorseHair == true do
+			for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.HorseControl.SaddleColorPicks.ColorPicks.Picks.Frame:GetChildren()) do
+				if v.Name == "Colors" then
+					game:GetService("ReplicatedStorage").RE["1Cemeter1y"]:FireServer("PickingNascarTruckNameColor", v.Color)
+				end
+				task.wait(0.5)
+			end
+			task.wait()
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Horse Body",
+	callback = function(Value)
+		_G.RainbowHorseBody = Value
+		while _G.RainbowHorseBody == true do
+			for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.HorseControl.TexturePicks.ColorPicks.Picks.Frame:GetChildren()) do
+				if v.Name == "Colors" then
+					game:GetService("ReplicatedStorage").RE["1Cemeter1y"]:FireServer("PickingNascarTruckNameColor", v.Color)
+				end
+				task.wait(0.5)
+			end
+			task.wait()
+		end
+	end
+})
+
+Tab:Section({
+	text = "Helicopter Section"
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Change Helicopter Design",
+	callback = function(Name, Value)
+		game:GetService("ReplicatedStorage").RE["1Max1y"]:FireServer("", Value)
+	end,
+	opencallback = function()
+
+	end,
+})
+
+Dropdown:Add("Police", "PoliceMeshID")
+Dropdown:Add("Rescue", "RescueMeshID")
+Dropdown:Add("TubeTV", "TuveTVMeshID")
+Dropdown:Add("Military", "MilitaryMeshID")
+Dropdown:Add("Agency", "AgencyMeshID")
+Dropdown:Add("Sheriff", "SheriffMeshID")
+Dropdown:Add("State Trooper", "StateTrooperMeshID")
+
+local Button = Tab:Button({
+	name = "Remove Helicopter",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Max1y"]:FireServer("", "TakeOff")
+	end)
+})
+
+local Tab = Main:CreateTab({
+	name = "Tools",
+	icon = "rbxassetid://15101015572"
+})
+
+Tab:Section({
+	text = "Backpack"
+})
+
+local Button = Tab:Button({
+	name = "Get All Menu Tools",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Clea1rTool1s"]:FireServer("ClearAllTools")
+		for i,v in pairs(game:GetService("StarterGui").NoResetGUIHandler.MainToolMenu.Catalog.Container.ScrollingFrame:GetChildren()) do
+			if v.ClassName ~= "UIGridLayout" then
+				game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", v.Name)
+			end
+			task.wait()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Equip All Tools",
+	callback = (function()
+		for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+			if v:IsA("Tool") then
+				v.Parent = game.Players.LocalPlayer.Character
+			end
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Remove All Tools",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Clea1rTool1s"]:FireServer("ClearAllTools")
+	end)
+})
+
+Tab:Section({
+	text = "Get Secret Items"
+})
+
+local Button = Tab:Button({
+	name = "Couch",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Couch")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Fire Hose",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "FireHose")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Crystal",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Crystal")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Crystals",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Crystals")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Agency Book",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "AgencyBook")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Arch",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Arch")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Corn",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Corn")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Tree",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Tree")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Hay",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Hay")
+	end)	
+})
+
+
+local Button = Tab:Button({
+	name = "Pumpkin",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Pumpkin")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Sign",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Sign")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Black Sign",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "SignBlack")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Pink Sign",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "SignPink")
+	end)
+})
+
+
+local Button = Tab:Button({
+	name = "Red Sign",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "SignRed")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Fire Paperbag",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "PaperbagFire")
+	end)
+})
+
+Tab:Section({
+	text = "Miscellaneous"
+})
+
+local Button = Tab:Button({
+	name = "Get All Cards",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Clea1rTool1s"]:FireServer("ClearAllTools")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "CreditCardGirl")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "CreditCardBoy")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "BankKeyCard")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "PowerKeyCard")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Get All Guns",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Clea1rTool1s"]:FireServer("ClearAllTools")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "GlockBrown")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Glock")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Assault")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Shotgun")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Sniper")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Taser")
+	end)
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Sign Text",
+	callback = function(Value)
+		_G.RainbowSignText = Value
+		while _G.RainbowSignText == true do
+			for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.GunGUI.SignGui.A.B.C.Frame:GetChildren()) do
+				if v.Name == "Colors" then
+					game:GetService("ReplicatedStorage").RE["1Cemeter1y"]:FireServer("PickingNascarPremiumNameColor", v.Color)
+				end
+				task.wait(0.5)
+			end
+			task.wait()
+		end
+	end
+})
+
+local Button = Tab:Button({
+	name = "Get Shopping Cart",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "ShoppingCart")
+	end)
+})
+
+local Tab = Main:CreateTab({
+	name = "Teleport",
+	icon = "rbxassetid://15105266838"
+})
+
+Tab:Section({
+	text = "Teleport to Player"
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Teleport to Player",
+	callback = function(Name, Value)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace:FindFirstChild(Name).HumanoidRootPart.CFrame
+	end,
+	opencallback = function()
+		Dropdown:Clear()
+		for i,v in pairs(game.Players:GetChildren()) do
+			Dropdown:Add(v.Name, nil)
+		end
+	end,
+})
+
+Tab:Section({
+	text = "Places"
+})
+
+local Button = Tab:Button({
+	name = "Cemetery",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-486.3172302246094, 3.62484073638916, 53.34157943725586)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Car Wash",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(279.3940734863281, 3.62484073638916, -296.33111572265625)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Camping",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-349.626220703125, 3.224841356277466, 540.8662109375)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Happy Burger",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(187.38507080078125, 20.399837493896484, -203.4929962158203)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "TV Station",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(212.9704132080078, 20.399404525756836, -167.0987548828125)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Rosie's Gym",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(192.148681640625, 20.499013900756836, -147.99249267578125)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Dance Studio",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(165.79281616210938, 20.487205505371094, -200.68260192871094)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Starbrooks Coffee",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-95.72335815429688, 3.7248406410217285, 245.7701416015625)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Starbrooks Coffee [2]",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-96.5374755859375, 3.684840679168701, 244.6674041748047)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Library and Books",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-129.79335021972656, 3.7248406410217285, 253.23648071289062)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Dentist",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-60.096107482910156, 21.224842071533203, 272.0447692871094)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Shelter",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-78.48543548583984, 21.12483787536621, 271.8721923828125)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "RockStar",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-41.1353759765625, 3.7248406410217285, 252.2581787109375)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Bank",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-41.1353759765625, 3.7248406410217285, 252.2581787109375)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Post Office",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-167.1441192626953, 3.7248406410217285, 260.38519287109375)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "The Brick Restaurant",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-179.65536499023438, 20.2248477935791, 272.7030029296875)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Los Panchos Resturant",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-179.65536499023438, 20.2248477935791, 272.7030029296875)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven School",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-311.805908203125, 3.8248422145843506, 212.73416137695312)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "St.Lukes Hospital",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-303.8172607421875, 3.711090087890625, 26.172260284423828)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Fire Station",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-465.7425231933594, 3.2498409748077393, -83.22677612304688)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Town Hall",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-354.1650695800781, 7.630406856536865, -102.70242309570312)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Police",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-119.82024383544922, 3.62484073638916, -11.593236923217773)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Arcade",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-167.50559997558594, 3.6248419284820557, -101.6902084350586)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Ice Cream",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-127.41191864013672, 3.6248421669006348, -105.03018951416016)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Club Brooks",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-96.55874633789062, 21.20216178894043, -138.99465942382812)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Hair And Nails",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-74.98171997070312, 3.6248421669006348, -102.49715423583984)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Apartments",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-41.79927444458008, 3.624842643737793, -101.74720001220703)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Grocery",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(16.58240509033203, 3.6248421669006348, -106.73407745361328)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Tan Studios",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-168.53213500976562, 19.624839782714844, -122.80098724365234)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Modeling Agency",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-114.10633850097656, 21.224843978881836, -140.1024932861328)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Club",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(162.36705017089844, 3.824845552444458, -168.65599060058594)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Rotten Robbie",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(113.07081604003906, 3.62484073638916, -297.2552795410156)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Auto Shop",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(22.48087501525879, 3.624840259552002, -339.7799072265625)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Funerals",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-82.9734115600586, 37.224830627441406, -207.90890502929688)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Stables",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-771.9862060546875, 3.2248406410217285, -64.02125549316406)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Gold Ranch",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-840.4502563476562, 3.2248408794403076, -343.7743225097656)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Abandoned House",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(998.4240112304688, 3.2248408794403076, 54.60097885131836)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Brookhaven Airport",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(273.5235595703125, 3.6248373985290527, 31.453336715698242)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Yacht",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-121.69788360595703, 23.027076721191406, 865.6168212890625)
+	end)   
+})
+
+Tab:Section({
+	text = "Teleport to Secrets"
+})
+
+local Button = Tab:Button({
+	name = "Agency Red Book",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-142.33779907226562, 12.924863815307617, 260.3987121582031)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Bunker",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(177.38230895996094, 3.650165557861328, -466.6908264160156)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Abandoned Hospital Floor",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-297.2627868652344, 16.811140060424805, 59.182010650634766)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Hospital Secret Room",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-349.6976623535156, 3.711090087890625, 97.45501708984375)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Criminal Base",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-106.30924987792969, -27.275146484375, 236.49752807617188)
+	end)   
+})
+
+local Button = Tab:Button({
+	name = "Underground Pool",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-54.77513885498047, -17.829505920410156, 107.04366302490234)
+	end)   
+})
+
+local Tab = Main:CreateTab({
+	name = "Misc",
+	icon = "rbxassetid://15101016621"
+})
+
+Tab:Section({
+	text = "Get Gamepasses"
+})
+
+local Button = Tab:Button({
+	name = "Unlock All Premium Faces and Accessories",
+	callback = (function()
+		local Faces = game:GetService("Players").averylocalcheese.PlayerGui.NoResetGUIHandler.MainEditor.Catalog.Container.ScrollingFrame
+		while not Faces:FindFirstChildOfClass("ImageButton") do task.wait() end
+		for i,v in pairs(Faces:GetChildren()) do
+			if v:IsA("ImageButton") then
+				v.FacePassMesh.Visible = false
+			end
+		end
+
+		local GetFace = game.ReplicatedStorage.RE["1Updat1eAvata1r"]
+		local namecall
+		namecall = hookmetamethod(game,"__namecall",function(self,...)
+			local args = {...}
+			local method = getnamecallmethod():lower()
+			if not checkcaller() and self == GetFace and method == "fireserver" then
+				args[1] = _G.replacementstring or "wear"
+				return namecall(self,unpack(args))
+			end
+			return namecall(self,...)
+		end)
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Unlock Fire Pass",
+	callback = (function()
+		if not game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.Shop.OpenButton.MainOpen:FindFirstChild("Fire") then
+			local Fire = game:GetService("StarterGui").MainGUIHandler.Shop.MainButtons.MainOpen.Fire:Clone()
+			Fire.BackgroundTransparency = 0.6
+			Fire.Parent = game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.Shop.OpenButton.MainOpen
+
+			local openbutton = game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.Shop.OpenButton.MainOpen.Fire
+			local Gui = game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.Menu.FireAskFirePassMansion
+
+			openbutton.MouseButton1Click:Connect(function()
+				Gui.Visible = not Gui.Visible
+			end)
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Unlock Premium Children",
+	callback = (function()
+		local Kids = game:GetService("Players").LocalPlayer.PlayerGui.NoResetGUIHandler.MainAvatarMenu.Catalog.Container.ScrollingFrameKid
+		for i,v in pairs(Kids:GetChildren()) do
+			if v:IsA("ImageButton") and v.Name ~= "BabyBoy" and v.Name ~= "BabyGirl" then
+				v.MouseButton1Click:Connect(function()
+					game:GetService("ReplicatedStorage").RE["1Bab1yFollo1w"]:FireServer("CharacterFollowSpawnPlayer", v.Name)
+				end)
+			end
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Unlock Speed Pass",
+	callback = (function()
+		local ChangeSpeed = game:GetService("ReplicatedStorage").RE["1Player1sCa1r"]
+		local namecall
+		namecall = hookmetamethod(game,"__namecall",function(self,...)
+			local args = {...}
+			local method = getnamecallmethod():lower()
+			if not checkcaller() and self == ChangeSpeed and method == "fireserver" then
+				for i,v in pairs(workspace.Vehicles:GetChildren()) do
+					if v.Name == game.Players.LocalPlayer.Name.."Car" then
+						v.Body.VehicleSeat.TopSpeed.Value = tonumber(args[2])
+					end
+				end
+				return namecall(self,unpack(args))
+			end
+			return namecall(self,...)
+		end)
+
+		local SpeedButton = game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.CarControl.CarControl.CarButtons.RegSpeed
+		local Gui = game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.CarControl.PassSpeedGUI
+
+		SpeedButton.MouseButton1Click:Connect(function()
+			Gui.Visible = not Gui.Visible
+			game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.CarControl.RegSpeedGUI:Destroy()
+		end)
+	end)
+})
+
+Tab:Section({
+	text = "Miscellaneous"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Door Fling [FE]",
+	callback = function(Value)
+		_G.DoorFling = Value
+		if _G.DoorFling == true then
+			for i,v in pairs(workspace:GetDescendants()) do
+				if (v:IsA("Part") and (v.Name == "Hinge" or v.Name == "Door")) or (v:IsA("MeshPart") and v.Name == "FakeDoor") then
+					if v:FindFirstChild("Attachment") then v.Attachment:Destroy() end
+					AddAlignPosition(v)
+					AddTorque(v)
+					if v.Parent:FindFirstChild("Part") then
+						AddAlignPosition(v.Parent:FindFirstChild("Part"))
+						AddTorque(v.Parent:FindFirstChild("Part"))
+					end
+				end
+			end
+		elseif _G.DoorFling == false then
+			for i,v in pairs(workspace:GetDescendants()) do
+				if v.Name == "AlignAttach0" or v.Name == "AlignAttach1" or v.Name == "TorqueAttach2" or v.Name == "TorqueAttach3" then
+					v:Destroy()
+				end
+			end
+		end
+	end
+})
+
+local Button = Tab:Button({
+	name = "Collect All Candies",
+	callback = (function()
+		spawn(function()
+			for i,v in pairs (game:GetService("Workspace")["Easter001!"]:FindFirstChildOfClass("Model"):GetChildren()) do
+				firetouchinterest(v, game.Players.LocalPlayer.Character.HumanoidRootPart, 0)
+				task.wait(0.75)
+				firetouchinterest(v, game.Players.LocalPlayer.Character.HumanoidRootPart, 1)
+			end
+		end)
+	end)
+})
+
+Tab:Section({
+	text = "Sound Spam [FE] (Hold a Glock)"
+})
+
+local Button = Tab:Button({
+	name = "Take a Glock",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Glock")
+	end)
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Choose the Sound",
+	callback = function(Name, Value)
+		_G.ChoosedSound = Value
+	end,
+	opencallback = function()
+
+	end,
+})
+
+Dropdown:Add("Scream [1]", 7371285928)
+Dropdown:Add("Scream [2]", 5063277729)
+Dropdown:Add("Scream [3]", 6582769103)
+Dropdown:Add("Scream [4]", 2579151679)
+Dropdown:Add("Train", 3900067524)
+Dropdown:Add("Windows XP Startup", 2208348566)
+Dropdown:Add("Windows XP Exclamation", 7436522768)
+Dropdown:Add("Windows XP Shutdown", 1166082641)
+Dropdown:Add("Iphone Alarm", 4203251375)
+Dropdown:Add("Samsung Notification", 8056635966)
+Dropdown:Add("Lunatic Laugh", 8453844341)
+Dropdown:Add("Scary Laugh", 7854285068)
+Dropdown:Add("Fast Fart [1]", 6811876591)
+Dropdown:Add("Fast Fart [2]", 9059590824)
+Dropdown:Add("Long Fart", 7914322871)
+
+local Toggle = Tab:Toggle({
+	name = "Spam Sounds",
+	callback = function(Value)
+		_G.SpamSounds = Value
+		while _G.SpamSounds == true and task.wait(_G.SpamSoundsSpeed) do
+			pcall (function()
+				for count = 1, 50, 1 do
+					game:GetService("ReplicatedStorage").RE["1Gu1nSound1s"]:FireServer(workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+					game:GetService("Players").LocalPlayer.PlayerScripts.BulletVisualizerScript.GunSounds:Fire(nil, workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+				end
+			end)
+		end	
+	end
+})
+
+local Slider = Tab:Slider({
+	name = "Spam Sounds Speed",
+	minimum = 0,
+	maximum = 5,
+	default = 1,
+	valuename = "Seconds",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
+		_G.SpamSoundsSpeed = tonumber(Value)
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Sounds [Fast, Loud]",
+	callback = function(Value)
+		_G.SpamFastSounds = Value
+		local testtest9
+		testtest9 = game:GetService("RunService").Heartbeat:connect(function()
+			if _G.SpamFastSounds == true then
+				pcall (function()
+					for count = 1, 30, 1 do
+						game:GetService("ReplicatedStorage").RE["1Gu1nSound1s"]:FireServer(workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+						game:GetService("Players").LocalPlayer.PlayerScripts.BulletVisualizerScript.GunSounds:Fire(nil, workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+					end
+				end)
+			elseif _G.SpamFastSounds == false then
+				testtest9:Disconnect()
+			end
+		end)
+	end
+})
+
+Tab:Section({
+	text = "Turn On Airport Alarms"
+})
+
+local Button = Tab:Button({
+	name = "Airport",
+	callback = (function()
+		local FirstPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		if not game.Players.LocalPlayer.Character:FindFirstChild("Glock") and not game.Players.LocalPlayer.Backpack:FindFirstChild("Glock") then
+			game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Glock")
+		elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Glock") then
+			game.Players.LocalPlayer.Backpack.Glock.Parent = game.Players.LocalPlayer.Character
+		end
+		game.Players.LocalPlayer.Character:WaitForChild("Glock")
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.WorkspaceCom["001_Airport"]["001_MetalDetector"].CFrame
+		task.wait(0.5)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FirstPos
+	end)
+})
+
+Tab:Section({
+	text = "Hand Trail"
+})
+
+local Button = Tab:Button({
+	name = "Enable Hand Trail",
+	callback = (function()
+		local FirstPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.WorkspaceCom["001_Hospital"].PoolClick.CFrame
+		task.wait(0.5)
+		fireclickdetector(workspace.WorkspaceCom["001_Hospital"].PoolClick.ClickDetector)
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FirstPos
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Disable Hand Trail",
+	callback = (function()
+		local FirstPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.WorkspaceCom["001_Hospital"]["Error Code# 11"].CFrame + Vector3.new(0,2,0)
+		task.wait(0.5)
+		fireclickdetector(workspace.WorkspaceCom["001_Hospital"]["Error Code# 11"].ClickDetector)
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FirstPos
+	end)
+})
+
+Tab:Section({
+	text = "Kill Player"
+})
+
+local Button = Tab:Button({
+	name = "Kill Player",
+	callback = (function()
+		local CurrentTarget = game.Players:FindFirstChild(_G.PlayerForKill).Character
+		if not game.Players.LocalPlayer.Character:FindFirstChild("Couch") and not game.Players.LocalPlayer.Backpack:FindFirstChild("Couch") then
+			game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Couch")
+		elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Couch") then
+			game.Players.LocalPlayer.Backpack.Couch.Parent = game.Players.LocalPlayer.Character
+		end
+		while CurrentTarget.Humanoid.Sit == false and task.wait() do
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CurrentTarget.HumanoidRootPart.CFrame + Vector3.new(0, -5, 2)
+		end
+		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,-490,0)
+		wait(0.5)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+		task.wait(2)
+		if game.Players.LocalPlayer.Character:FindFirstChild("Couch") then
+			game.Players.LocalPlayer.Character.Couch.Parent = game.Players.LocalPlayer.Backpack
+		end
+	end)
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Choose a Player",
+	callback = function(Name, Value)
+		_G.PlayerForKill = Name
+	end,
+	opencallback = function()
+		Dropdown:Clear()
+		for i,v in pairs(game.Players:GetChildren()) do
+			Dropdown:Add(v.Name, nil)
+		end
+	end,
+})
+
+Tab:Section({
+	text = "Rejoin the Server"
+})
+
+local Button = Tab:Button({
+	name = "Rejoin the Server",
+	callback = (function()
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
+	end)
+})
+
+print("6")
