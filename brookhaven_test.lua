@@ -976,4 +976,375 @@ local Toggle = Tab:Toggle({
 	end
 })
 
-print("4")
+local Tab = Main:CreateTab({
+	name = "Houses",
+	icon = "rbxassetid://15101018631"
+})
+
+Tab:Section({
+	text = "House Name"
+})
+
+local Input = Tab:Input({
+	name = "House Name",
+	placeholdertext = "Name",
+	cleartextonfocus = true,
+	callback = function(Value)
+		game:GetService("ReplicatedStorage").RE["1RPHous1eEven1t"]:FireServer("BusinessName", tostring(Value))
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow House Name",
+	callback = function(Value)
+		_G.RainbowHouseBio = Value
+		while _G.RainbowHouseBio == true do
+			for i,v in pairs(game:GetService("Players").averytiredcheese.PlayerGui.MainGUIHandler.HouseControl.HomeBus.HomeText.Picks.Frame:GetChildren()) do
+				if v.Name == "Colors" then
+					game:GetService("ReplicatedStorage").RE["1RPHous1eEven1tColo1r"]:FireServer("PickingBusinessNameColor", v.Color)
+					task.wait(1)
+				end
+			end
+			task.wait()
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow House",
+	callback = function(Value)
+		_G.RainbowHouse = Value
+		while _G.RainbowHouse == true do
+			for i,v in pairs(game:GetService("Players").averytiredcheese.PlayerGui.MainGUIHandler.HouseControl.HomeBus.HomeText.Picks.Frame:GetChildren()) do
+				game:GetService("ReplicatedStorage").RE["1Player1sHous1e"]:FireServer("ColorPickHouse", Color3.new(math.random(), math.random(), math.random()))
+				task.wait(1.5)
+			end
+			task.wait()
+		end
+	end
+})
+
+Tab:Section({
+	text = "Spam Things"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Curtains",
+	callback = function(Value)
+		_G.SpamCurtains = Value
+		while _G.SpamCurtains == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sHous1e"]:FireServer("Curtains")
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Garage",
+	callback = function(Value)
+		_G.SpamGarage = Value
+		while _G.SpamGarage == true do
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_HouseDoors"].GarageOpeners.Button.ClickDetector)
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Computer",
+	callback = function(Value)
+		_G.SpamComputer = Value
+		while _G.SpamComputer == true do
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Computer"].ChannelDown.ClickDetector)
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Dishwasher",
+	callback = function(Value)
+		_G.SpamDishwasher = Value
+		while _G.SpamDishwasher == true do
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_DishWasher"].Door.Interactive.ClickDetector)
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Campfire",
+	callback = function(Value)
+		_G.SpamCampfire = Value
+		while _G.SpamCampfire == true do
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Fire"].FireClicker.ClickDetector)
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Fridge",
+	callback = function(Value)
+		_G.SpamFridge = Value
+		while _G.SpamFridge == true do
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Fridge"].RightDoor.Handle.ClickDetector)
+			task.wait(1)
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Fridge"].LeftDoor.Handle.ClickDetector)
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Lock / Unlock Door",
+	callback = function(Value)
+		_G.SpamUnlock = Value
+		while _G.SpamUnlock == true do
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_HouseDoors"].LockDoorButton)
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam House Lights",
+	callback = function(Value)
+		_G.SpamHouseLight = Value
+		while _G.SpamHouseLight == true do
+			for i,v in pairs (game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_HouseLights"]:GetChildren()) do
+				fireclickdetector(v.ClickDetector)
+				task.wait(1)
+			end
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Mail Box",
+	callback = function(Value)
+		_G.SpamMailBox = Value
+		while _G.SpamMailBox == true do
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_MailBox"].ModelMove.Door.ClickDetector)
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Oven",
+	callback = function(Value)
+		_G.SpamOven = Value
+		while _G.SpamOven == true do
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Oven"].OvenDoor.Interactive.ClickDetector)
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Safe",
+	callback = function(Value)
+		_G.SpamSafe = Value
+		while _G.SpamSafe == true do
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Safe"].OpenSafeDoorButton.ClickDetector)
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Sink",
+	callback = function(Value)
+		_G.SpamSink = Value
+		while _G.SpamSink == true do
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Sink"].Sink0.WaterOnOff.ClickDetector)
+			task.wait(1)
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Sink2"].Sink0.WaterOnOff.ClickDetector)
+			task.wait(1)
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Sink3"].Sink0.WaterOnOff.ClickDetector)
+			task.wait(1)
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Sink4"].Sink0.WaterOnOff.ClickDetector)
+			task.wait(1)
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Sink5"].Sink0.WaterOnOff.ClickDetector)
+			task.wait(1)
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_Sink7"].Sink0.WaterOnOff.ClickDetector)
+			task.wait(1)
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_SinkTub"].Sink0.WaterOnOff.ClickDetector)
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam TV",
+	callback = function(Value)
+		_G.SpamTV = Value
+		while _G.SpamTV == true do
+			fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(game.Players.LocalPlayer.Name.."House").HousePickedByPlayer.HouseModel["001_TV"].ChannelDown)
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Pool",
+	callback = function(Value)
+		_G.SpamPool = Value
+		while _G.SpamPool == true do
+			game:GetService("ReplicatedStorage").RE["1Player1sHous1e"]:FireServer("PoolOnOff")
+			task.wait(1)
+		end
+	end
+})
+
+Tab:Section({
+	text = "Spam Bell / Knock"
+})
+
+local Input = Tab:Input({
+	name = "Enter Target Name",
+	placeholdertext = "Player",
+	cleartextonfocus = true,
+	callback = function(Value)
+		_G.BellKnockTarget = tostring(Value)
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Bell",
+	callback = function(Value)
+		_G.SpamBell = Value
+		while _G.SpamBell == true do
+			if game.Players.LocalPlayer:DistanceFromCharacter(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_DoorBell"].TouchBell.Position) < 35 then
+				fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_DoorBell"].TouchBell.ClickDetector)
+			end
+			task.wait(1)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Knock",
+	callback = function(Value)
+		_G.SpamKnock = Value
+		while _G.SpamKnock == true do
+			if game.Players.LocalPlayer:DistanceFromCharacter(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_HouseDoors"].HouseDoorFront.Knock.TouchBell.Position) < 35 then
+				fireclickdetector(game:GetService("Workspace")["001_Lots"]:FindFirstChild(_G.BellKnockTarget.."House").HousePickedByPlayer.HouseModel["001_HouseDoors"].HouseDoorFront.Knock.TouchBell.ClickDetector)
+			end
+			task.wait(1)
+		end
+	end	
+})
+
+Tab:Section({
+	text = "Roommate Player"
+})
+
+local Input = Tab:Input({
+	name = "Enter Target Name",
+	placeholdertext = "Input",
+	cleartextonfocus = true,
+	callback = function(Value)
+		_G.RoomMateTarget = tostring(Value)
+	end
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Choose Land",
+	callback = function(Name, Value)
+		_G.RoomMateHouseTarget = Value
+	end,
+	opencallback = function()
+
+	end,
+})
+
+for i,v in pairs(Houses) do
+	local Value = string.match(v, "%d+")
+	Dropdown:Add(v, tonumber(Value))
+end
+
+local Button = Tab:Button({
+	name = "Give Roommate Permissions",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Playe1rTrigge1rEven1t"]:FireServer("GivePermissionLoopToServer", game:GetService("Players"):FindFirstChild(_G.RoomMateTarget), _G.RoomMateHouseTarget)
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Remove Roommate Permissions",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Playe1rTrigge1rEven1t"]:FireServer("RemovePermissionLoopToServer", game:GetService("Players"):FindFirstChild(_G.RoomMateTarget), _G.RoomMateHouseTarget)
+	end)
+})
+
+Tab:Section({
+	text = "Unban From All Houses"
+})
+
+local Button = Tab:Button({
+	name = "Unban From All Houses",
+	callback = (function()
+		for i,v in pairs(game:GetService("Workspace")["001_Lots"]:GetChildren()) do
+			if v:IsA("Part") and v:FindFirstChild("HousePickedByPlayer") then
+				for a,b in pairs(v.HousePickedByPlayer.HouseModel:GetChildren()) do
+					if b.Name:find("BannedBlock") then
+						b:Destroy()
+						break
+					end
+				end
+			end
+		end
+	end)
+})
+
+local Toggle = Tab:Toggle({
+	name = "Auto Unban",
+	callback = function(Value)
+		_G.AutoUnban = Value
+		if _G.AutoUnban == true then
+			local temp2
+			temp2 = game:GetService("RunService").Stepped:connect(function()
+				if _G.AutoUnban == true then
+					for i,v in pairs(game:GetService("Workspace")["001_Lots"]:GetChildren()) do
+						if v:IsA("Part") and v:FindFirstChild("HousePickedByPlayer") then
+							for a,b in pairs(v.HousePickedByPlayer.HouseModel:GetChildren()) do
+								if b.Name:find("BannedBlock") then
+									b:Destroy()
+									break
+								end
+							end
+						end
+					end
+				else
+					temp2:Disconnect()
+				end
+			end)
+		end
+	end
+})
+
+Tab:Section({
+	text = "Miscellaneous"
+})
+
+local Button = Tab:Button({
+	name = "Burn Your House",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Player1sHous1e"]:FireServer("PlayerWantsFireOnFirePassNotShowingAnyone")
+	end)
+})
+
+local Input = Tab:Input({
+	name = "Set House Music",
+	placeholdertext = "ID",
+	cleartextonfocus = true,
+	callback = function(Value)
+		game:GetService("ReplicatedStorage").RE["1Player1sHous1e"]:FireServer("PickHouseMusicText", tonumber(Value))
+	end
+})
+
+
+print("5")
