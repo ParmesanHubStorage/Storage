@@ -2662,14 +2662,14 @@ Tab:Section({
 local Button = Tab:Button({
 	name = "Kill Player",
 	callback = (function()
-		local CurrentTarget = game.Players:FindFirstChild(_G.PlayerForKill).Character
 		if not game.Players.LocalPlayer.Character:FindFirstChild("Couch") and not game.Players.LocalPlayer.Backpack:FindFirstChild("Couch") then
 			game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Couch")
 		elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Couch") then
 			game.Players.LocalPlayer.Backpack.Couch.Parent = game.Players.LocalPlayer.Character
 		end
-		while CurrentTarget.Humanoid.Sit == false and task.wait() do
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CurrentTarget.HumanoidRootPart.CFrame + Vector3.new(0, -5, 2)
+		while game.Players:FindFirstChild(_G.PlayerForKill).Character.Humanoid.Sit == false do
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players:FindFirstChild(_G.PlayerForKill).Character.HumanoidRootPart.CFrame + Vector3.new(0, -5, 2)
+			task.wait()
 		end
 		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,-490,0)
@@ -2682,26 +2682,3 @@ local Button = Tab:Button({
 	end)
 })
 
-local Dropdown = Tab:Dropdown({
-	name = "Choose a Player",
-	callback = function(Name, Value)
-		_G.PlayerForKill = Name
-	end,
-	opencallback = function()
-		Dropdown:Clear()
-		for i,v in pairs(game.Players:GetChildren()) do
-			Dropdown:Add(v.Name, nil)
-		end
-	end,
-})
-
-Tab:Section({
-	text = "Rejoin the Server"
-})
-
-local Button = Tab:Button({
-	name = "Rejoin the Server",
-	callback = (function()
-		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
-	end)
-})
