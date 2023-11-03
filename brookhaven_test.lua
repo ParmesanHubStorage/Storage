@@ -1889,4 +1889,206 @@ local Button = Tab:Button({
 })
 
 
-print("6")
+local Tab = Main:CreateTab({
+	name = "Tools",
+	icon = "rbxassetid://15101015572"
+})
+
+Tab:Section({
+	text = "Backpack"
+})
+
+local Button = Tab:Button({
+	name = "Get All Menu Tools",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Clea1rTool1s"]:FireServer("ClearAllTools")
+		for i,v in pairs(game:GetService("StarterGui").NoResetGUIHandler.MainToolMenu.Catalog.Container.ScrollingFrame:GetChildren()) do
+			if v.ClassName ~= "UIGridLayout" then
+				game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", v.Name)
+			end
+			task.wait()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Equip All Tools",
+	callback = (function()
+		for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+			if v:IsA("Tool") then
+				v.Parent = game.Players.LocalPlayer.Character
+			end
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Remove All Tools",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Clea1rTool1s"]:FireServer("ClearAllTools")
+	end)
+})
+
+Tab:Section({
+	text = "Get Secret Items"
+})
+
+local Button = Tab:Button({
+	name = "Couch",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Couch")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Fire Hose",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "FireHose")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Crystal",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Crystal")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Crystals",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Crystals")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Agency Book",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "AgencyBook")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Arch",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Arch")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Corn",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Corn")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Tree",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Tree")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Hay",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Hay")
+	end)	
+})
+
+
+local Button = Tab:Button({
+	name = "Pumpkin",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Pumpkin")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Sign",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Sign")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Black Sign",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "SignBlack")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Pink Sign",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "SignPink")
+	end)
+})
+
+
+local Button = Tab:Button({
+	name = "Red Sign",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "SignRed")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Fire Paperbag",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "PaperbagFire")
+	end)
+})
+
+Tab:Section({
+	text = "Miscellaneous"
+})
+
+local Button = Tab:Button({
+	name = "Get All Cards",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Clea1rTool1s"]:FireServer("ClearAllTools")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "CreditCardGirl")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "CreditCardBoy")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "BankKeyCard")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "PowerKeyCard")
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Get All Guns",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Clea1rTool1s"]:FireServer("ClearAllTools")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "GlockBrown")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Glock")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Assault")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Shotgun")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Sniper")
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Taser")
+	end)
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Sign Text",
+	callback = function(Value)
+		_G.RainbowSignText = Value
+		while _G.RainbowSignText == true do
+			for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.GunGUI.SignGui.A.B.C.Frame:GetChildren()) do
+				if v.Name == "Colors" then
+					game:GetService("ReplicatedStorage").RE["1Cemeter1y"]:FireServer("PickingNascarPremiumNameColor", v.Color)
+				end
+				task.wait(0.5)
+			end
+			task.wait()
+		end
+	end
+})
+
+local Button = Tab:Button({
+	name = "Get Shopping Cart",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "ShoppingCart")
+	end)
+})
+
+print("7")
