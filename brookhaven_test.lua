@@ -480,4 +480,500 @@ local Slider = Tab:Slider({
 	end
 })
 
-print("3")
+Tab:Section({
+	text = "Visuals"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Players ESP",
+	callback = function(Value)
+		_G.PlayersHighlightOn = Value
+		if _G.PlayersHighlightOn == true then
+			local testtest1
+			testtest1 = game:GetService("RunService").Stepped:connect(function()
+				if _G.PlayersHighlightOn == true then
+					PlayersHighlight()
+				elseif _G.PlayersHighlightOn == false then
+					for i,v in pairs(game.Players:GetChildren()) do
+						if v.Name ~= game.Players.LocalPlayer.Name and v.Character:FindFirstChild("Highlight") then
+							v.Character.Highlight:Destroy()
+						end
+					end
+					testtest1:Disconnect()
+				end
+			end)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Players Tracers",
+	callback = function(Value)
+		_G.PlayersTracersOn = Value
+		if _G.PlayersTracersOn == true then
+			local testtest2
+			testtest2 = game:GetService("RunService").Stepped:connect(function()
+				if _G.PlayersTracersOn == true then
+					playersTracers()
+				elseif _G.PlayersTracersOn == false then
+					for i,v in pairs (game.Players.LocalPlayer.Character.HumanoidRootPart:GetChildren()) do
+						if v.ClassName == "Beam" then v:Destroy() end
+					end
+					for i,v in pairs (game.Players:GetPlayers()) do
+						if v.Character.HumanoidRootPart:FindFirstChild("PlayerTracer") then
+							v.Character.HumanoidRootPart.PlayerTracer:Destroy()
+						end
+					end
+					testtest2:Disconnect()
+				end
+			end)
+		end
+	end
+})
+
+local Tab = Main:CreateTab({
+	name = "Avatar",
+	icon = "rbxassetid://15101014644"
+})
+
+Tab:Section({
+	text = "Avatar"
+})
+
+local Button = Tab:Button({
+	name = "Faceless (FE)",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Updat1eAvata1r"]:FireServer("wear", 12350593459)
+		task.wait(0.5)
+		game:GetService("ReplicatedStorage").RE["1Updat1eAvata1r"]:FireServer("wear", 12350593459)
+	end)
+})
+
+local Input = Tab:Input({
+	name = "Wear Custom Face / Shirt / Pants / Accessory",
+	placeholdertext = "ID",
+	cleartextonfocus = true,
+	callback = function(Value)
+		game:GetService("ReplicatedStorage").RE["1Updat1eAvata1r"]:FireServer("wear", tonumber(Value))
+	end
+})
+
+Tab:Section({
+	text = "Copy Avatar"
+})
+
+local Input = Tab:Input({
+	name = "Enter Player's Name",
+	placeholdertext = "Player",
+	cleartextonfocus = true,
+	callback = function(Value)
+		_G.CopyPlayerAvatarName = tostring(Value)
+	end
+})
+
+local Button = Tab:Button({
+	name = "Copy Player Avatar",
+	callback = (function()
+		local UpdateAvatar = game:GetService("ReplicatedStorage").RE["1Updat1eAvata1r"]
+		local HumanoidDescription = game.Players:FindFirstChild(_G.CopyPlayerAvatarName).Character.Humanoid.HumanoidDescription
+		game:GetService("ReplicatedStorage").RE["1Avata1rOrigina1l"]:FireServer("OCA")
+		task.wait(0.5)
+		ChangeAvatar(game.Players:WaitForChild(_G.CopyPlayerAvatarName).Character.Humanoid.HumanoidDescription)
+		task.wait(0.5)
+		ChangeAvatar(game.Players:WaitForChild(_G.CopyPlayerAvatarName).Character.Humanoid.HumanoidDescription)
+		task.wait(0.5)
+		ChangeAvatar(game.Players:WaitForChild(_G.CopyPlayerAvatarName).Character.Humanoid.HumanoidDescription)
+		task.wait(0.5)
+		UpdateAvatar:FireServer("skintone", tostring(game.Players:FindFirstChild(_G.CopyPlayerAvatarName).Character.Head.BrickColor))
+		task.wait(0.5)
+		UpdateAvatar:FireServer("skintone", tostring(game.Players:FindFirstChild(_G.CopyPlayerAvatarName).Character.Head.BrickColor))
+		task.wait(0.5)
+		UpdateAvatar:FireServer("skintone", tostring(game.Players:FindFirstChild(_G.CopyPlayerAvatarName).Character.Head.BrickColor))
+		task.wait(0.5)
+		UpdateAvatar:FireServer("wear", 63690008)
+		task.wait(0.5)
+		UpdateAvatar:FireServer("wear", 144075659)
+		task.wait(0.5)
+		UpdateAvatar:FireServer("wear", 144076760)
+		task.wait(0.5)
+		UpdateAvatar:FireServer("wear", 144076358)	
+		task.wait(0.5)
+		UpdateAvatar:FireServer("wear")
+		task.wait(0.5)
+
+		for i,v in pairs(string.split(HumanoidDescription.FaceAccessory, ",")) do
+			UpdateAvatar:FireServer("wear", tonumber(v))
+			task.wait(0.5)
+		end
+
+		UpdateAvatar:FireServer("wear", 144075659)
+		task.wait(0.5)
+		UpdateAvatar:FireServer("wear", tonumber(HumanoidDescription.Pants))
+		task.wait(0.5)
+		UpdateAvatar:FireServer("wear", tonumber(HumanoidDescription.Shirt))
+		task.wait(0.5)
+		UpdateAvatar:FireServer("wear", tonumber(HumanoidDescription.GraphicTShirt))
+		task.wait(0.5)
+
+		for i,v in pairs(string.split(HumanoidDescription.BackAccessory, ",")) do
+			UpdateAvatar:FireServer("wear", tonumber(v))
+			task.wait(0.5)
+		end
+
+		for i,v in pairs(string.split(HumanoidDescription.HairAccessory, ",")) do
+			UpdateAvatar:FireServer("wear", tonumber(v))
+			task.wait(0.5)
+		end
+
+		for i,v in pairs(string.split(HumanoidDescription.HatAccessory, ",")) do
+			UpdateAvatar:FireServer("wear", tonumber(v))
+			task.wait(0.5)
+		end
+
+		for i,v in pairs(string.split(HumanoidDescription.FrontAccessory, ",")) do
+			UpdateAvatar:FireServer("wear", tonumber(v))
+			task.wait(0.5)
+		end
+
+		for i,v in pairs(string.split(HumanoidDescription.NeckAccessory, ",")) do
+			UpdateAvatar:FireServer("wear", tonumber(v))
+			task.wait(0.5)
+		end
+
+		for i,v in pairs(string.split(HumanoidDescription.WaistAccessory, ",")) do
+			UpdateAvatar:FireServer("wear", tonumber(v))
+			task.wait(0.5)
+		end
+
+		for i,v in pairs(string.split(HumanoidDescription.ShouldersAccessory, ",")) do
+			UpdateAvatar:FireServer("wear", tonumber(v))
+			task.wait(0.5)
+		end
+
+		UpdateAvatar:FireServer("wear", tonumber(HumanoidDescription.Face))
+		task.wait(0.5)
+
+		if _G.IncludeWalkStyle == true then
+			UpdateAvatar:FireServer("wearWalkStyle", HumanoidDescription.ClimbAnimation)
+			task.wait(0.5)
+			UpdateAvatar:FireServer("wearWalkStyle", HumanoidDescription.FallAnimation)
+			task.wait(0.5)
+			UpdateAvatar:FireServer("wearWalkStyle", HumanoidDescription.IdleAnimation)
+			task.wait(0.5)
+			UpdateAvatar:FireServer("wearWalkStyle", HumanoidDescription.JumpAnimation)
+			task.wait(0.5)
+			UpdateAvatar:FireServer("wearWalkStyle", HumanoidDescription.MoodAnimation)
+			task.wait(0.5)
+			UpdateAvatar:FireServer("wearWalkStyle", HumanoidDescription.RunAnimation)
+			task.wait(0.5)
+			UpdateAvatar:FireServer("wearWalkStyle", HumanoidDescription.SwimAnimation)
+			task.wait(0.5)
+			UpdateAvatar:FireServer("wearWalkStyle", HumanoidDescription.WalkAnimation)
+			task.wait(0.5)
+		end
+	end)
+})
+
+local Toggle = Tab:Toggle({
+	name = "Include Walk Style",
+	callback = function(Value)
+		_G.IncludeWalkStyle = Value
+	end
+})
+
+local Button = Tab:Button({
+	name = "Teleport To Player",
+	callback = (function()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players:FindFirstChild(_G.CopyPlayerAvatarName).Character.HumanoidRootPart.CFrame
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Reset Player Outfit",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Avata1rOrigina1l"]:FireServer("OCA")
+	end)
+})
+
+Tab:Section({
+	text = "Change RP Name"
+})
+
+local Input = Tab:Input({
+	name = "Change RP Name",
+	placeholdertext = "RP Name",
+	cleartextonfocus = true,
+	callback = function(Value)
+		game:GetService("ReplicatedStorage").RE["1RPNam1eTex1t"]:FireServer("RolePlayName", tostring(Value))
+	end
+})
+
+local Input = Tab:Input({
+	name = "Copy RP Name of the Player",
+	placeholdertext = "Player",
+	cleartextonfocus = true,
+	callback = function(Value)
+		game:GetService("ReplicatedStorage").RE["1RPNam1eTex1t"]:FireServer("RolePlayName", game.Players:FindFirstChild(Value).PlayersBag.RPName.Value)
+		task.wait(0.3)
+		game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPNameColor", game.Players:FindFirstChild(Value).PlayersBag.RPNameColor.Value)
+	end
+})
+
+local Button = Tab:Button({
+	name = "Delete RP Name",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1RPNam1eTex1t"]:FireServer("RolePlayName", "")
+	end)
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow RP Name",
+	callback = function(Value)
+		_G.RainbowName = Value
+		while _G.RainbowName == true do
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPNameColor", Color3.new(1, 0, 0))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPNameColor", Color3.new(1, 0, 1))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPNameColor", Color3.new(0.666667, 0, 0))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPNameColor", Color3.new(0, 0, 1))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPNameColor", Color3.new(0, 1, 1))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPNameColor", Color3.new(0, 1, 0))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPNameColor", Color3.new(1, 1, 0))
+			task.wait(0.5)
+		end
+	end
+})
+
+Tab:Section({
+	text = "Change Bio"
+})
+
+local Input = Tab:Input({
+	name = "Change Bio",
+	placeholdertext = "Bio",
+	cleartextonfocus = true,
+	callback = function(Value)
+		game:GetService("ReplicatedStorage").RE["1RPNam1eTex1t"]:FireServer("RolePlayBio", tostring(Value))
+	end
+})
+
+local Input = Tab:Input({
+	name = "Copy Bio of the Player",
+	placeholdertext = "Player",
+	cleartextonfocus = true,
+	callback = function(Value)
+		game:GetService("ReplicatedStorage").RE["1RPNam1eTex1t"]:FireServer("RolePlayBio", game.Players:FindFirstChild(Value).PlayersBag.RPBio.Value)
+		task.wait(0.3)
+		game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPBioColor", game.Players:FindFirstChild(Value).PlayersBag.RPBioColor.Value)
+	end
+})
+
+local Button = Tab:Button({
+	name = "Delete Bio",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1RPNam1eTex1t"]:FireServer("RolePlayBio", "")
+	end)
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Bio",
+	callback = function(Value)
+		_G.RainbowBio = Value
+		while _G.RainbowBio == true do
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPBioColor", Color3.new(1, 0, 0))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPBioColor", Color3.new(1, 0, 1))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPBioColor", Color3.new(0.666667, 0, 0))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPBioColor", Color3.new(0, 0, 1))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPBioColor", Color3.new(0, 1, 1))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPBioColor", Color3.new(0, 1, 0))
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPBioColor", Color3.new(1, 1, 0))
+			task.wait(0.5)
+		end
+	end
+})
+
+Tab:Section({
+	text = "Spawn a Child"
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Children",
+	callback = function(Name, Value)
+		game:GetService("ReplicatedStorage").RE["1Bab1yFollo1w"]:FireServer("CharacterFollowSpawnPlayer", Value)
+	end,
+	opencallback = function()
+
+	end,
+})
+
+Dropdown:Add("Baby Boy", "BabyBoy")
+Dropdown:Add("Baby Girl", "BabyGirl")
+Dropdown:Add("Baby Boy [Premium 1]", "BabyBoy1")
+Dropdown:Add("Baby Boy [Premium 2]", "BabyBoy2")
+Dropdown:Add("Baby Boy [Premium 3]", "BabyBoy3")
+Dropdown:Add("Baby Girl [Premium 1]", "BabyGirl1")
+Dropdown:Add("Baby Girl [Premium 2]", "BabyGirl2")
+Dropdown:Add("Baby Girl [Premium 3]", "BabyGirl3")
+
+local Toggle = Tab:Toggle({
+	name = "Spam Spawn Child",
+	callback = function(Value)
+		_G.SpamChildren = Value
+		while _G.SpamChildren == true do
+			game:GetService("ReplicatedStorage").RE["1Bab1yFollo1w"]:FireServer("CharacterFollowSpawnPlayer", "BabyBoy")
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Bab1yFollo1w"]:FireServer("CharacterFollowSpawnPlayer", "BabyGirl")
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Bab1yFollo1w"]:FireServer("CharacterFollowSpawnPlayer", "BabyBoy1")
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Bab1yFollo1w"]:FireServer("CharacterFollowSpawnPlayer", "BabyBoy2")
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Bab1yFollo1w"]:FireServer("CharacterFollowSpawnPlayer", "BabyBoy3")
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Bab1yFollo1w"]:FireServer("CharacterFollowSpawnPlayer", "BabyGirl1")
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Bab1yFollo1w"]:FireServer("CharacterFollowSpawnPlayer", "BabyGirl2")
+			task.wait(0.5)
+			game:GetService("ReplicatedStorage").RE["1Bab1yFollo1w"]:FireServer("CharacterFollowSpawnPlayer", "BabyGirl3")
+			task.wait(0.5)
+		end
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Child Name",
+	callback = function(Value)
+		_G.RainbowChildName = Value
+		while _G.RainbowChildName == true do
+			for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.NoResetGUIHandler.MainAvatarMenu.Catalog.Container.ScrollingFrameKid2.Frame:GetChildren()) do
+				if v.Name == "FollowColor" then
+					game:GetService("ReplicatedStorage").RE["1RPNam1eColo1r"]:FireServer("PickingRPFollowColor", v.Color)
+					task.wait(0.5)
+				end
+			end
+			task.wait()
+		end
+	end	
+})
+
+Tab:Section({
+	text = "Rainbow Skin"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Rainbow Skin",
+	callback = function(Value)
+		_G.RainbowSkin = Value
+		while _G.RainbowSkin == true do
+			game:GetService("ReplicatedStorage").RE["1Updat1eAvata1r"]:FireServer("skintone", BrickColor.new(math.random(1,365)).Name)
+			task.wait(0.3)
+		end
+	end
+})
+
+Tab:Section({
+	text = "Jobs"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Loop Jobs",
+	callback = function(Value)
+		_G.LoopJobs = Value
+		while _G.LoopJobs == true do
+			for i,v in pairs (game:GetService("Workspace").WorkspaceCom["001_GiveJobs"]:GetChildren()) do
+				game:GetService("ReplicatedStorage").RE["1Jo1b"]:FireServer("GiveJobUIMenu", v.Name, v.Name, true)
+				task.wait(0.1)
+			end
+			task.wait()
+		end
+	end
+})
+
+local Button = Tab:Button({
+	name = "Quit Job",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Jo1b"]:FireServer("QuitJob")
+	end)
+})
+
+Tab:Section({
+	text = "Player Size"
+})
+
+local Button = Tab:Button({
+	name = "Small Character",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Clothe1s"]:FireServer("CharacterSizeDown", 10)
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Normal Character",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Clothe1s"]:FireServer("CharacterSizeUp", 1)
+	end)
+})
+
+Tab:Section({
+	text = "Burn / Smoke Avatar"
+})
+
+local Button = Tab:Button({
+	name = "Burn Avatar",
+	callback = (function()
+		firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_Mall"]["001_HappyBurger"].CatchFire, 0)
+		firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_BrooksDiner"].CatchFire, 0)
+		task.wait(0.1)
+		firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_BrooksDiner"].CatchFire, 1)
+		firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_Mall"]["001_HappyBurger"].CatchFire, 1)
+	end)
+})
+
+local Toggle = Tab:Toggle({
+	name = "Loop Burn Avatar",
+	callback = function(Value)
+		_G.LoopBurnAvatar = Value
+		while _G.LoopBurnAvatar == true and task.wait(0.1) do
+			firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_Mall"]["001_HappyBurger"].CatchFire, 0)
+			firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_BrooksDiner"].CatchFire, 0)
+			task.wait(0.1)
+			firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_BrooksDiner"].CatchFire, 1)
+			firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_Mall"]["001_HappyBurger"].CatchFire, 1)
+
+		end
+	end
+})
+
+local Button = Tab:Button({
+	name = "Smoke Avatar",
+	callback = (function()
+		firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_Mall"]["001_Pizza"].CatchFire, 0)
+		task.wait(0.1)
+		firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_Mall"]["001_Pizza"].CatchFire, 1)
+	end)
+})
+
+local Toggle = Tab:Toggle({
+	name = "Loop Smoke Avatar",
+	callback = function(Value)
+		_G.LoopSmokeAvatar = Value
+		while _G.LoopSmokeAvatar == true and task.wait(0.1) do
+			firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_Mall"]["001_Pizza"].CatchFire, 0)
+			task.wait(0.1)
+			firetouchinterest(game.Players.LocalPlayer.Character.Head, game:GetService("Workspace").WorkspaceCom["001_Mall"]["001_Pizza"].CatchFire, 1)
+		end
+	end
+})
+
+print("4")
