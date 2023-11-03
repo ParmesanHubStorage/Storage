@@ -2694,3 +2694,14 @@ local Dropdown = Tab:Dropdown({
 		end
 	end
 })
+
+Tab:Section({
+	text = "Rejoin the Server"
+})
+
+local Button = Tab:Button({
+	name = "Rejoin the Server",
+	callback = (function()
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
+	end)
+})
