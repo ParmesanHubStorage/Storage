@@ -2682,3 +2682,15 @@ local Button = Tab:Button({
 	end)
 })
 
+local Dropdown = Tab:Dropdown({
+	name = "Choose a Player",
+	callback = function(Name, Value)
+		_G.PlayerForKill = Name
+	end,
+	opencallback = function()
+		Dropdown:Clear()
+		for i,v in pairs(game.Players:GetChildren()) do
+			Dropdown:Add(v.Name, nil)
+		end
+	end
+})
