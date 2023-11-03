@@ -238,7 +238,7 @@ local function ChangeAvatar(Avatar)
 end
 
 local Main = Library:Init({
-	name = "Build a Boat for Treasure"
+	name = "Brookhaven RP"
 })
 
 local Tab = Main:CreateTab({
@@ -2437,4 +2437,285 @@ local Button = Tab:Button({
 	end)   
 })
 
-print("8")
+
+local Tab = Main:CreateTab({
+	name = "Misc",
+	icon = "rbxassetid://15101016621"
+})
+
+Tab:Section({
+	text = "Get Gamepasses"
+})
+
+local ismobile = game:GetService('UserInputService').TouchEnabled
+local isdesktop = game:GetService('UserInputService').KeyboardEnabled
+
+if isdesktop and not ismobile then
+	loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/brookhaven_premium_faces_accs.lua')))()
+end
+
+local Button = Tab:Button({
+	name = "Unlock Fire Pass",
+	callback = (function()
+		if not game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.Shop.OpenButton.MainOpen:FindFirstChild("Fire") then
+			local Fire = game:GetService("StarterGui").MainGUIHandler.Shop.MainButtons.MainOpen.Fire:Clone()
+			Fire.BackgroundTransparency = 0.6
+			Fire.Parent = game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.Shop.OpenButton.MainOpen
+
+			local openbutton = game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.Shop.OpenButton.MainOpen.Fire
+			local Gui = game:GetService("Players").LocalPlayer.PlayerGui.MainGUIHandler.Menu.FireAskFirePassMansion
+
+			openbutton.MouseButton1Click:Connect(function()
+				Gui.Visible = not Gui.Visible
+			end)
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Unlock Premium Children",
+	callback = (function()
+		local Kids = game:GetService("Players").LocalPlayer.PlayerGui.NoResetGUIHandler.MainAvatarMenu.Catalog.Container.ScrollingFrameKid
+		for i,v in pairs(Kids:GetChildren()) do
+			if v:IsA("ImageButton") and v.Name ~= "BabyBoy" and v.Name ~= "BabyGirl" then
+				v.MouseButton1Click:Connect(function()
+					game:GetService("ReplicatedStorage").RE["1Bab1yFollo1w"]:FireServer("CharacterFollowSpawnPlayer", v.Name)
+				end)
+			end
+		end
+	end)
+})
+
+if isdesktop and not ismobile then
+	loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/brookhaven_speed_pass.lua')))()
+end
+
+Tab:Section({
+	text = "Miscellaneous"
+})
+
+local Toggle = Tab:Toggle({
+	name = "Door Fling [FE]",
+	callback = function(Value)
+		_G.DoorFling = Value
+		if _G.DoorFling == true then
+			for i,v in pairs(workspace:GetDescendants()) do
+				if (v:IsA("Part") and (v.Name == "Hinge" or v.Name == "Door")) or (v:IsA("MeshPart") and v.Name == "FakeDoor") then
+					if v:FindFirstChild("Attachment") then v.Attachment:Destroy() end
+					AddAlignPosition(v)
+					AddTorque(v)
+					if v.Parent:FindFirstChild("Part") then
+						AddAlignPosition(v.Parent:FindFirstChild("Part"))
+						AddTorque(v.Parent:FindFirstChild("Part"))
+					end
+				end
+			end
+		elseif _G.DoorFling == false then
+			for i,v in pairs(workspace:GetDescendants()) do
+				if v.Name == "AlignAttach0" or v.Name == "AlignAttach1" or v.Name == "TorqueAttach2" or v.Name == "TorqueAttach3" then
+					v:Destroy()
+				end
+			end
+		end
+	end
+})
+
+local Button = Tab:Button({
+	name = "Collect All Candies",
+	callback = (function()
+		spawn(function()
+			for i,v in pairs (game:GetService("Workspace")["Easter001!"]:FindFirstChildOfClass("Model"):GetChildren()) do
+				firetouchinterest(v, game.Players.LocalPlayer.Character.HumanoidRootPart, 0)
+				task.wait(0.75)
+				firetouchinterest(v, game.Players.LocalPlayer.Character.HumanoidRootPart, 1)
+			end
+		end)
+	end)
+})
+
+Tab:Section({
+	text = "Sound Spam [FE] (Hold a Glock)"
+})
+
+local Button = Tab:Button({
+	name = "Take a Glock",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Glock")
+	end)
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Choose the Sound",
+	callback = function(Name, Value)
+		_G.ChoosedSound = Value
+	end,
+	opencallback = function()
+
+	end,
+})
+
+Dropdown:Add("Scream [1]", 7371285928)
+Dropdown:Add("Scream [2]", 5063277729)
+Dropdown:Add("Scream [3]", 6582769103)
+Dropdown:Add("Scream [4]", 2579151679)
+Dropdown:Add("Train", 3900067524)
+Dropdown:Add("Windows XP Startup", 2208348566)
+Dropdown:Add("Windows XP Exclamation", 7436522768)
+Dropdown:Add("Windows XP Shutdown", 1166082641)
+Dropdown:Add("Iphone Alarm", 4203251375)
+Dropdown:Add("Samsung Notification", 8056635966)
+Dropdown:Add("Lunatic Laugh", 8453844341)
+Dropdown:Add("Scary Laugh", 7854285068)
+Dropdown:Add("Fast Fart [1]", 6811876591)
+Dropdown:Add("Fast Fart [2]", 9059590824)
+Dropdown:Add("Long Fart", 7914322871)
+
+local Toggle = Tab:Toggle({
+	name = "Spam Sounds",
+	callback = function(Value)
+		_G.SpamSounds = Value
+		while _G.SpamSounds == true and task.wait(_G.SpamSoundsSpeed) do
+			pcall (function()
+				for count = 1, 50, 1 do
+					game:GetService("ReplicatedStorage").RE["1Gu1nSound1s"]:FireServer(workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+					game:GetService("Players").LocalPlayer.PlayerScripts.BulletVisualizerScript.GunSounds:Fire(nil, workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+				end
+			end)
+		end	
+	end
+})
+
+local Slider = Tab:Slider({
+	name = "Spam Sounds Speed",
+	minimum = 0,
+	maximum = 5,
+	default = 1,
+	valuename = "Seconds",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
+		_G.SpamSoundsSpeed = tonumber(Value)
+	end
+})
+
+local Toggle = Tab:Toggle({
+	name = "Spam Sounds [Fast, Loud]",
+	callback = function(Value)
+		_G.SpamFastSounds = Value
+		local testtest9
+		testtest9 = game:GetService("RunService").Heartbeat:connect(function()
+			if _G.SpamFastSounds == true then
+				pcall (function()
+					for count = 1, 30, 1 do
+						game:GetService("ReplicatedStorage").RE["1Gu1nSound1s"]:FireServer(workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+						game:GetService("Players").LocalPlayer.PlayerScripts.BulletVisualizerScript.GunSounds:Fire(nil, workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+					end
+				end)
+			elseif _G.SpamFastSounds == false then
+				testtest9:Disconnect()
+			end
+		end)
+	end
+})
+
+Tab:Section({
+	text = "Turn On Airport Alarms"
+})
+
+local Button = Tab:Button({
+	name = "Airport",
+	callback = (function()
+		local FirstPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		if not game.Players.LocalPlayer.Character:FindFirstChild("Glock") and not game.Players.LocalPlayer.Backpack:FindFirstChild("Glock") then
+			game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Glock")
+		elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Glock") then
+			game.Players.LocalPlayer.Backpack.Glock.Parent = game.Players.LocalPlayer.Character
+		end
+		game.Players.LocalPlayer.Character:WaitForChild("Glock")
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.WorkspaceCom["001_Airport"]["001_MetalDetector"].CFrame
+		task.wait(0.5)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FirstPos
+	end)
+})
+
+Tab:Section({
+	text = "Hand Trail"
+})
+
+local Button = Tab:Button({
+	name = "Enable Hand Trail",
+	callback = (function()
+		local FirstPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.WorkspaceCom["001_Hospital"].PoolClick.CFrame
+		task.wait(0.5)
+		fireclickdetector(workspace.WorkspaceCom["001_Hospital"].PoolClick.ClickDetector)
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FirstPos
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Disable Hand Trail",
+	callback = (function()
+		local FirstPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.WorkspaceCom["001_Hospital"]["Error Code# 11"].CFrame + Vector3.new(0,2,0)
+		task.wait(0.5)
+		fireclickdetector(workspace.WorkspaceCom["001_Hospital"]["Error Code# 11"].ClickDetector)
+		task.wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = FirstPos
+	end)
+})
+
+Tab:Section({
+	text = "Kill Player"
+})
+
+local Button = Tab:Button({
+	name = "Kill Player",
+	callback = (function()
+		local CurrentTarget = game.Players:FindFirstChild(_G.PlayerForKill).Character
+		if not game.Players.LocalPlayer.Character:FindFirstChild("Couch") and not game.Players.LocalPlayer.Backpack:FindFirstChild("Couch") then
+			game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Couch")
+		elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Couch") then
+			game.Players.LocalPlayer.Backpack.Couch.Parent = game.Players.LocalPlayer.Character
+		end
+		while CurrentTarget.Humanoid.Sit == false and task.wait() do
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CurrentTarget.HumanoidRootPart.CFrame + Vector3.new(0, -5, 2)
+		end
+		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,-490,0)
+		wait(0.5)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+		task.wait(2)
+		if game.Players.LocalPlayer.Character:FindFirstChild("Couch") then
+			game.Players.LocalPlayer.Character.Couch.Parent = game.Players.LocalPlayer.Backpack
+		end
+	end)
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Choose a Player",
+	callback = function(Name, Value)
+		_G.PlayerForKill = Name
+	end,
+	opencallback = function()
+		Dropdown:Clear()
+		for i,v in pairs(game.Players:GetChildren()) do
+			Dropdown:Add(v.Name, nil)
+		end
+	end,
+})
+
+Tab:Section({
+	text = "Rejoin the Server"
+})
+
+local Button = Tab:Button({
+	name = "Rejoin the Server",
+	callback = (function()
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
+	end)
+})
+
+print("9")
