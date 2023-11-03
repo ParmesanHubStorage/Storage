@@ -2585,4 +2585,24 @@ local Slider = Tab:Slider({
 	end
 })
 
+local Toggle = Tab:Toggle({
+	name = "Spam Sounds [Fast, Loud]",
+	callback = function(Value)
+		_G.SpamFastSounds = Value
+		local testtest9 = nil
+		testtest9 = game:GetService("RunService").Heartbeat:connect(function()
+			if _G.SpamFastSounds == true then
+				pcall (function()
+					for count = 1, 30, 1 do
+						game:GetService("ReplicatedStorage").RE["1Gu1nSound1s"]:FireServer(workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+						game:GetService("Players").LocalPlayer.PlayerScripts.BulletVisualizerScript.GunSounds:Fire(nil, workspace:FindFirstChild(game.Players.LocalPlayer.Name).Glock.Handle, _G.ChoosedSound, 1)
+					end
+				end)
+			elseif _G.SpamFastSounds == false then
+				testtest9:Disconnect()
+			end
+		end)
+	end
+})
+
 print("9")
