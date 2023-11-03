@@ -166,3 +166,82 @@ local function playersTracers()
 		end)
 	end    
 end
+
+local function tpNpc(Npc, NpcPos, Noclip)
+	if Noclip == 1 then
+		for i,v in pairs(Npc:GetDescendants()) do
+			if (v.ClassName == "MeshPart" or v.ClassName == "Part" or v.ClassName == "Seat") and v.CanCollide == true then
+				v.CanCollide = false
+			end
+		end
+	end
+	if not Npc:WaitForChild("Chassis"):FindFirstChild("MyForceInstance") then
+		local ForceInstance = Instance.new("BodyPosition")
+		ForceInstance.Parent = Npc:WaitForChild("Chassis").Platform
+		ForceInstance.Name = "MyForceInstance"
+		ForceInstance.P = 1000000
+		ForceInstance.MaxForce = Vector3.new(2500000, 2500000, 2500000)
+	end
+	Npc:WaitForChild("Chassis").Platform.MyForceInstance.Position = NpcPos
+end
+
+local function AddAlignPosition(Part)
+	
+	local object = Part
+	local NewAttach1 = nil
+	
+	Part.CanCollide = false
+	local NewAlignPosition = Instance.new("AlignPosition", object)
+	NewAlignPosition.MaxForce = 10000000272564224
+	NewAlignPosition.MaxVelocity = 10000000272564224
+	NewAlignPosition.Responsiveness = 200
+
+	local NewAttach0 = Instance.new("Attachment", object)
+	NewAttach0.Name = "AlignAttach0"
+	
+	if not game.Players.LocalPlayer.Character.Head:FindFirstChild("AlignAttach1") then
+		NewAttach1 = Instance.new("Attachment", game.Players.LocalPlayer.Character.Head)
+		NewAttach1.Name = "AlignAttach1"
+	else
+		NewAttach1 = game.Players.LocalPlayer.Character.Head.AlignAttach1
+	end
+	
+	NewAlignPosition.Attachment0 = NewAttach0
+	NewAlignPosition.Attachment1 = NewAttach1
+end
+
+local function AddTorque(Part)
+	local object = Part
+	local NewAttach3 = nil
+	Part.CanCollide = false
+	
+	local NewAttach2 = Instance.new("Attachment", object)
+	NewAttach2.Name = "TorqueAttach2"
+
+	if not game.Players.LocalPlayer.Character.Head:FindFirstChild("TorqueAttach3") then
+		NewAttach3 = Instance.new("Attachment", game.Players.LocalPlayer.Character.Head)
+		NewAttach3.Name = "TorqueAttach3"
+	else
+		NewAttach3 = game.Players.LocalPlayer.Character.Head.TorqueAttach3
+	end
+
+	local Torque = Instance.new("Torque")
+	Torque.Parent = object
+	Torque.Torque = Vector3.new(100000, 100000, 100000)
+	Torque.RelativeTo = "Attachment0"
+
+	Torque.Attachment0 = NewAttach2
+	Torque.Attachment1 = NewAttach3
+end
+
+local function ChangeAvatar(Avatar)
+	local ohTable2 = {
+		[1] = Avatar.Torso, --torso
+		[2] = Avatar.RightArm, --right arm
+		[3] = Avatar.LeftArm, --left arm
+		[4] = Avatar.RightLeg, --right leg
+		[5] = Avatar.LeftLeg, --left leg
+		[6] = Avatar.Head
+	}
+	game:GetService("ReplicatedStorage").RE["1Avata1rOrigina1l"]:FireServer("CharacterChange", ohTable2, "")
+end
