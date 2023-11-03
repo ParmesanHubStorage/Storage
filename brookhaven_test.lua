@@ -2520,5 +2520,41 @@ local Toggle = Tab:Toggle({
 	end
 })
 
+Tab:Section({
+	text = "Sound Spam [FE] (Hold a Glock)"
+})
+
+local Button = Tab:Button({
+	name = "Take a Glock",
+	callback = (function()
+		game:GetService("ReplicatedStorage").RE["1Too1l"]:InvokeServer("PickingTools", "Glock")
+	end)
+})
+
+local Dropdown = Tab:Dropdown({
+	name = "Choose the Sound",
+	callback = function(Name, Value)
+		_G.ChoosedSound = Value
+	end,
+	opencallback = function()
+
+	end,
+})
+
+Dropdown:Add("Scream [1]", 7371285928)
+Dropdown:Add("Scream [2]", 5063277729)
+Dropdown:Add("Scream [3]", 6582769103)
+Dropdown:Add("Scream [4]", 2579151679)
+Dropdown:Add("Train", 3900067524)
+Dropdown:Add("Windows XP Startup", 2208348566)
+Dropdown:Add("Windows XP Exclamation", 7436522768)
+Dropdown:Add("Windows XP Shutdown", 1166082641)
+Dropdown:Add("Iphone Alarm", 4203251375)
+Dropdown:Add("Samsung Notification", 8056635966)
+Dropdown:Add("Lunatic Laugh", 8453844341)
+Dropdown:Add("Scary Laugh", 7854285068)
+Dropdown:Add("Fast Fart [1]", 6811876591)
+Dropdown:Add("Fast Fart [2]", 9059590824)
+Dropdown:Add("Long Fart", 7914322871)
 
 print("9")
