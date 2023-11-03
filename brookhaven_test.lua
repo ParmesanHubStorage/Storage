@@ -94,20 +94,6 @@ _G.PlayerForKill = nil
 _G.SpamChildren = false
 _G.RainbowChildName = false
 
-
-local Main = Library:Init({
-	name = "Build a Boat for Treasure"
-})
-
-local Tab = Main:CreateTab({
-	name = "Player",
-	icon = "rbxassetid://15101013637"
-})
-
-Tab:Section({
-	text = "Player"
-})
-
 local function PlayersHighlight()
 	for i,v in pairs(game.Players:GetChildren()) do
 		pcall(function()
@@ -246,4 +232,41 @@ local function ChangeAvatar(Avatar)
 	game:GetService("ReplicatedStorage").RE["1Avata1rOrigina1l"]:FireServer("CharacterChange", ohTable2, "")
 end
 
-print("1")
+local Main = Library:Init({
+	name = "Build a Boat for Treasure"
+})
+
+local Tab = Main:CreateTab({
+	name = "Player",
+	icon = "rbxassetid://15101013637"
+})
+
+Tab:Section({
+	text = "Player"
+})
+
+local Slider = Tab:Slider({
+	name = "Walk Speed",
+	minimum = 1,
+	maximum = 1000,
+	default = 16,
+	valuename = "Walk Speed",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(Value)
+	end
+})
+
+local Slider = Tab:Slider({
+	name = "Jump Power",
+	minimum = 1,
+	maximum = 1000,
+	default = 50,
+	valuename = "Jump Power",
+	gradient = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 100, 0))};
+	callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = tonumber(Value)
+	end
+})
+
+print("2")
