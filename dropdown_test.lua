@@ -21,10 +21,11 @@ Dropdown = Tab:Dropdown({
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace:FindFirstChild(Name).HumanoidRootPart.CFrame
 	end,
 	opencallback = function()
+		Dropdown:Clear()
 		for i,v in pairs(game.Players:GetChildren()) do
 			Dropdown:Add(v.Name, nil)
 		end
 	end,
 })
 
-print("7")
+print("8")
