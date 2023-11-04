@@ -1,5 +1,11 @@
 loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/Storage/main/ParmesanHub_UI_Lib.lua')))()
 
+local function LoopAdd()
+	for i,v in pairs(game.Players:GetChildren()) do
+		Dropdown:Add(v.Name, nil)
+	end
+end
+
 local Main = Library:Init({
 	name = "Brookhaven RP"
 })
@@ -20,9 +26,7 @@ local Dropdown = Tab:Dropdown({
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace:FindFirstChild(Name).HumanoidRootPart.CFrame
 	end,
 	opencallback = function()
-		for i,v in pairs(game.Players:GetChildren()) do
-			Dropdown:Add(v.Name, nil)
-		end
+		LoopAdd()
 	end,
 })
 
