@@ -1355,7 +1355,8 @@ Tab:Section({
 	text = "Vehicles List"
 })
 
-local Dropdown = Tab:Dropdown({
+local Dropdown = nil
+Dropdown = Tab:Dropdown({
 	name = "Remove Vehicle",
 	callback = function(Name, Value)
 		_G.TargetVehicle = Name
@@ -2101,7 +2102,8 @@ Tab:Section({
 	text = "Teleport to Player"
 })
 
-local Dropdown = Tab:Dropdown({
+local Dropdown = nil
+Dropdown = Tab:Dropdown({
 	name = "Teleport to Player",
 	callback = function(Name, Value)
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace:FindFirstChild(Name).HumanoidRootPart.CFrame
@@ -2682,7 +2684,8 @@ local Button = Tab:Button({
 	end)
 })
 
-local Dropdown = Tab:Dropdown({
+local Dropdown = nil
+Dropdown = Tab:Dropdown({
 	name = "Choose a Player",
 	callback = function(Name, Value)
 		_G.PlayerForKill = Name
