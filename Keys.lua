@@ -1,4 +1,4 @@
-OneDayKey = "FC0-K0B4La"
+OneDayKey = "BBQLm6r_A4"
 
 PremiumKeys = {
 	OneDayKey,
