@@ -8,5 +8,6 @@ PremiumKeys = {
 	"U3EMS7w-Zmn938m",
 	"S-rDz6-wa1P54qf",
 	"KJ8dvX-sHZRVQbt",
-	"iRk-rfVdU1clWcv"
+	"iRk-rfVdU1clWcv",
+	"8w6UVJY-5OPS-Lv"
 }
