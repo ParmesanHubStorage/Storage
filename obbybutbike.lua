@@ -185,8 +185,8 @@ Tab:Section({
 local Button = Tab:Button({
 	name = "Delete Kill Bricks",
 	callback = (function()
-		if game.workspace.WorldMap:FindFirstChild("KillBricks") then
-			game.workspace.WorldMap.KillBricks:Destroy()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("KillBricks") then
+			game.workspace.WorldMap.MapInteractables.KillBricks:Destroy()
 		end
 	end)
 })
@@ -194,8 +194,8 @@ local Button = Tab:Button({
 local Button = Tab:Button({
 	name = "Delete Spinning Bars",
 	callback = (function()
-		if game.workspace.WorldMap:FindFirstChild("SpinningBars") then
-			game.workspace.WorldMap.SpinningBars:Destroy()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("SpinningBars") then
+			game.workspace.WorldMap.MapInteractables.SpinningBars:Destroy()
 		end
 	end)
 })
@@ -203,8 +203,8 @@ local Button = Tab:Button({
 local Button = Tab:Button({
 	name = "Delete Swinging Balls",
 	callback = (function()
-		if game.workspace.WorldMap:FindFirstChild("SwingingBalls") then
-			game.workspace.WorldMap.SwingingBalls:Destroy()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("SwingingBalls") then
+			game.workspace.WorldMap.MapInteractables.SwingingBalls:Destroy()
 		end
 	end)
 })
@@ -212,21 +212,128 @@ local Button = Tab:Button({
 local Button = Tab:Button({
 	name = "Delete Fans",
 	callback = (function()
-		if game.workspace.WorldMap:FindFirstChild("Fans") then
-			game.workspace.WorldMap.Fans:Destroy()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("Fans") then
+			game.workspace.WorldMap.MapInteractables.Fans:Destroy()
 		end
 	end)
 })
 
+local Button = Tab:Button({
+	name = "Delete Knives",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("Knives") then
+			game.workspace.WorldMap.MapInteractables.Knives:Destroy()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Delete Boxing Gloves",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("BoxingGloves") then
+			game.workspace.WorldMap.MapInteractables.BoxingGloves:Destroy()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Delete Spear Traps",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("SpearTraps") then
+			game.workspace.WorldMap.MapInteractables.SpearTraps:Destroy()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Delete Spinning Hammers",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("SpinningHammers") then
+			game.workspace.WorldMap.MapInteractables.SpinningHammers:Destroy()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Delete Swinging Platforms",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("SwingingPlatforms") then
+			game.workspace.WorldMap.MapInteractables.SwingingPlatforms:Destroy()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Delete Cannons",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("Cannons") then
+			game.workspace.WorldMap.MapInteractables.Cannons:Destroy()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Delete Rolling Logs",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("RollingLogs") then
+			game.workspace.WorldMap.MapInteractables.RollingLogs:Destroy()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Delete Kill Swings",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("KillSwings") then
+			game.workspace.WorldMap.MapInteractables.KillSwings:Destroy()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Delete Spinning Bouncers",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("SpinningBouncers") then
+			game.workspace.WorldMap.MapInteractables.SpinningBouncers:Destroy()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Delete Moving Bouncers",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("MovingBouncers") then
+			game.workspace.WorldMap.MapInteractables.MovingBouncers:Destroy()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Delete Moving Kill Bricks",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("MovingKillBricks") then
+			game.workspace.WorldMap.MapInteractables.MovingKillBricks:Destroy()
+		end
+	end)
+})
+
+local Button = Tab:Button({
+	name = "Delete Spinning Kill Bricks",
+	callback = (function()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("SpinningKillBricks") then
+			game.workspace.WorldMap.MapInteractables.SpinningKillBricks:Destroy()
+		end
+	end)
+})
 
 local Button = Tab:Button({
 	name = "Delete Ads",
 	callback = (function()
-		if game.workspace.WorldMap:FindFirstChild("3DAds") then
-			game.workspace.WorldMap["3DAds"]:Destroy()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("3DAds") then
+			game.workspace.WorldMap.MapInteractables["3DAds"]:Destroy()
 		end
-		if game.workspace.WorldMap:FindFirstChild("Ads") then
-			game.workspace.WorldMap.Ads:Destroy()
+		if game.workspace.WorldMap.MapInteractables:FindFirstChild("Ads") then
+			game.workspace.WorldMap.MapInteractables.Ads:Destroy()
 		end
 	end)
 })
