@@ -168,7 +168,7 @@ local Button = Tab:Button({
 	name = "Instant Win",
 	callback = (function()
 		if workspace.WorldMap.Checkpoints:FindFirstChild(_G.MaxStage) then
-			game.workspace.Characters:FindFirstChild(game.Players.LocalPlayer.Name)["HumanoidRootPart"].CFrame = workspace.WorldMap.Checkpoints:FindFirstChild(tostring(MaxStage))["Base"].CFrame
+			game.workspace.Characters:FindFirstChild(game.Players.LocalPlayer.Name)["HumanoidRootPart"].CFrame = workspace.WorldMap.Checkpoints:FindFirstChild(tostring(_G.MaxStage))["Base"].CFrame
 		end
 	end)
 })
