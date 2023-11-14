@@ -145,7 +145,7 @@ local Input = Tab:Input({
 	cleartextonfocus = true,
 	callback = function(Value)
 		if workspace.WorldMap.Checkpoints:FindFirstChild(tostring(Value)) then
-			game.workspace.Characters:FindFirstChild(PlayerName)["HumanoidRootPart"].CFrame = workspace.WorldMap.Checkpoints:FindFirstChild(tostring(Value))["Base"].CFrame
+			game.workspace.Characters:FindFirstChild(game.Players.LocalPlayer.Name)["HumanoidRootPart"].CFrame = workspace.WorldMap.Checkpoints:FindFirstChild(tostring(Value))["Base"].CFrame
 		end
 	end
 })
@@ -155,7 +155,7 @@ local Button = Tab:Button({
 	callback = (function()
 		local NextStage = game.Players.LocalPlayer.leaderstats.Stage.Value + 1 
 		if workspace.WorldMap.Checkpoints:FindFirstChild(NextStage) then
-			game.workspace.Characters:FindFirstChild(PlayerName)["HumanoidRootPart"].CFrame = workspace.WorldMap.Checkpoints:FindFirstChild(tostring(NextStage))["Base"].CFrame
+			game.workspace.Characters:FindFirstChild(game.Players.LocalPlayer.Name)["HumanoidRootPart"].CFrame = workspace.WorldMap.Checkpoints:FindFirstChild(tostring(NextStage))["Base"].CFrame
 		end
 	end)
 })
@@ -167,8 +167,8 @@ Tab:Section({
 local Button = Tab:Button({
 	name = "Instant Win",
 	callback = (function()
-		if workspace.WorldMap.Checkpoints:FindFirstChild(MaxStage) then
-			game.workspace.Characters:FindFirstChild(PlayerName)["HumanoidRootPart"].CFrame = workspace.WorldMap.Checkpoints:FindFirstChild(tostring(MaxStage))["Base"].CFrame
+		if workspace.WorldMap.Checkpoints:FindFirstChild(_G.MaxStage) then
+			game.workspace.Characters:FindFirstChild(game.Players.LocalPlayer.Name)["HumanoidRootPart"].CFrame = workspace.WorldMap.Checkpoints:FindFirstChild(tostring(MaxStage))["Base"].CFrame
 		end
 	end)
 })
