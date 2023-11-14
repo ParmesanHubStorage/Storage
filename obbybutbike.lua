@@ -57,7 +57,7 @@ _G.MaxStage = 1
 _G.AutoSpin = false
 
 for i,v in pairs(game.workspace.WorldMap.Checkpoints:GetChildren()) do
-	if tonumber(v.Name) > MaxStage then MaxStage = tonumber(v.Name) end
+	if tonumber(v.Name) > _G.MaxStage then _G.MaxStage = tonumber(v.Name) end
 end
 
 local function SendWebhook(webhook)
