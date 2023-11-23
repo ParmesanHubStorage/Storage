@@ -20,6 +20,7 @@ PremiumKeys = {
 	"ijrn6BAqA-kfxZJ",
 	"_xiBtBuNIJ7d3XD",
 	"mguPA--sZZPvWT2",
+	"d5jBgIqpnnV-wc8",
 	"N8dgIpvCKtZ_QwHuRbDf",
 	"HBe6-yzJ8QhlZKXTcTdz",
 	"lVC5zSE74e2Oev_dbuIQ",
