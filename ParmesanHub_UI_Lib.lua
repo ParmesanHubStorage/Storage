@@ -1,3 +1,8 @@
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local RunService = game:GetService("RunService")
+
+
 local CustomFont
 if game:GetService("UserInputService").TouchEnabled == true or game:GetService("UserInputService").KeyboardEnabled == false then
 	CustomFont = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
@@ -6,6 +11,11 @@ else
 end
 
 Library = {}
+
+local Profile = {}
+local Key = {}
+local Credits = {}
+local Settings = {}
 
 function Library:Validate(defaults, options)
 	for i,v in pairs(defaults) do
@@ -25,6 +35,697 @@ local GUI = {
 	CurrentTab = nil
 }
 
+local Themes = {
+	["Classic"] = {
+		["main"] = Color3.fromRGB(31, 31, 31),
+		
+		["topPanel"] = Color3.fromRGB(59, 62, 66),
+		["topPanelButtons"] = Color3.fromRGB(255, 255, 255),
+		["gameText"] = Color3.fromRGB(148, 150, 157),
+		
+		["lowerPanel"] = Color3.fromRGB(0, 106, 176),
+		["fpsPingText"] = Color3.fromRGB(255, 255, 255),
+		
+		["leftPanel"] = Color3.fromRGB(52, 52, 52),
+		["leftPanelButtons"] = Color3.fromRGB(255, 255, 255),
+		["leftPanelKeyButton"] = Color3.fromRGB(255, 255, 255),
+		
+		["navigationButtonsHolder"] = Color3.fromRGB(38, 38, 39),
+		["navigationButtonBackground"] = Color3.fromRGB(46, 46, 46),
+		["navigationButtonDeactivated"] = Color3.fromRGB(136, 136, 136),
+		["navigationButtonActivated"] = Color3.fromRGB(255, 255, 255),
+		
+		["scrollBarImage"] = Color3.fromRGB(255, 255, 255),
+		
+		["sectionText"] = Color3.fromRGB(201, 201, 201),
+		
+		["profileImageBackground"] = Color3.fromRGB(48, 48, 48),
+		["profileImageUIStroke"] = Color3.fromRGB(85, 85, 85),
+		["profileNameColor"] = Color3.fromRGB(255, 255, 255),
+		["profileNameGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 150, 0)),
+			                                        ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 0, 0))},
+		["profileText"] = Color3.fromRGB(255, 255, 255),
+		
+		["premiumKeyColor"] = Color3.fromRGB(255, 255, 255),
+		["premiumKeyLabel"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(160, 175, 231)),
+			                                    ColorSequenceKeypoint.new(1.000, Color3.fromRGB(119, 234, 215))},
+		["premiumKeyText"] = Color3.fromRGB(255, 255, 255),
+		["premiumKeyUIStroke"] = Color3.fromRGB(0, 0, 0),
+		["premiumKeyBackground"] = Color3.fromRGB(47, 47, 47),
+		
+		["premiumKeyGeneratorText"] = Color3.fromRGB(201, 201, 201),
+		["premiumKeyButtonGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(40, 204, 241)),
+			                           ColorSequenceKeypoint.new(1.000, Color3.fromRGB(31, 124, 217))},
+		["premiumKeyButtonText"] = Color3.fromRGB(122, 193, 255),
+		["premiumKeyButtonBackground"] = Color3.fromRGB(100, 146, 141),
+		
+		["creditsText"] = Color3.fromRGB(255, 255, 255),
+		["creditsBackground"] = Color3.fromRGB(47, 47, 47),
+		["creditsUIStroke"] = Color3.fromRGB(0, 0, 0),
+		
+		["themesText"] = Color3.fromRGB(255, 255, 255),
+		
+		["buttonImage"] = Color3.fromRGB(255, 255, 255),
+		
+		["elementBackground"] = Color3.fromRGB(44, 44, 44),
+		["elementUIStrokeDeactivated"] = Color3.fromRGB(38, 38, 39),
+		["elementUIStrokeActivated"] = Color3.fromRGB(80, 80, 80),
+		["elementUIStrokeHighlighted"] = Color3.fromRGB(60, 60, 60),
+		["elementText"] = Color3.fromRGB(255,255,255),
+		
+		["sliderBackBackground"] = Color3.fromRGB(0, 106, 176),
+		["sliderDraggableUIStroke"] = Color3.fromRGB(33, 33, 33),
+		["sliderDraggableBackground"] = Color3.fromRGB(55, 55, 55),
+		["sliderDraggableGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 255, 255)),
+			                          ColorSequenceKeypoint.new(0.001, Color3.fromRGB(11, 91, 175)),
+			                          ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))},
+		["sliderDraggableText"] = Color3.fromRGB(255, 255, 255),
+		["sliderDraggableUIStrokeDeactivated"] = Color3.fromRGB(38, 38, 39),
+		
+		["toggleCheckboxUIStroke"] = Color3.fromRGB(33, 33, 33),
+		["toggleCheckboxDeactivated"] = Color3.fromRGB(55, 55, 55),
+		["toggleCheckboxActivated"] = Color3.fromRGB(0, 105, 175),
+		["toggleCheckboxImage"] = Color3.fromRGB(255, 255, 255),
+		
+		["dropdownChosenOptionText"] = Color3.fromRGB(136, 136, 136),
+		["dropdownScrollBarUIStroke"] = Color3.fromRGB(36, 36, 36),
+		["dropdownScrollBarBackground"] = Color3.fromRGB(38, 38, 39),
+		["dropdownOptionUIStroke"] = Color3.fromRGB(76, 76, 76),
+		["dropdownOptionBackground"] = Color3.fromRGB(60, 60, 60),
+		["dropdownOptionText"] = Color3.fromRGB(255, 255, 255),
+		["dropdownOptionUIStrokeDeactivated"] = Color3.fromRGB(60, 60, 60),
+		["dropdownOptionUIStrokeActivated"] = Color3.fromRGB(75, 75, 75),
+		
+		["inputWindowUIStroke"] = Color3.fromRGB(33, 33, 33),
+		["inputWindowBackground"] = Color3.fromRGB(39, 39, 39),
+		["inputWindowTextPlaceholder"] = Color3.fromRGB(178, 178, 178),
+		["inputWindowText"] = Color3.fromRGB(255, 255, 255),
+		
+	},
+	
+	["LightColorless"] = {
+		["main"] = Color3.fromRGB(202, 204, 206),
+
+		["topPanel"] = Color3.fromRGB(246, 248, 250),
+		["topPanelButtons"] = Color3.fromRGB(0, 0, 0),
+		["gameText"] = Color3.fromRGB(80, 85, 91),
+
+		["lowerPanel"] = Color3.fromRGB(246, 248, 250),
+		["fpsPingText"] = Color3.fromRGB(80, 85, 91),
+
+		["leftPanel"] = Color3.fromRGB(227, 229, 231),
+		["leftPanelButtons"] = Color3.fromRGB(0, 0, 0),
+		["leftPanelKeyButton"] = Color3.fromRGB(0, 0, 0),
+		
+		["navigationButtonsHolder"] = Color3.fromRGB(199, 199, 199),
+		["navigationButtonBackground"] = Color3.fromRGB(165, 166, 168),
+		["navigationButtonDeactivated"] = Color3.fromRGB(85, 85, 85),
+		["navigationButtonActivated"] = Color3.fromRGB(40, 40, 40),
+		
+		["scrollBarImage"] = Color3.fromRGB(0, 0, 0),
+
+		["sectionText"] = Color3.fromRGB(43, 43, 43),
+		
+		["profileImageBackground"] = Color3.fromRGB(129, 129, 129),
+		["profileImageUIStroke"] = Color3.fromRGB(211, 211, 211),
+		["profileNameColor"] = Color3.fromRGB(255, 255, 255),
+		["profileNameGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(53, 53, 53)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(34, 34, 34))},
+		["profileText"] = Color3.fromRGB(43, 43, 43),
+		
+		["premiumKeyColor"] = Color3.fromRGB(255, 255, 255),
+		["premiumKeyLabel"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(100, 100, 100)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(75, 75, 75))},
+		["premiumKeyText"] = Color3.fromRGB(43, 43, 43),
+		["premiumKeyUIStroke"] = Color3.fromRGB(110, 110, 110),
+		["premiumKeyBackground"] = Color3.fromRGB(165, 166, 168),
+
+		["premiumKeyGeneratorText"] = Color3.fromRGB(43, 43, 43),
+		["premiumKeyButtonGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(192, 192, 192)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(126, 126, 126))},
+		["premiumKeyButtonText"] = Color3.fromRGB(216, 216, 216),
+		["premiumKeyButtonBackground"] = Color3.fromRGB(146, 146, 146),
+
+		["creditsText"] = Color3.fromRGB(43, 43, 43),
+		["creditsBackground"] = Color3.fromRGB(170, 170, 170),
+		["creditsUIStroke"] = Color3.fromRGB(140, 140, 140),
+		
+		["themesText"] = Color3.fromRGB(43, 43, 43),
+		
+		["buttonImage"] = Color3.fromRGB(255, 255, 255),
+		
+		["elementBackground"] = Color3.fromRGB(138, 139, 141),
+		["elementBackgroundActivated"] = Color3.fromRGB(114, 114, 116),
+		["elementUIStrokeDeactivated"] = Color3.fromRGB(105, 105, 108),
+		["elementUIStrokeActivated"] = Color3.fromRGB(60, 60, 60),
+		["elementUIStrokeHighlighted"] = Color3.fromRGB(28, 28, 29),
+		["elementText"] = Color3.fromRGB(255,255,255),
+		
+		["sliderBackBackground"] = Color3.fromRGB(255, 255, 255),
+		["sliderDraggableUIStroke"] = Color3.fromRGB(123, 123, 126),
+		["sliderDraggableBackground"] = Color3.fromRGB(157, 157, 161),
+		["sliderDraggableGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(79, 79, 79)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(125, 125, 125))},
+		["sliderDraggableText"] = Color3.fromRGB(255, 255, 255),
+		["sliderDraggableUIStrokeDeactivated"] = Color3.fromRGB(105, 105, 108),
+		
+		["toggleCheckboxUIStroke"] = Color3.fromRGB(100, 100, 100),
+		["toggleCheckboxDeactivated"] = Color3.fromRGB(126, 126, 126),
+		["toggleCheckboxActivated"] = Color3.fromRGB(106, 106, 106),
+		["toggleCheckboxImage"] = Color3.fromRGB(255, 255, 255),
+
+		["dropdownChosenOptionText"] = Color3.fromRGB(74, 74, 74),
+		["dropdownScrollBarUIStroke"] = Color3.fromRGB(104, 104, 104),
+		["dropdownScrollBarBackground"] = Color3.fromRGB(107, 108, 109),
+		["dropdownOptionUIStroke"] = Color3.fromRGB(75, 75, 75),
+		["dropdownOptionBackground"] = Color3.fromRGB(94, 94, 94),
+		["dropdownOptionText"] = Color3.fromRGB(255, 255, 255),
+		["dropdownOptionUIStrokeDeactivated"] = Color3.fromRGB(60, 60, 60),
+		["dropdownOptionUIStrokeActivated"] = Color3.fromRGB(75, 75, 75),
+
+		["inputWindowUIStroke"] = Color3.fromRGB(74, 74, 76),
+		["inputWindowBackground"] = Color3.fromRGB(86, 86, 88),
+		["inputWindowTextPlaceholder"] = Color3.fromRGB(178, 178, 178),
+		["inputWindowText"] = Color3.fromRGB(255, 255, 255),
+	},
+	
+	["DarkForest"] = {
+		["main"] = Color3.fromRGB(22, 33, 31),
+
+		["topPanel"] = Color3.fromRGB(20, 31, 29),
+		["topPanelButtons"] = Color3.fromRGB(183, 237, 211),
+		["gameText"] = Color3.fromRGB(139, 180, 160),
+
+		["lowerPanel"] = Color3.fromRGB(20, 31, 29),
+		["fpsPingText"] = Color3.fromRGB(139, 180, 160),
+
+		["leftPanel"] = Color3.fromRGB(25, 38, 36),
+		["leftPanelButtons"] = Color3.fromRGB(183, 237, 211),
+		["leftPanelKeyButton"] = Color3.fromRGB(255, 255, 255),
+		
+		["navigationButtonsHolder"] = Color3.fromRGB(26, 38, 33),
+		["navigationButtonBackground"] = Color3.fromRGB(29, 43, 40),
+		["navigationButtonDeactivated"] = Color3.fromRGB(136, 136, 136),
+		["navigationButtonActivated"] = Color3.fromRGB(255, 255, 255),
+
+		["scrollBarImage"] = Color3.fromRGB(255, 255, 255),
+
+		["sectionText"] = Color3.fromRGB(201, 201, 201),
+
+		["profileImageBackground"] = Color3.fromRGB(29, 43, 40),
+		["profileImageUIStroke"] = Color3.fromRGB(40, 59, 55),
+		["profileNameColor"] = Color3.fromRGB(255, 255, 255),
+		["profileNameGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(172, 255, 237)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(198, 255, 171))},
+		["profileText"] = Color3.fromRGB(255, 255, 255),
+		
+		["premiumKeyColor"] = Color3.fromRGB(255, 255, 255),
+		["premiumKeyLabel"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(172, 255, 237)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(198, 255, 171))},
+		["premiumKeyText"] = Color3.fromRGB(255, 255, 255),
+		["premiumKeyUIStroke"] = Color3.fromRGB(45, 67, 62),
+		["premiumKeyBackground"] = Color3.fromRGB(29, 43, 40),
+
+		["premiumKeyGeneratorText"] = Color3.fromRGB(201, 201, 201),
+		["premiumKeyButtonGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(82, 130, 105)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(122, 188, 112))},
+		["premiumKeyButtonText"] = Color3.fromRGB(139, 223, 192),
+		["premiumKeyButtonBackground"] = Color3.fromRGB(153, 153, 153),
+
+		["creditsText"] = Color3.fromRGB(255, 255, 255),
+		["creditsBackground"] = Color3.fromRGB(29, 43, 40),
+		["creditsUIStroke"] = Color3.fromRGB(42, 63, 59),
+		
+		["themesText"] = Color3.fromRGB(255, 255, 255),
+		
+		["buttonImage"] = Color3.fromRGB(255, 255, 255),
+
+		["elementBackground"] = Color3.fromRGB(39, 50, 45),
+		["elementBackgroundActivated"] = Color3.fromRGB(114, 114, 116),
+		["elementUIStrokeDeactivated"] = Color3.fromRGB(57, 74, 66),
+		["elementUIStrokeActivated"] = Color3.fromRGB(60, 60, 60),
+		["elementUIStrokeHighlighted"] = Color3.fromRGB(78, 102, 91),
+		["elementText"] = Color3.fromRGB(255,255,255),
+
+		["sliderBackBackground"] = Color3.fromRGB(255, 255, 255),
+		["sliderDraggableUIStroke"] = Color3.fromRGB(33, 33, 34),
+		["sliderDraggableBackground"] = Color3.fromRGB(35, 47, 41),
+		["sliderDraggableGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(30, 47, 36)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(56, 88, 67))},
+		["sliderDraggableText"] = Color3.fromRGB(255, 255, 255),
+		["sliderDraggableUIStrokeDeactivated"] = Color3.fromRGB(33, 33, 34),
+		
+		["toggleCheckboxUIStroke"] = Color3.fromRGB(33, 33, 33),
+		["toggleCheckboxDeactivated"] = Color3.fromRGB(35, 47, 41),
+		["toggleCheckboxActivated"] = Color3.fromRGB(65, 85, 75),
+		["toggleCheckboxImage"] = Color3.fromRGB(255, 255, 255),
+
+		["dropdownChosenOptionText"] = Color3.fromRGB(136, 136, 136),
+		["dropdownScrollBarUIStroke"] = Color3.fromRGB(33, 43, 38),
+		["dropdownScrollBarBackground"] = Color3.fromRGB(45, 59, 52),
+		["dropdownOptionUIStrokeDeactivated"] = Color3.fromRGB(32, 42, 37),
+		["dropdownOptionUIStrokeActivated"] = Color3.fromRGB(78, 103, 91),
+		["dropdownOptionBackground"] = Color3.fromRGB(57, 74, 66),
+		["dropdownOptionText"] = Color3.fromRGB(255, 255, 255),
+
+		["inputWindowUIStroke"] = Color3.fromRGB(26, 34, 30),
+		["inputWindowBackground"] = Color3.fromRGB(30, 39, 35),
+		["inputWindowTextPlaceholder"] = Color3.fromRGB(178, 178, 178),
+		["inputWindowText"] = Color3.fromRGB(255, 255, 255),
+	},
+	
+	["SpringApple"] = {
+		["main"] = Color3.fromRGB(239, 248, 242),
+
+		["topPanel"] = Color3.fromRGB(168, 199, 168),
+		["topPanelButtons"] = Color3.fromRGB(0, 0, 0),
+		["gameText"] = Color3.fromRGB(80, 85, 91),
+
+		["lowerPanel"] = Color3.fromRGB(168, 199, 168),
+		["fpsPingText"] = Color3.fromRGB(80, 85, 91),
+
+		["leftPanel"] = Color3.fromRGB(224, 242, 224),
+		["leftPanelButtons"] = Color3.fromRGB(0, 0, 0),
+		["leftPanelKeyButton"] = Color3.fromRGB(0, 0, 0),
+		
+		["navigationButtonsHolder"] = Color3.fromRGB(199, 199, 199),
+		["navigationButtonBackground"] = Color3.fromRGB(210, 218, 213),
+		["navigationButtonDeactivated"] = Color3.fromRGB(85, 85, 85),
+		["navigationButtonActivated"] = Color3.fromRGB(40, 40, 40),
+
+		["scrollBarImage"] = Color3.fromRGB(0, 0, 0),
+
+		["sectionText"] = Color3.fromRGB(43, 43, 43),
+
+		["profileImageBackground"] = Color3.fromRGB(210, 218, 213),
+		["profileImageUIStroke"] = Color3.fromRGB(191, 198, 194),
+		["profileNameColor"] = Color3.fromRGB(255, 255, 255),
+		["profileNameGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(53, 53, 53)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(34, 34, 34))},
+		["profileText"] = Color3.fromRGB(43, 43, 43),
+		
+		["premiumKeyColor"] = Color3.fromRGB(255, 255, 255),
+		["premiumKeyLabel"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(100, 100, 100)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(75, 75, 75))},
+		["premiumKeyText"] = Color3.fromRGB(43, 43, 43),
+		["premiumKeyUIStroke"] = Color3.fromRGB(173, 179, 175),
+		["premiumKeyBackground"] = Color3.fromRGB(210, 218, 213),
+
+		["premiumKeyGeneratorText"] = Color3.fromRGB(43, 43, 43),
+		["premiumKeyButtonGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(143, 170, 173)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(199, 218, 210))},
+		["premiumKeyButtonText"] = Color3.fromRGB(177, 244, 190),
+		["premiumKeyButtonBackground"] = Color3.fromRGB(173, 208, 185),
+
+		["creditsText"] = Color3.fromRGB(43, 43, 43),
+		["creditsBackground"] = Color3.fromRGB(210, 218, 213),
+		["creditsUIStroke"] = Color3.fromRGB(173, 179, 175),
+		
+		["themesText"] = Color3.fromRGB(43, 43, 43),
+		
+		["buttonImage"] = Color3.fromRGB(147, 166, 152),
+
+		["elementBackground"] = Color3.fromRGB(203, 229, 210),
+		["elementBackgroundActivated"] = Color3.fromRGB(114, 114, 116),
+		["elementUIStrokeDeactivated"] = Color3.fromRGB(183, 207, 190),
+		["elementUIStrokeActivated"] = Color3.fromRGB(60, 60, 60),
+		["elementUIStrokeHighlighted"] = Color3.fromRGB(147, 167, 153),
+		["elementText"] = Color3.fromRGB(85, 85, 85),
+
+		["sliderBackBackground"] = Color3.fromRGB(180, 203, 186),
+		["sliderDraggableUIStroke"] = Color3.fromRGB(160, 180, 165),
+		["sliderDraggableBackground"] = Color3.fromRGB(183, 207, 190),
+		["sliderDraggableGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(126, 188, 173)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(187, 218, 149))},
+		["sliderDraggableText"] = Color3.fromRGB(255, 255, 255),
+		["sliderDraggableUIStrokeDeactivated"] = Color3.fromRGB(160, 180, 165),
+
+		["toggleCheckboxUIStroke"] = Color3.fromRGB(155, 175, 160),
+		["toggleCheckboxDeactivated"] = Color3.fromRGB(180, 203, 186),
+		["toggleCheckboxActivated"] = Color3.fromRGB(186, 213, 165),
+		["toggleCheckboxImage"] = Color3.fromRGB(255, 255, 255),
+
+		["dropdownChosenOptionText"] = Color3.fromRGB(74, 74, 74),
+		["dropdownScrollBarUIStroke"] = Color3.fromRGB(158, 179, 164),
+		["dropdownScrollBarBackground"] = Color3.fromRGB(167, 188, 172),
+		["dropdownOptionUIStrokeDeactivated"] = Color3.fromRGB(139, 157, 144),
+		["dropdownOptionUIStrokeActivated"] = Color3.fromRGB(98, 111, 102),
+		["dropdownOptionBackground"] = Color3.fromRGB(180, 202, 185),
+		["dropdownOptionText"] = Color3.fromRGB(85, 85, 85),
+
+		["inputWindowUIStroke"] = Color3.fromRGB(155, 175, 160),
+		["inputWindowBackground"] = Color3.fromRGB(183, 207, 190),
+		["inputWindowTextPlaceholder"] = Color3.fromRGB(115, 115, 115),
+		["inputWindowText"] = Color3.fromRGB(85, 85, 85),
+	},
+	
+	["WineCherry"] = {
+		["main"] = Color3.fromRGB(53, 20, 20),
+
+		["topPanel"] = Color3.fromRGB(40, 15, 15),
+		["topPanelButtons"] = Color3.fromRGB(255, 255, 255),
+		["gameText"] = Color3.fromRGB(148, 155, 164),
+
+		["lowerPanel"] = Color3.fromRGB(40, 15, 15),
+		["fpsPingText"] = Color3.fromRGB(148, 155, 164),
+
+		["leftPanel"] = Color3.fromRGB(47, 18, 18),
+		["leftPanelButtons"] = Color3.fromRGB(255, 255, 255),
+		["leftPanelKeyButton"] = Color3.fromRGB(255, 255, 255),
+		
+		["navigationButtonsHolder"] = Color3.fromRGB(34, 13, 13),
+		["navigationButtonBackground"] = Color3.fromRGB(45, 17, 17),
+		["navigationButtonDeactivated"] = Color3.fromRGB(136, 136, 136),
+		["navigationButtonActivated"] = Color3.fromRGB(255, 255, 255),
+
+		["scrollBarImage"] = Color3.fromRGB(255, 255, 255),
+
+		["sectionText"] = Color3.fromRGB(201, 201, 201),
+
+		["profileImageBackground"] = Color3.fromRGB(45, 17, 17),
+		["profileImageUIStroke"] = Color3.fromRGB(80, 30, 30),
+		["profileNameColor"] = Color3.fromRGB(255, 255, 255),
+		["profileNameGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(185, 70, 70)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(235, 88, 88))},
+		["profileText"] = Color3.fromRGB(255, 255, 255),
+		
+		["premiumKeyColor"] = Color3.fromRGB(255, 255, 255),
+		["premiumKeyLabel"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 96, 96)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(208, 56, 56))},
+		["premiumKeyText"] = Color3.fromRGB(255, 255, 255),
+		["premiumKeyUIStroke"] = Color3.fromRGB(90, 34, 34),
+		["premiumKeyBackground"] = Color3.fromRGB(45, 17, 17),
+
+		["premiumKeyGeneratorText"] = Color3.fromRGB(201, 201, 201),
+		["premiumKeyButtonGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(136, 51, 51)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 91, 91))},
+		["premiumKeyButtonText"] = Color3.fromRGB(255, 107, 107),
+		["premiumKeyButtonBackground"] = Color3.fromRGB(153, 153, 153),
+
+		["creditsText"] = Color3.fromRGB(255, 255, 255),
+		["creditsBackground"] = Color3.fromRGB(45, 17, 17),
+		["creditsUIStroke"] = Color3.fromRGB(77, 29, 29),
+		
+		["themesText"] = Color3.fromRGB(255, 255, 255),
+		
+		["buttonImage"] = Color3.fromRGB(255, 255, 255),
+
+		["elementBackground"] = Color3.fromRGB(71, 27, 27),
+		["elementBackgroundActivated"] = Color3.fromRGB(114, 114, 116),
+		["elementUIStrokeDeactivated"] = Color3.fromRGB(90, 34, 34),
+		["elementUIStrokeActivated"] = Color3.fromRGB(60, 60, 60),
+		["elementUIStrokeHighlighted"] = Color3.fromRGB(121, 46, 46),
+		["elementText"] = Color3.fromRGB(255, 255, 255),
+
+		["sliderBackBackground"] = Color3.fromRGB(255, 255, 255),
+		["sliderDraggableUIStroke"] = Color3.fromRGB(49, 19, 19),
+		["sliderDraggableBackground"] = Color3.fromRGB(63, 24, 24),
+		["sliderDraggableGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(57, 11, 33)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(94, 31, 38))},
+		["sliderDraggableText"] = Color3.fromRGB(255, 255, 255),
+		["sliderDraggableUIStrokeDeactivated"] = Color3.fromRGB(49, 19, 19),
+
+		["toggleCheckboxUIStroke"] = Color3.fromRGB(42, 16, 16),
+		["toggleCheckboxDeactivated"] = Color3.fromRGB(63, 24, 24),
+		["toggleCheckboxActivated"] = Color3.fromRGB(106, 40, 40),
+		["toggleCheckboxImage"] = Color3.fromRGB(255, 255, 255),
+
+		["dropdownChosenOptionText"] = Color3.fromRGB(136, 136, 136),
+		["dropdownScrollBarUIStroke"] = Color3.fromRGB(54, 21, 21),
+		["dropdownScrollBarBackground"] = Color3.fromRGB(62, 24, 24),
+		["dropdownOptionUIStrokeDeactivated"] = Color3.fromRGB(97, 37, 37),
+		["dropdownOptionUIStrokeActivated"] = Color3.fromRGB(124, 47, 47),
+		["dropdownOptionBackground"] = Color3.fromRGB(71, 27, 27),
+		["dropdownOptionText"] = Color3.fromRGB(255, 255, 255),
+
+		["inputWindowUIStroke"] = Color3.fromRGB(65, 24, 24),
+		["inputWindowBackground"] = Color3.fromRGB(52, 20, 20),
+		["inputWindowTextPlaceholder"] = Color3.fromRGB(178, 178, 178),
+		["inputWindowText"] = Color3.fromRGB(255, 255, 255),
+	},
+	
+	["OrangeJuice"] = {
+		["main"] = Color3.fromRGB(251, 233, 195),
+
+		["topPanel"] = Color3.fromRGB(255, 214, 117),
+		["topPanelButtons"] = Color3.fromRGB(80, 85, 91),
+		["gameText"] = Color3.fromRGB(80, 85, 91),
+
+		["lowerPanel"] = Color3.fromRGB(255, 214, 117),
+		["fpsPingText"] = Color3.fromRGB(80, 85, 91),
+
+		["leftPanel"] = Color3.fromRGB(255, 228, 158),
+		["leftPanelButtons"] = Color3.fromRGB(0, 0, 0),
+		["leftPanelKeyButton"] = Color3.fromRGB(0, 0, 0),
+		
+		["navigationButtonsHolder"] = Color3.fromRGB(213, 197, 165),
+		["navigationButtonBackground"] = Color3.fromRGB(234, 217, 182),
+		["navigationButtonDeactivated"] = Color3.fromRGB(85, 85, 85),
+		["navigationButtonActivated"] = Color3.fromRGB(40, 40, 40),
+
+		["scrollBarImage"] = Color3.fromRGB(0, 0, 0),
+
+		["sectionText"] = Color3.fromRGB(43, 43, 43),
+
+		["profileImageBackground"] = Color3.fromRGB(234, 217, 182),
+		["profileImageUIStroke"] = Color3.fromRGB(203, 188, 158),
+		["profileNameColor"] = Color3.fromRGB(255, 255, 255),
+		["profileNameGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(209, 161, 16)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(200, 192, 73))},
+		["profileText"] = Color3.fromRGB(43, 43, 43),
+		
+		["premiumKeyColor"] = Color3.fromRGB(255, 255, 255),
+		["premiumKeyLabel"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(247, 178, 59)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(180, 90, 0))},
+		["premiumKeyText"] = Color3.fromRGB(43, 43, 43),
+		["premiumKeyUIStroke"] = Color3.fromRGB(207, 192, 161),
+		["premiumKeyBackground"] = Color3.fromRGB(234, 217, 182),
+
+		["premiumKeyGeneratorText"] = Color3.fromRGB(43, 43, 43),
+		["premiumKeyButtonGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(207, 145, 0)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(218, 177, 14))},
+		["premiumKeyButtonText"] = Color3.fromRGB(255, 255, 255),
+		["premiumKeyButtonBackground"] = Color3.fromRGB(255, 255, 255),
+
+		["creditsText"] = Color3.fromRGB(43, 43, 43),
+		["creditsBackground"] = Color3.fromRGB(234, 217, 182),
+		["creditsUIStroke"] = Color3.fromRGB(200, 185, 155),
+		
+		["themesText"] = Color3.fromRGB(43, 43, 43),
+		
+		["buttonImage"] = Color3.fromRGB(255, 255, 255),
+
+		["elementBackground"] = Color3.fromRGB(243, 218, 161),
+		["elementBackgroundActivated"] = Color3.fromRGB(114, 114, 116),
+		["elementUIStrokeDeactivated"] = Color3.fromRGB(243, 210, 128),
+		["elementUIStrokeActivated"] = Color3.fromRGB(60, 60, 60),
+		["elementUIStrokeHighlighted"] = Color3.fromRGB(207, 178, 109),
+		["elementText"] = Color3.fromRGB(85, 85, 85),
+
+		["sliderBackBackground"] = Color3.fromRGB(255, 255, 255),
+		["sliderDraggableUIStroke"] = Color3.fromRGB(198, 170, 104),
+		["sliderDraggableBackground"] = Color3.fromRGB(217, 194, 144),
+		["sliderDraggableGradient"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(198, 163, 92)),
+			ColorSequenceKeypoint.new(1.000, Color3.fromRGB(252, 230, 118))},
+		["sliderDraggableText"] = Color3.fromRGB(255, 255, 255),
+		["sliderDraggableUIStrokeDeactivated"] = Color3.fromRGB(198, 170, 104),
+
+		["toggleCheckboxUIStroke"] = Color3.fromRGB(191, 164, 100),
+		["toggleCheckboxDeactivated"] = Color3.fromRGB(217, 194, 144),
+		["toggleCheckboxActivated"] = Color3.fromRGB(216, 178, 91),
+		["toggleCheckboxImage"] = Color3.fromRGB(255, 255, 255),
+
+		["dropdownChosenOptionText"] = Color3.fromRGB(74, 74, 74),
+		["dropdownScrollBarUIStroke"] = Color3.fromRGB(190, 170, 126),
+		["dropdownScrollBarBackground"] = Color3.fromRGB(208, 186, 138),
+		["dropdownOptionUIStrokeDeactivated"] = Color3.fromRGB(184, 164, 122),
+		["dropdownOptionUIStrokeActivated"] = Color3.fromRGB(134, 119, 89),
+		["dropdownOptionBackground"] = Color3.fromRGB(217, 194, 144),
+		["dropdownOptionText"] = Color3.fromRGB(85, 85, 85),
+
+		["inputWindowUIStroke"] = Color3.fromRGB(180, 159, 119),
+		["inputWindowBackground"] = Color3.fromRGB(198, 176, 131),
+		["inputWindowTextPlaceholder"] = Color3.fromRGB(85, 85, 85),
+		["inputWindowText"] = Color3.fromRGB(85, 85, 85),
+	},
+}
+
+_G.CurrentTheme = "Classic"
+
+--MainGUIWindow
+
+local Link = nil
+
+function Library:ChangeTheme(ChosenTheme)
+	local MainThing = CoreGui.MainGUIWindow
+	
+	GUI["2"]["BackgroundColor3"] = Themes[ChosenTheme]["main"]
+
+	GUI["9"]["BackgroundColor3"] = Themes[ChosenTheme]["topPanel"]
+	GUI["b"]["BackgroundColor3"] = Themes[ChosenTheme]["topPanel"]
+	GUI["e"]["ImageColor3"] = Themes[ChosenTheme]["topPanelButtons"]
+	GUI["d"]["ImageColor3"] = Themes[ChosenTheme]["topPanelButtons"]
+	GUI["c"]["TextColor3"] = Themes[ChosenTheme]["gameText"]
+
+	GUI["4"]["BackgroundColor3"] = Themes[ChosenTheme]["lowerPanel"]
+	GUI["6"]["BackgroundColor3"] = Themes[ChosenTheme]["lowerPanel"]
+	GUI["7"]["TextColor3"] = Themes[ChosenTheme]["fpsPingText"]
+	GUI["8"]["TextColor3"] = Themes[ChosenTheme]["fpsPingText"]
+
+	GUI["48"]["BackgroundColor3"] = Themes[ChosenTheme]["leftPanel"]
+	GUI["4a"]["ImageColor3"] = Themes[ChosenTheme]["leftPanelButtons"]
+	GUI["4b"]["ImageColor3"] = Themes[ChosenTheme]["leftPanelButtons"]
+	GUI["4c"]["ImageColor3"] = Themes[ChosenTheme]["leftPanelButtons"]
+	GUI["65"]["ImageColor3"] = Themes[ChosenTheme]["leftPanelKeyButton"]
+
+	GUI["4d"]["BackgroundColor3"]  = Themes[ChosenTheme]["navigationButtonsHolder"]
+	for index, element in pairs(MainThing.Frame.Main.Navigation.NavigationHolder.ScrollingFrame:GetChildren()) do
+		if element.Name == "PlayerInactive" then
+			element.BackgroundColor3 = Themes[ChosenTheme]["navigationButtonBackground"]
+			if element.TextColor3 == Themes[_G.CurrentTheme]["navigationButtonDeactivated"] then
+				element.TextColor3 = Themes[ChosenTheme]["navigationButtonDeactivated"]
+			else
+				element.TextColor3 = Themes[ChosenTheme]["navigationButtonActivated"]
+			end
+		end
+	end
+	
+	for index, scrollBar in pairs(MainThing.Frame.Main.ContentContainer:GetChildren()) do
+		scrollBar.ScrollBarImageColor3 = Themes[ChosenTheme]["scrollBarImage"]
+		if scrollBar.Name == "PlayerTab" then
+			for index, element in pairs(scrollBar:GetChildren()) do
+				if element.Name == "TextLabel" then
+					element.TextColor3 = Themes[ChosenTheme]["sectionText"]
+				end
+			end
+		end
+	end
+	
+	Profile["b3"]["BackgroundColor3"] = Themes[ChosenTheme]["profileImageBackground"]
+	Profile["af"]["BackgroundColor3"] = Themes[ChosenTheme]["profileImageBackground"]
+	Profile["b1"]["Color"]  = Themes[ChosenTheme]["profileImageUIStroke"]
+	Profile["b6"]["TextColor3"] = Themes[ChosenTheme]["profileNameColor"]
+	Profile["b7"]["Color"] = Themes[ChosenTheme]["profileNameGradient"]
+	for index, element in pairs(MainThing.Frame.Main.ContentContainer.Profile:GetChildren()) do
+		if element.Name == "TextLabel" and not element:FindFirstChild("UIGradient") then
+			element.TextColor3 = Themes[ChosenTheme]["profileText"]
+		end
+	end
+	
+	Key["101"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyColor"]
+	Key["102"]["Color"] = Themes[ChosenTheme]["premiumKeyLabel"]
+	Key["a3"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyText"]
+	Key["a8"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyText"]
+	Key["104"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyText"]
+	Key["9c"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyText"]
+	Key["a9"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyText"]
+	Key["aa"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyText"]
+	
+	Key["a6"]["Color"] = Themes[ChosenTheme]["premiumKeyUIStroke"]
+	Key["ad"]["Color"] = Themes[ChosenTheme]["premiumKeyUIStroke"]
+	Key["a4"]["BackgroundColor3"] = Themes[ChosenTheme]["premiumKeyBackground"]
+	Key["ab"]["BackgroundColor3"] = Themes[ChosenTheme]["premiumKeyBackground"]
+	
+	Key["a4"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyGeneratorText"]
+	
+	Key["a1"]["Color"] = Themes[ChosenTheme]["premiumKeyButtonGradient"]
+	Key["108"]["Color"] = Themes[ChosenTheme]["premiumKeyButtonGradient"]
+	Key["9a"]["Color"] = Themes[ChosenTheme]["premiumKeyButtonGradient"]
+	
+	Key["a0"]["Color"] = Themes[ChosenTheme]["premiumKeyUIStroke"]
+	Key["107"]["Color"] = Themes[ChosenTheme]["premiumKeyUIStroke"]
+	Key["99"]["Color"] = Themes[ChosenTheme]["premiumKeyUIStroke"]
+	
+	Key["9f"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyButtonText"]
+	Key["9e"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyButtonText"]
+	Key["105"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyButtonText"]
+	Key["106"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyButtonText"]
+	Key["97"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyButtonText"]
+	Key["98"]["TextColor3"] = Themes[ChosenTheme]["premiumKeyButtonText"]
+	
+	Key["103"]["BackgroundColor3"] = Themes[ChosenTheme]["premiumKeyButtonBackground"]
+	Key["110"]["BackgroundColor3"] = Themes[ChosenTheme]["premiumKeyButtonBackground"]
+	Key["9d"]["BackgroundColor3"] = Themes[ChosenTheme]["premiumKeyButtonBackground"]
+	
+	Credits["c1"]["TextColor3"] = Themes[ChosenTheme]["creditsText"]
+	Credits["be"]["TextColor3"] = Themes[ChosenTheme]["creditsText"]
+	Credits["bf"]["TextColor3"] = Themes[ChosenTheme]["creditsText"]
+	Credits["c0"]["TextColor3"] = Themes[ChosenTheme]["creditsText"]
+	Credits["c2"]["TextColor3"] = Themes[ChosenTheme]["creditsText"]
+	Credits["c3"]["TextColor3"] = Themes[ChosenTheme]["creditsText"]
+	Credits["bb"]["BackgroundColor3"] = Themes[ChosenTheme]["creditsBackground"]
+	Credits["bd"]["Color"] = Themes[ChosenTheme]["creditsUIStroke"]
+	
+	Settings["c5"]["TextColor3"] = Themes[ChosenTheme]["themesText"]
+	
+	for _, scrollBar in pairs(MainThing.Frame.Main.ContentContainer:GetChildren()) do
+		if scrollBar.Name == "PlayerTab" and #(scrollBar:GetChildren()) > 2 then
+			for _, element in (scrollBar:GetChildren()) do
+				if element.Name == "Button" or element.Name == "Slider" or element.Name == "Dropdown" or element.Name == "ToggleInactive" then
+					element.BackgroundColor3 = Themes[ChosenTheme]["elementBackground"]
+					element.TextColor3 = Themes[ChosenTheme]["elementText"]
+					element.UIStroke.Color = Themes[ChosenTheme]["elementUIStrokeDeactivated"]
+				end 
+				
+				if element.Name == "Button" then
+					element.ImageLabel.ImageColor3 = Themes[ChosenTheme]["buttonImage"]
+					
+				elseif element.Name == "Slider" then
+					element.SliderBack:WaitForChild("Draggable").BackgroundColor3 = Themes[ChosenTheme]["sliderBackBackground"]
+					element.SliderBack:WaitForChild("Draggable").UIGradient.Color = Themes[ChosenTheme]["sliderDraggableGradient"]
+					element.SliderBack.BackgroundColor3 = Themes[ChosenTheme]["sliderDraggableBackground"]
+					element.SliderBack.UIStroke.Color = Themes[ChosenTheme]["sliderDraggableUIStroke"]
+					element.SliderBack.TextLabel.TextColor3 = Themes[ChosenTheme]["sliderDraggableText"]
+					element.TextLabel.TextColor3 = Themes[ChosenTheme]["elementText"]
+					
+				elseif element.Name == "Dropdown" then
+					for index, elementPart in pairs(element:GetChildren()) do
+						if elementPart.Name == "TextLabel" and not elementPart:FindFirstChild("UIPadding") then
+							elementPart.TextColor3 = Themes[ChosenTheme]["dropdownChosenOptionText"]
+						elseif elementPart.Name == "TextLabel" then
+							elementPart.TextColor3 = Themes[ChosenTheme]["elementText"]
+						end
+					end
+					
+					element.OptionHolder.ScrollingFrame.BackgroundColor3 = Themes[ChosenTheme]["dropdownScrollBarBackground"]
+					element.OptionHolder.ScrollingFrame.UIStroke.Color = Themes[ChosenTheme]["dropdownScrollBarUIStroke"]
+					
+					for index, scrollBarElement in pairs(element.OptionHolder.ScrollingFrame:GetChildren()) do
+						if scrollBarElement.Name == "Inactive Option" then
+							scrollBarElement.UIStroke.Color = Themes[ChosenTheme]["dropdownOptionUIStrokeDeactivated"]
+							scrollBarElement.BackgroundColor3 = Themes[ChosenTheme]["dropdownOptionBackground"]
+							scrollBarElement.TextColor3 = Themes[ChosenTheme]["dropdownOptionText"]
+						end
+					end
+					
+				elseif element.Name == "ToggleInactive" then
+					if element.CheckmarkHolder.BackgroundColor3 == Themes[_G.CurrentTheme]["toggleCheckboxDeactivated"] then
+						element.CheckmarkHolder.BackgroundColor3 = Themes[ChosenTheme]["toggleCheckboxDeactivated"]
+					else
+						element.CheckmarkHolder.BackgroundColor3 = Themes[ChosenTheme]["toggleCheckboxActivated"]
+					end
+					
+					element.CheckmarkHolder.UIStroke.Color = Themes[ChosenTheme]["toggleCheckboxUIStroke"]
+					element.CheckmarkHolder.Checkmark.ImageColor3 = Themes[ChosenTheme]["toggleCheckboxImage"]
+					element.TextLabel.TextColor3 = Themes[ChosenTheme]["elementText"]
+					
+				elseif element.Name == "Input" then
+					element.BackgroundColor3 = Themes[ChosenTheme]["elementBackground"]
+					element.TextLabel.TextColor3 = Themes[ChosenTheme]["elementText"]
+					element.UIStroke.Color = Themes[ChosenTheme]["elementUIStrokeDeactivated"]
+					
+					element.TextBox.BackgroundColor3 = Themes[ChosenTheme]["inputWindowBackground"]
+					element.TextBox.UIStroke.Color = Themes[ChosenTheme]["inputWindowUIStroke"]
+					element.TextBox.TextColor3 = Themes[ChosenTheme]["inputWindowText"]
+					element.TextBox.PlaceholderColor3 = Themes[ChosenTheme]["inputWindowTextPlaceholder"]
+				end
+			end
+		end
+	end
+	
+	_G.CurrentTheme = ChosenTheme
+end
+
 function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 	Library:Validate({
@@ -35,7 +736,8 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 	do -- Main Window
 		-- StarterGui.ScreenGui
-		GUI["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
+		GUI["1"] = Instance.new("ScreenGui", RunService:IsStudio() and Players.LocalPlayer:WaitForChild("PlayerGui") or CoreGui);
+		GUI["1"]["Name"] = "MainGUIWindow"
 		GUI["1"]["IgnoreGuiInset"] = true;
 		GUI["1"]["ScreenInsets"] = Enum.ScreenInsets.DeviceSafeInsets;
 		GUI["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
@@ -107,7 +809,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["2"] = Instance.new("Frame", GUI["514"]);
 		GUI["2"]["ZIndex"] = 0;
 		GUI["2"]["BorderSizePixel"] = 0;
-		GUI["2"]["BackgroundColor3"] = Color3.fromRGB(31, 31, 31);
+		GUI["2"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["main"];
 		GUI["2"]["AnchorPoint"] = Vector2.new(1,0);
 		GUI["2"]["Size"] = UDim2.new(0, 450, 0, 300);
 		GUI["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -124,7 +826,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["4"] = Instance.new("Frame", GUI["2"]);
 		GUI["4"]["ZIndex"] = 4;
 		GUI["4"]["BorderSizePixel"] = 0;
-		GUI["4"]["BackgroundColor3"] = Color3.fromRGB(0, 106, 176);
+		GUI["4"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["lowerPanel"];
 		GUI["4"]["AnchorPoint"] = Vector2.new(0, 1);
 		GUI["4"]["Size"] = UDim2.new(1, 0, 0, 20);
 		GUI["4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -138,7 +840,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		-- StarterGui.ScreenGui.Main.FPS_Ping.Frame
 		GUI["6"] = Instance.new("Frame", GUI["4"]);
 		GUI["6"]["BorderSizePixel"] = 0;
-		GUI["6"]["BackgroundColor3"] = Color3.fromRGB(0, 106, 176);
+		GUI["6"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["lowerPanel"];
 		GUI["6"]["Size"] = UDim2.new(1, 0, 0, 10);
 		GUI["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 
@@ -148,7 +850,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["7"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["7"]["FontFace"] = CustomFont
 		GUI["7"]["TextSize"] = 12;
-		GUI["7"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+		GUI["7"]["TextColor3"] = Themes[_G.CurrentTheme]["fpsPingText"];
 		GUI["7"]["Size"] = UDim2.new(0, 60, 0, 20);
 		GUI["7"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["7"]["Text"] = [[FPS: 60]];
@@ -161,7 +863,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["8"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["8"]["FontFace"] = CustomFont
 		GUI["8"]["TextSize"] = 12;
-		GUI["8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+		GUI["8"]["TextColor3"] = Themes[_G.CurrentTheme]["fpsPingText"];
 		GUI["8"]["AnchorPoint"] = Vector2.new(0, 1);
 		GUI["8"]["Size"] = UDim2.new(0, 80, 1, 0);
 		GUI["8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -198,7 +900,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 	game:GetService("RunService").RenderStepped:Connect(function()
 		GUI["7"]["Text"] = "FPS: "..tostring(pFPS)
 		if pFPS > 40 then
-			GUI["7"]["TextColor3"] = Color3.fromRGB(255,255,255)
+			GUI["7"]["TextColor3"] = Themes[_G.CurrentTheme]["fpsPingText"]
 		elseif pFPS >= 20 and pFPS <= 40 then
 			GUI["7"]["TextColor3"] = Color3.fromRGB(255,238,0)
 		elseif pFPS < 20 then
@@ -211,7 +913,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["9"] = Instance.new("Frame", GUI["2"]);
 		GUI["9"]["ZIndex"] = 4;
 		GUI["9"]["BorderSizePixel"] = 0;
-		GUI["9"]["BackgroundColor3"] = Color3.fromRGB(59, 62, 66);
+		GUI["9"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["topPanel"];
 		GUI["9"]["Size"] = UDim2.new(1, 0, 0, 25);
 		GUI["9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["9"]["Name"] = [[GameName]];
@@ -223,7 +925,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		-- StarterGui.ScreenGui.Main.GameName.Frame
 		GUI["b"] = Instance.new("Frame", GUI["9"]);
 		GUI["b"]["BorderSizePixel"] = 0;
-		GUI["b"]["BackgroundColor3"] = Color3.fromRGB(59, 62, 66);
+		GUI["b"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["topPanel"];
 		GUI["b"]["AnchorPoint"] = Vector2.new(0, 1);
 		GUI["b"]["Size"] = UDim2.new(1, 0, 0, 7);
 		GUI["b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -236,7 +938,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["c"]["FontFace"] = CustomFont
 		GUI["c"]["TextSize"] = 14;
-		GUI["c"]["TextColor3"] = Color3.fromRGB(148, 150, 157);
+		GUI["c"]["TextColor3"] = Themes[_G.CurrentTheme]["gameText"];
 		GUI["c"]["Size"] = UDim2.new(1, 0, 1, 0);
 		GUI["c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["c"]["Text"] = options.name;
@@ -245,8 +947,9 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		-- StarterGui.ScreenGui.Main.GameName.ImageLabel
 		GUI["d"] = Instance.new("ImageButton", GUI["9"]);
 		GUI["d"]["BorderSizePixel"] = 0;
-		GUI["d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+		GUI["d"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["topPanelButtons"];
 		GUI["d"]["Image"] = [[rbxassetid://15116174139]];
+		GUI["d"]["ImageColor3"] = Themes[_G.CurrentTheme]["topPanelButtons"]
 		GUI["d"]["Size"] = UDim2.new(0, 12, 0, 12);
 		GUI["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["d"]["BackgroundTransparency"] = 1;
@@ -255,9 +958,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		-- StarterGui.ScreenGui.Main.GameName.ImageLabel
 		GUI["e"] = Instance.new("ImageButton", GUI["9"]);
 		GUI["e"]["BorderSizePixel"] = 0;
-		GUI["e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+		GUI["e"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["topPanelButtons"];
 		GUI["e"]["ImageTransparency"] = 0.5;
 		GUI["e"]["Image"] = [[rbxassetid://15116175756]];
+		GUI["e"]["ImageColor3"] = Themes[_G.CurrentTheme]["topPanelButtons"]
 		GUI["e"]["Size"] = UDim2.new(0, 12, 0, 12);
 		GUI["e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["e"]["BackgroundTransparency"] = 1;
@@ -269,7 +973,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["4d"] = Instance.new("Frame", GUI["2"]);
 		GUI["4d"]["ZIndex"] = 0;
 		GUI["4d"]["BorderSizePixel"] = 0;
-		GUI["4d"]["BackgroundColor3"] = Color3.fromRGB(38, 38, 39);
+		GUI["4d"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["navigationButtonsHolder"];
 		GUI["4d"]["Size"] = UDim2.new(1, -40, 0, 30);
 		GUI["4d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["4d"]["Position"] = UDim2.new(0, 40, 0, 25);
@@ -289,7 +993,8 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		GUI["sc"]["Active"] = false;
 		GUI["sc"]["ScrollingDirection"] = Enum.ScrollingDirection.X;
 		GUI["sc"]["BorderSizePixel"] = 0;
-		GUI["sc"]["CanvasSize"] = UDim2.new(2, 0, 0, 0);
+		GUI["sc"]["AutomaticCanvasSize"] = Enum.AutomaticSize.X
+		GUI["sc"]["CanvasSize"] = UDim2.new(0, 0, 0, 0);
 		GUI["sc"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["sc"]["BackgroundTransparency"] = 1;
 		GUI["sc"]["Size"] = UDim2.new(1, 0, 1, 0);
@@ -309,7 +1014,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		-- StarterGui.ScreenGui.Main.LeftTab
 		GUI["48"] = Instance.new("Frame", GUI["2"]);
 		GUI["48"]["BorderSizePixel"] = 0;
-		GUI["48"]["BackgroundColor3"] = Color3.fromRGB(52, 52, 52);
+		GUI["48"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["leftPanel"];
 		GUI["48"]["Size"] = UDim2.new(0, 40, 1, 1);
 		GUI["48"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["48"]["Name"] = [[LeftTab]];
@@ -321,20 +1026,22 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		-- StarterGui.ScreenGui.Main.LeftTab.ImageLabel
 		GUI["4a"] = Instance.new("ImageButton", GUI["48"]);
 		GUI["4a"]["BorderSizePixel"] = 0;
-		GUI["4a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+		GUI["4a"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["leftPanelButtons"];
 		GUI["4a"]["Image"] = [[rbxassetid://15155077816]];
+		GUI["4a"]["ImageColor3"] = Themes[_G.CurrentTheme]["leftPanelButtons"]
 		GUI["4a"]["Size"] = UDim2.new(0, 24, 0, 24);
 		GUI["4a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["4a"]["BackgroundTransparency"] = 1;
 		GUI["4a"]["ImageTransparency"] = 0.4;
-		GUI["4a"]["Position"] = UDim2.new(0,7,1,-55);
+		GUI["4a"]["Position"] = UDim2.new(0, 8, 1, -55);
 
 		-- StarterGui.ScreenGui.Main.LeftTab.ImageLabel
 		GUI["4b"] = Instance.new("ImageButton", GUI["48"]);
 		GUI["4b"]["BorderSizePixel"] = 0;
-		GUI["4b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+		GUI["4b"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["leftPanelButtons"];
 		GUI["4b"]["ImageTransparency"] = 0.4;
 		GUI["4b"]["Image"] = [[rbxassetid://15116290033]];
+		GUI["4b"]["ImageColor3"] = Themes[_G.CurrentTheme]["leftPanelButtons"]
 		GUI["4b"]["Size"] = UDim2.new(0, 22, 0, 22);
 		GUI["4b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["4b"]["BackgroundTransparency"] = 1;
@@ -343,9 +1050,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		-- StarterGui.ScreenGui.Main.LeftTab.ImageLabel
 		GUI["4c"] = Instance.new("ImageButton", GUI["48"]);
 		GUI["4c"]["BorderSizePixel"] = 0;
-		GUI["4c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+		GUI["4c"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["leftPanelButtons"];
 		GUI["4c"]["ImageTransparency"] = 0.4;
 		GUI["4c"]["Image"] = [[rbxassetid://15116308625]];
+		GUI["4c"]["ImageColor3"] = Themes[_G.CurrentTheme]["leftPanelButtons"]
 		GUI["4c"]["Size"] = UDim2.new(0, 22, 0, 22);
 		GUI["4c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["4c"]["BackgroundTransparency"] = 1;
@@ -354,9 +1062,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		-- StarterGui.Main.Main.LeftTab.Key
 		GUI["65"] = Instance.new("ImageButton", GUI["48"]);
 		GUI["65"]["BorderSizePixel"] = 0;
-		GUI["65"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+		GUI["65"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["leftPanelButtons"];
 		GUI["65"]["ImageTransparency"] = 0.4;
 		GUI["65"]["Image"] = [[rbxassetid://15122369361]];
+		GUI["65"]["ImageColor3"] = Themes[_G.CurrentTheme]["leftPanelKeyButton"]
 		GUI["65"]["Size"] = UDim2.new(0, 21, 0, 21);
 		GUI["65"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["65"]["Name"] = [[Key]];
@@ -442,10 +1151,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			-- StarterGui.ScreenGui.Main.Navigation.NavigationHolder.PlayerInactive
 			Tab["53"] = Instance.new("TextButton", GUI["sc"]);
 			Tab["53"]["BorderSizePixel"] = 0;
-			Tab["53"]["BackgroundColor3"] = Color3.fromRGB(47, 47, 47);
+			Tab["53"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["navigationButtonBackground"];
 			Tab["53"]["FontFace"] = CustomFont
 			Tab["53"]["TextSize"] = 12;
-			Tab["53"]["TextColor3"] = Color3.fromRGB(136, 136, 136);
+			Tab["53"]["TextColor3"] = Themes[_G.CurrentTheme]["navigationButtonDeactivated"];
 			Tab["53"]["AnchorPoint"] = Vector2.new(1, 0);
 			Tab["53"]["Size"] = UDim2.new(0, 80, 1, 0);
 			Tab["53"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -458,11 +1167,12 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			Tab["54"]["BorderSizePixel"] = 0;
 			Tab["54"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 			Tab["54"]["Image"] = options.icon;
+			Tab["54"]["ImageColor3"] = Themes[_G.CurrentTheme]["navigationButtonDeactivated"]
 			Tab["54"]["Size"] = UDim2.new(0, 10, 0, 10);
 			Tab["54"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			Tab["54"]["BackgroundTransparency"] = 1;
 			Tab["54"]["Position"] = UDim2.new(0, -4, 0, 10);
-			Tab["54"]["ImageColor3"] = Color3.fromRGB(136, 136, 136)
+			Tab["54"]["ImageColor3"] = Themes[_G.CurrentTheme]["navigationButtonDeactivated"]
 
 			-- StarterGui.ScreenGui.Main.Navigation.NavigationHolder.PlayerInactive.UIPadding
 			Tab["55"] = Instance.new("UIPadding", Tab["53"]);
@@ -478,6 +1188,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			Tab["10"]["Size"] = UDim2.new(1, 0, 1, 0);
 			Tab["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			Tab["10"]["ScrollBarThickness"] = 2;
+			Tab["10"]["ScrollBarImageColor3"] = Themes[_G.CurrentTheme]["scrollBarImage"]
 			Tab["10"]["Name"] = [[PlayerTab]];
 			Tab["10"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 			Tab["10"]["Visible"] = false;
@@ -496,20 +1207,19 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 		function Tab:Activate()
 			if not Tab.Active then
-				spawn(function()
-					GUI["f"]:WaitForChild("BuyKey").Visible = false;	
-					GUI["f"]:WaitForChild("Profile").Visible = false;
-					GUI["f"]:WaitForChild("Credits").Visible = false;
-				end)
-
+				GUI["f"]:WaitForChild("BuyKey").Visible = false;	
+				GUI["f"]:WaitForChild("Profile").Visible = false;
+				GUI["f"]:WaitForChild("Credits").Visible = false;
+				GUI["f"]:WaitForChild("Settings").Visible = false;
+				
 				if GUI.CurrentTab ~= nil then
 					GUI.CurrentTab:Deactivate()
 				end
 
 				Tab.Active = true
-				Library:tween(Tab["53"], {TextColor3 = Color3.fromRGB(255,255,255)})
-				Library:tween(Tab["53"], {BackgroundColor3 = Color3.fromRGB(31,31,31)})
-				Library:tween(Tab["54"], {ImageColor3 = Color3.fromRGB(255,255,255)})
+				Library:tween(Tab["53"], {TextColor3 = Themes[_G.CurrentTheme]["navigationButtonActivated"]})
+				Library:tween(Tab["53"], {BackgroundColor3 = Themes[_G.CurrentTheme]["main"]})
+				Library:tween(Tab["54"], {ImageColor3 = Themes[_G.CurrentTheme]["navigationButtonActivated"]})
 
 				GUI.CurrentTab = Tab
 
@@ -521,9 +1231,9 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			if Tab.Active then
 				Tab.Active = false
 				Tab.Hover = false
-				Library:tween(Tab["53"], {TextColor3 = Color3.fromRGB(136, 136, 136)})
-				Library:tween(Tab["53"], {BackgroundColor3 = Color3.fromRGB(46,46,46)})
-				Library:tween(Tab["54"], {ImageColor3 = Color3.fromRGB(136, 136, 136)})
+				Library:tween(Tab["53"], {TextColor3 = Themes[_G.CurrentTheme]["navigationButtonDeactivated"]})
+				Library:tween(Tab["53"], {BackgroundColor3 = Themes[_G.CurrentTheme]["navigationButtonBackground"]})
+				Library:tween(Tab["54"], {ImageColor3 = Themes[_G.CurrentTheme]["navigationButtonDeactivated"]})
 				Tab["10"]["Visible"] = false
 			end
 		end
@@ -534,16 +1244,16 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Tab.Hover = true
 
 				if not Tab.Active then
-					Library:tween(Tab["53"], {TextColor3 = Color3.fromRGB(255,255,255)})
-					Library:tween(Tab["54"], {ImageColor3 = Color3.fromRGB(255,255,255)})
+					Library:tween(Tab["53"], {TextColor3 = Themes[_G.CurrentTheme]["navigationButtonActivated"]})
+					Library:tween(Tab["54"], {ImageColor3 = Themes[_G.CurrentTheme]["navigationButtonActivated"]})
 				end
 			end)
 
 			Tab["53"].MouseLeave:Connect(function()
 				Tab.Hover = false
 				if not Tab.Active then
-					Library:tween(Tab["53"], {TextColor3 = Color3.fromRGB(136, 136, 136)})
-					Library:tween(Tab["54"], {ImageColor3 = Color3.fromRGB(136, 136, 136)})
+					Library:tween(Tab["53"], {TextColor3 = Themes[_G.CurrentTheme]["navigationButtonDeactivated"]})
+					Library:tween(Tab["54"], {ImageColor3 = Themes[_G.CurrentTheme]["navigationButtonDeactivated"]})
 				end
 			end)
 
@@ -552,7 +1262,14 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			end)
 
 			if GUI.CurrentTab == nil then
-				Tab:Activate()
+				Tab.Active = true
+				Library:tween(Tab["53"], {TextColor3 = Themes[_G.CurrentTheme]["navigationButtonActivated"]})
+				Library:tween(Tab["53"], {BackgroundColor3 = Themes[_G.CurrentTheme]["main"]})
+				Library:tween(Tab["54"], {ImageColor3 = Themes[_G.CurrentTheme]["navigationButtonActivated"]})
+
+				GUI.CurrentTab = Tab
+
+				Tab["10"]["Visible"] = true
 			end
 		end
 
@@ -572,12 +1289,12 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.ScreenGui.Main.ContentContainer.PlayerTab.TextButton
 				Button["11"] = Instance.new("TextButton", Tab["10"]);
 				Button["11"]["BorderSizePixel"] = 0;
-				Button["11"]["BackgroundColor3"] = Color3.fromRGB(44, 44, 44);
+				Button["11"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["elementBackground"];
 				Button["11"]["Size"] = UDim2.new(1, -5, 0, 32);
 				Button["11"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Button["11"]["Name"] = [[Button]];
 				Button["11"]["Text"] = options.name;
-				Button["11"]["TextColor3"] = Color3.fromRGB(255,255,255);
+				Button["11"]["TextColor3"] = Themes[_G.CurrentTheme]["elementText"];
 				Button["11"]["TextSize"] = 14;
 				Button["11"]["FontFace"] = CustomFont
 				Button["11"]["TextXAlignment"] = Enum.TextXAlignment.Left;
@@ -589,6 +1306,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Button["16"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Button["16"]["AnchorPoint"] = Vector2.new(1, 0);
 				Button["16"]["Image"] = [[rbxassetid://15114009114]];
+				Button["16"]["ImageColor3"] = Themes[_G.CurrentTheme]["buttonImage"]
 				Button["16"]["Size"] = UDim2.new(0, 20, 0, 20);
 				Button["16"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Button["16"]["Position"] = UDim2.new(1, -7, 0, 5);
@@ -600,7 +1318,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.ScreenGui.Main.ContentContainer.PlayerTab.Button.UIStroke
 				Button["13"] = Instance.new("UIStroke", Button["11"]);
-				Button["13"]["Color"] = Color3.fromRGB(38, 38, 39);
+				Button["13"]["Color"] = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"];
 				Button["13"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
 				-- StarterGui.ScreenGui.Main.ContentContainer.PlayerTab.Button.TextLabel.UIPadding
@@ -622,13 +1340,13 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			do
 				Button["11"].MouseEnter:Connect(function()
 					Button.Hover = true
-					Library:tween(Button["13"], {Color = Color3.fromRGB(80, 80, 80)})
+					Library:tween(Button["13"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeHighlighted"]})
 				end)
 
 				Button["11"].MouseLeave:Connect(function()
 					Button.Hover = false
 					if not Button.MouseDown then
-						Library:tween(Button["13"], {Color = Color3.fromRGB(38, 38, 39)})
+						Library:tween(Button["13"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"]})
 					end
 				end)
 
@@ -973,7 +1691,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Frame.Main.ContentContainer.PlayerTab.Slider
 				Slider["19"] = Instance.new("TextButton", Tab["10"]);
 				Slider["19"]["BorderSizePixel"] = 0;
-				Slider["19"]["BackgroundColor3"] = Color3.fromRGB(44, 44, 44);
+				Slider["19"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["elementBackground"];
 				Slider["19"]["Size"] = UDim2.new(1, -5, 0, 55);
 				Slider["19"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Slider["19"]["Name"] = [[Slider]];
@@ -986,7 +1704,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.PlayerTab.Slider.UIStroke
 				Slider["1b"] = Instance.new("UIStroke", Slider["19"]);
-				Slider["1b"]["Color"] = Color3.fromRGB(38, 38, 39);
+				Slider["1b"]["Color"] = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"];
 				Slider["1b"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.PlayerTab.Slider.TextLabel
@@ -996,7 +1714,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Slider["1c"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Slider["1c"]["FontFace"] = CustomFont
 				Slider["1c"]["TextSize"] = 14;
-				Slider["1c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Slider["1c"]["TextColor3"] = Themes[_G.CurrentTheme]["elementText"];
 				Slider["1c"]["Size"] = UDim2.new(1, 0, 1, -30);
 				Slider["1c"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
 				Slider["1c"]["Text"] = options.name;
@@ -1012,7 +1730,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Slider["1e"] = Instance.new("Frame", Slider["19"]);
 				Slider["1e"]["Active"] = false;
 				Slider["1e"]["BorderSizePixel"] = 0;
-				Slider["1e"]["BackgroundColor3"] = Color3.fromRGB(55, 55, 55);
+				Slider["1e"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["sliderDraggableBackground"];
 				Slider["1e"]["AnchorPoint"] = Vector2.new(0, 1);
 				Slider["1e"]["Size"] = UDim2.new(1, -20, 0, 20);
 				Slider["1e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1025,12 +1743,12 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.PlayerTab.Slider.SliderBack.UIStroke
 				Slider["20"] = Instance.new("UIStroke", Slider["1e"]);
-				Slider["20"]["Color"] = Color3.fromRGB(33, 33, 33);
+				Slider["20"]["Color"] = Themes[_G.CurrentTheme]["sliderDraggableUIStroke"];
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.PlayerTab.Slider.SliderBack.Draggable
 				Slider["21"] = Instance.new("Frame", Slider["1e"]);
 				Slider["21"]["BorderSizePixel"] = 0;
-				Slider["21"]["BackgroundColor3"] = Color3.fromRGB(0, 106, 176);
+				Slider["21"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["sliderBackBackground"];
 				Slider["21"]["Size"] = UDim2.new(0,((Slider["1e"].AbsoluteSize.X / options.maximum) * options.default),1,0);
 				--UDim2.new(0.5, 0, 1, 0);
 				Slider["21"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1042,7 +1760,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.PlayerTab.Slider.SliderBack.Draggable.UIGradient
 				Slider["23"] = Instance.new("UIGradient", Slider["21"]);
-				Slider["23"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(0.001, Color3.fromRGB(11, 91, 175)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
+				Slider["23"]["Color"] = Themes[_G.CurrentTheme]["sliderDraggableGradient"];
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.PlayerTab.Slider.SliderBack.TextLabel
 				Slider["24"] = Instance.new("TextLabel", Slider["1e"]);
@@ -1051,7 +1769,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Slider["24"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Slider["24"]["FontFace"] = CustomFont
 				Slider["24"]["TextSize"] = 12;
-				Slider["24"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Slider["24"]["TextColor3"] = Themes[_G.CurrentTheme]["sliderDraggableText"];
 				Slider["24"]["Size"] = UDim2.new(1, 0, 1, 0);
 				Slider["24"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Slider["24"]["Text"] = options.default.." "..options.valuename;
@@ -1086,59 +1804,41 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			do
 				Slider["19"].MouseEnter:Connect(function()
 					Slider.Hover = true
-					Library:tween(Slider["1b"], {Color = Color3.fromRGB(60, 60, 60)})
-					Library:tween(Slider["20"], {Color = Color3.fromRGB(60, 60, 60)})
+					Library:tween(Slider["1b"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeHighlighted"]})
 				end)
 
 				Slider["19"].MouseLeave:Connect(function()
 					Slider.Hover = false
 					if not Slider.MouseDown then
-						Library:tween(Slider["1b"], {Color = Color3.fromRGB(38, 38, 39)})
-						Library:tween(Slider["20"], {Color = Color3.fromRGB(38, 38, 39)})
+						Library:tween(Slider["1b"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"]})
 					end
 				end)
 
 				Slider["19"].MouseButton1Down:Connect(function()
 					local frame = Slider["19"]
+					
 					Slider.MouseDown = true
-					Library:tween(Slider["19"], {BackgroundColor3 = Color3.fromRGB(60, 60, 60)})	
-					Library:tween(Slider["1b"], {Color = Color3.fromRGB(60, 60, 60)})
-					Library:tween(Slider["20"], {Color = Color3.fromRGB(200, 200, 200)})
+					
+
 
 					while Slider.MouseDown and game:GetService("Players").LocalPlayer:GetMouse().X >= frame.AbsolutePosition.X and game:GetService("Players").LocalPlayer:GetMouse().X <= frame.AbsolutePosition.X + frame.AbsoluteSize.X
 						and game:GetService("Players").LocalPlayer:GetMouse().Y >= frame.AbsolutePosition.Y and game:GetService("Players").LocalPlayer:GetMouse().Y <= frame.AbsolutePosition.Y + frame.AbsoluteSize.Y do
 						Slider:SetValue()
 						game:GetService("RunService").RenderStepped:Wait()
 					end
+					
 					Slider.MouseDown = false
-
-					if Slider.Hover then
-						Library:tween(Slider["19"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})	
-						Library:tween(Slider["20"], {Color = Color3.fromRGB(60, 60, 60)})
-						Library:tween(Slider["1b"], {Color = Color3.fromRGB(60, 60, 60)})
-					else	
-						Library:tween(Slider["19"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})		
-						Library:tween(Slider["20"], {Color = Color3.fromRGB(38, 38, 39)})
-						Library:tween(Slider["1b"], {Color = Color3.fromRGB(38, 38, 39)})
+					
+					if not Slider.Hover then
+						Library:tween(Slider["1b"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"]})
 					end
-
+					
 					if Slider.Connection then Slider.Connection:Disconnect() end
 					Slider.Connection = nil
 				end)
 
 				Slider["19"].MouseButton1Up:Connect(function()
 					Slider.MouseDown = false
-
-					if Slider.Hover then
-						Library:tween(Slider["19"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})	
-						Library:tween(Slider["20"], {Color = Color3.fromRGB(60, 60, 60)})
-						Library:tween(Slider["1b"], {Color = Color3.fromRGB(60, 60, 60)})
-					else	
-						Library:tween(Slider["19"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})		
-						Library:tween(Slider["20"], {Color = Color3.fromRGB(38, 38, 39)})
-						Library:tween(Slider["1b"], {Color = Color3.fromRGB(38, 38, 39)})
-					end
-
 					if Slider.Connection then Slider.Connection:Disconnect() end
 					Slider.Connection = nil
 				end)
@@ -1162,7 +1862,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.ToggleInactive
 				Toggle["36"] = Instance.new("TextButton", Tab["10"]);
 				Toggle["36"]["BorderSizePixel"] = 0;
-				Toggle["36"]["BackgroundColor3"] = Color3.fromRGB(44, 44, 44);
+				Toggle["36"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["elementBackground"];
 				Toggle["36"]["Size"] = UDim2.new(1, -5, 0, 32);
 				Toggle["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Toggle["36"]["Name"] = [[ToggleInactive]];
@@ -1180,7 +1880,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Toggle["38"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Toggle["38"]["FontFace"] = CustomFont
 				Toggle["38"]["TextSize"] = 14;
-				Toggle["38"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Toggle["38"]["TextColor3"] = Themes[_G.CurrentTheme]["elementText"];
 				Toggle["38"]["Size"] = UDim2.new(1, 0, 1, 0);
 				Toggle["38"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
 				Toggle["38"]["Text"] = options.name;
@@ -1193,7 +1893,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.ToggleInactive.CheckmarkHolder
 				Toggle["3a"] = Instance.new("Frame", Toggle["36"]);
 				Toggle["3a"]["BorderSizePixel"] = 0;
-				Toggle["3a"]["BackgroundColor3"] = Color3.fromRGB(55, 55, 55);
+				Toggle["3a"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["sliderDraggableBackground"];
 				Toggle["3a"]["AnchorPoint"] = Vector2.new(1, 0);
 				Toggle["3a"]["Size"] = UDim2.new(0, 22, 0, 22);
 				Toggle["3a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1206,7 +1906,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.ToggleInactive.CheckmarkHolder.UIStroke
 				Toggle["3c"] = Instance.new("UIStroke", Toggle["3a"]);
-				Toggle["3c"]["Color"] = Color3.fromRGB(33, 33, 33);
+				Toggle["3c"]["Color"] = Themes[_G.CurrentTheme]["toggleCheckboxUIStroke"];
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.ToggleInactive.CheckmarkHolder.Checkmark
 				Toggle["3d"] = Instance.new("ImageLabel", Toggle["3a"]);
@@ -1214,6 +1914,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Toggle["3d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Toggle["3d"]["ImageTransparency"] = 1;
 				Toggle["3d"]["Image"] = [[rbxassetid://15114786962]];
+				Toggle["3d"]["ImageColor3"] = Themes[_G.CurrentTheme]["toggleCheckboxImage"]
 				Toggle["3d"]["Size"] = UDim2.new(1, -5, 1, -5);
 				Toggle["3d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Toggle["3d"]["Name"] = [[Checkmark]];
@@ -1222,7 +1923,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.ToggleInactive.UIStroke
 				Toggle["3e"] = Instance.new("UIStroke", Toggle["36"]);
-				Toggle["3e"]["Color"] = Color3.fromRGB(38, 38, 39);
+				Toggle["3e"]["Color"] = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"];
 				Toggle["3e"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 			end
 
@@ -1235,10 +1936,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				end
 
 				if Toggle.State then
-					Library:tween(Toggle["3a"], {BackgroundColor3 = Color3.fromRGB(0, 105, 175)})
+					Library:tween(Toggle["3a"], {BackgroundColor3 = Themes[_G.CurrentTheme]["toggleCheckboxActivated"]})
 					Library:tween(Toggle["3d"], {ImageTransparency = 0})
 				else
-					Library:tween(Toggle["3a"], {BackgroundColor3 = Color3.fromRGB(60, 60, 60)})
+					Library:tween(Toggle["3a"], {BackgroundColor3 = Themes[_G.CurrentTheme]["toggleCheckboxDeactivated"]})
 					Library:tween(Toggle["3d"], {ImageTransparency = 1})
 				end
 
@@ -1247,13 +1948,14 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 			--Logic
 			do
-
 				Toggle["36"].MouseEnter:Connect(function()
 					Toggle.Hover = true
+					Library:tween(Toggle["3e"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeHighlighted"]})
 				end)
 
 				Toggle["36"].MouseLeave:Connect(function()
 					Toggle.Hover = false
+					Library:tween(Toggle["3e"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"]})
 				end)
 
 				Toggle["36"].MouseButton1Click:Connect(function()
@@ -1289,7 +1991,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown
 				Dropdown["25"] = Instance.new("TextButton", Tab["10"]);
 				Dropdown["25"]["BorderSizePixel"] = 0;
-				Dropdown["25"]["BackgroundColor3"] = Color3.fromRGB(44, 44, 44);
+				Dropdown["25"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["elementBackground"];
 				Dropdown["25"]["Size"] = UDim2.new(1, -5, 0, 30);
 				Dropdown["25"]["ClipsDescendants"] = true;
 				Dropdown["25"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1304,7 +2006,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.UIStroke
 				Dropdown["27"] = Instance.new("UIStroke", Dropdown["25"]);
-				Dropdown["27"]["Color"] = Color3.fromRGB(38, 38, 39);
+				Dropdown["27"]["Color"] = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"];
 				Dropdown["27"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.TextLabel
@@ -1314,7 +2016,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["28"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Dropdown["28"]["FontFace"] = CustomFont
 				Dropdown["28"]["TextSize"] = 14;
-				Dropdown["28"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Dropdown["28"]["TextColor3"] = Themes[_G.CurrentTheme]["elementText"];
 				Dropdown["28"]["Size"] = UDim2.new(1, 0, 0, 30);
 				Dropdown["28"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
 				Dropdown["28"]["Text"] = options.name;
@@ -1330,6 +2032,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["2a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Dropdown["2a"]["AnchorPoint"] = Vector2.new(1, 0);
 				Dropdown["2a"]["Image"] = [[rbxassetid://15114393414]];
+				Dropdown["2a"]["ImageColor3"] = Color3.fromRGB(255, 255, 255)
 				Dropdown["2a"]["Size"] = UDim2.new(0, 20, 0, 20);
 				Dropdown["2a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Dropdown["2a"]["Position"] = UDim2.new(1, -8, 0, 5);
@@ -1340,9 +2043,9 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["2b"]["BorderSizePixel"] = 0;
 				Dropdown["2b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Dropdown["2b"]["BackgroundTransparency"] = 1;
-				Dropdown["2b"]["Size"] = UDim2.new(1, -9, 0, 100);
+				Dropdown["2b"]["Size"] = UDim2.new(1, -15, 0, 100);
 				Dropdown["2b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-				Dropdown["2b"]["Position"] = UDim2.new(0, 4, 0, 35);
+				Dropdown["2b"]["Position"] = UDim2.new(0, 8, 0, 35);
 				Dropdown["2b"]["Visible"] = false;
 				Dropdown["2b"]["Name"] = [[OptionHolder]];
 
@@ -1355,7 +2058,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["2p"]["TextYAlignment"] = Enum.TextYAlignment.Center;
 				Dropdown["2p"]["FontFace"] = CustomFont
 				Dropdown["2p"]["TextSize"] = 12;
-				Dropdown["2p"]["TextColor3"] = Color3.fromRGB(136,136,136);
+				Dropdown["2p"]["TextColor3"] = Themes[_G.CurrentTheme]["dropdownChosenOptionText"];
 				Dropdown["2p"]["Size"] = UDim2.new(0, 200, 0, 50);
 				Dropdown["2p"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
 				Dropdown["2p"]["Text"] = ". . .";
@@ -1367,10 +2070,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Dropdown["2c"]["Active"] = false;
 				Dropdown["2c"]["BorderSizePixel"] = 0;
 				Dropdown["2c"]["ScrollBarImageTransparency"] = 0;
-				Dropdown["2c"]["BackgroundColor3"] = Color3.fromRGB(38,38,39);
+				Dropdown["2c"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["dropdownScrollBarBackground"];
 				Dropdown["2c"]["BackgroundTransparency"] = 0;
 				Dropdown["2c"]["Size"] = UDim2.new(1, 0, 0, 90);
-				Dropdown["2c"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
+				Dropdown["2c"]["ScrollBarImageColor3"] = Themes[_G.CurrentTheme]["scrollBarImage"];
 				Dropdown["2c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Dropdown["2c"]["ScrollBarThickness"] = 3;
 				Dropdown["2c"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
@@ -1383,14 +2086,14 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.OptionHolder.ScrollingFrame.UIStroke
 				Dropdown["2j"] = Instance.new("UIStroke", Dropdown["2c"]);
-				Dropdown["2j"]["Color"] = Color3.fromRGB(36,36,36);
+				Dropdown["2j"]["Color"] = Themes[_G.CurrentTheme]["dropdownScrollBarUIStroke"];
 				Dropdown["2j"]["Transparency"] = 0;
 				Dropdown["2j"]["Thickness"] = 2;
 				Dropdown["2j"]["LineJoinMode"] = Enum.LineJoinMode.Round;
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.OptionHolder.ScrollingFrame.UIPadding
 				Dropdown["2g"] = Instance.new("UIPadding", Dropdown["2c"]);
-				Dropdown["2g"]["PaddingLeft"] = UDim.new(0, 6)
+				Dropdown["2g"]["PaddingLeft"] = UDim.new(0, 4)
 				Dropdown["2g"]["PaddingRight"] = UDim.new(0, 3)
 				Dropdown["2g"]["PaddingTop"] = UDim.new(0, 8)
 				Dropdown["2g"]["PaddingBottom"] = UDim.new(0, 8)
@@ -1416,10 +2119,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.OptionHolder.Inactive Option
 					Dropdown.Items[id].instance["2v"] = Instance.new("TextButton", Dropdown["2c"]);
 					Dropdown.Items[id].instance["2v"]["BorderSizePixel"] = 0;
-					Dropdown.Items[id].instance["2v"]["BackgroundColor3"] = Color3.fromRGB(60, 60, 60);
+					Dropdown.Items[id].instance["2v"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["dropdownOptionBackground"];
 					Dropdown.Items[id].instance["2v"]["FontFace"] = CustomFont
 					Dropdown.Items[id].instance["2v"]["TextSize"] = 14;
-					Dropdown.Items[id].instance["2v"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+					Dropdown.Items[id].instance["2v"]["TextColor3"] = Themes[_G.CurrentTheme]["dropdownOptionText"];
 					Dropdown.Items[id].instance["2v"]["Size"] = UDim2.new(1, -3, 0, 25);
 					Dropdown.Items[id].instance["2v"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Dropdown.Items[id].instance["2v"]["Text"] = id;
@@ -1429,7 +2132,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 					-- StarterGui.Main.Main.ContentContainer.PlayerTab.Dropdown.OptionHolder.Inactive Option.UIStroke
 					Dropdown.Items[id].instance["2e"] = Instance.new("UIStroke", Dropdown.Items[id].instance["2v"]);
-					Dropdown.Items[id].instance["2e"]["Color"] = Color3.fromRGB(76,76,76);
+					Dropdown.Items[id].instance["2e"]["Color"] = Themes[_G.CurrentTheme]["dropdownOptionUIStrokeDeactivated"];
 					Dropdown.Items[id].instance["2e"]["LineJoinMode"] = Enum.LineJoinMode.Round;
 					Dropdown.Items[id].instance["2e"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
@@ -1440,14 +2143,14 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Dropdown.Items[id].instance["2v"].MouseEnter:Connect(function()
 						Item.Hover = true
 						Dropdown.HoveringItem = true
-						Library:tween(Dropdown.Items[id].instance["2e"], {Color = Color3.fromRGB(60, 60, 60)})
+						Library:tween(Dropdown.Items[id].instance["2e"], {Color = Themes[_G.CurrentTheme]["dropdownOptionUIStrokeActivated"]})
 					end)
 
 					Dropdown.Items[id].instance["2v"].MouseLeave:Connect(function()
 						Item.Hover = false
 						Dropdown.HoveringItem = false
 						if not Item.MouseDown then
-							Library:tween(Dropdown.Items[id].instance["2e"], {Color = Color3.fromRGB(76,76,76)})
+							Library:tween(Dropdown.Items[id].instance["2e"], {Color = Themes[_G.CurrentTheme]["dropdownOptionUIStrokeDeactivated"]})
 						end
 					end)
 
@@ -1512,34 +2215,25 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			do
 				Dropdown["25"].MouseEnter:Connect(function()
 					Dropdown.Hover = true
-					Library:tween(Dropdown["27"], {Color = Color3.fromRGB(60, 60, 60)})
+					Library:tween(Dropdown["27"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeHighlighted"]})
 				end)
 
 				Dropdown["25"].MouseLeave:Connect(function()
 					Dropdown.Hover = false
 					if not Dropdown.MouseDown then
-						Library:tween(Dropdown["27"], {Color = Color3.fromRGB(38, 38, 39)})
+						Library:tween(Dropdown["27"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"]})
 					end
 				end)
 
 				Dropdown["25"].MouseButton1Click:Connect(function()
 					Dropdown.MouseDown = true
-					Library:tween(Dropdown["25"], {BackgroundColor3 = Color3.fromRGB(60, 60, 60)})		
-					Library:tween(Dropdown["27"], {Color = Color3.fromRGB(200, 200, 200)})
-
 					if not Dropdown.HoveringItem then
 						Dropdown:Toggle()
 					end
 
 					Dropdown.MouseDown = false
 
-					if Dropdown.Hover then
-						Library:tween(Dropdown["25"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})	
-						Library:tween(Dropdown["27"], {Color = Color3.fromRGB(60, 60, 60)})
-					else	
-						Library:tween(Dropdown["25"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})		
-						Library:tween(Dropdown["27"], {Color = Color3.fromRGB(38, 38, 39)})
-					end
+
 				end)
 			end
 
@@ -1563,7 +2257,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Input
 				Input["8c"] = Instance.new("Frame", Tab["10"]);
 				Input["8c"]["BorderSizePixel"] = 0;
-				Input["8c"]["BackgroundColor3"] = Color3.fromRGB(44, 44, 44);
+				Input["8c"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["elementBackground"];
 				Input["8c"]["Size"] = UDim2.new(1, -5, 0, 32);
 				Input["8c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Input["8c"]["Name"] = [[Input]];
@@ -1574,7 +2268,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Input.UIStroke
 				Input["8e"] = Instance.new("UIStroke", Input["8c"]);
-				Input["8e"]["Color"] = Color3.fromRGB(38, 38, 39);
+				Input["8e"]["Color"] = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"];
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Input.TextLabel
 				Input["8f"] = Instance.new("TextLabel", Input["8c"]);
@@ -1583,7 +2277,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Input["8f"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Input["8f"]["FontFace"] = CustomFont
 				Input["8f"]["TextSize"] = 14;
-				Input["8f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Input["8f"]["TextColor3"] = Themes[_G.CurrentTheme]["elementText"];
 				Input["8f"]["Size"] = UDim2.new(1, 0, 1, 0);
 				Input["8f"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
 				Input["8f"]["Text"] = options.name;
@@ -1599,16 +2293,16 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Input["91"]["BorderSizePixel"] = 0;
 				Input["91"]["TextSize"] = 12;
 				Input["91"]["TextWrapped"] = true;
-				Input["91"]["BackgroundColor3"] = Color3.fromRGB(39, 39, 39);
-				Input["91"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Input["91"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["inputWindowBackground"];
+				Input["91"]["TextColor3"] = Themes[_G.CurrentTheme]["inputWindowText"];
 				Input["91"]["FontFace"] = CustomFont
 				Input["91"]["AnchorPoint"] = Vector2.new(0, 0);
 				Input["91"]["PlaceholderText"] = options.placeholdertext;
+				Input["91"]["PlaceholderColor3"] = Themes[_G.CurrentTheme]["inputWindowTextPlaceholder"]
 				Input["91"]["Size"] = UDim2.new(0, 65, 0, 19);
 				Input["91"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Input["91"]["Text"] = [[]];
 				Input["91"]["Position"] = UDim2.new(1, -75,0, 7);
-				Input["91"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Input["91"]["ClearTextOnFocus"] = options.cleartextonfocus;
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Input.TextBox.UICorner
@@ -1617,7 +2311,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Main.ContentContainer.PlayerTab.Input.TextBox.UIStroke
 				Input["93"] = Instance.new("UIStroke", Input["91"]);
-				Input["93"]["Color"] = Color3.fromRGB(33, 33, 33);
+				Input["93"]["Color"] = Themes[_G.CurrentTheme]["inputWindowUIStroke"];
 				Input["93"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 			end
 
@@ -1634,19 +2328,17 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			do
 				Input["8c"].MouseEnter:Connect(function()
 					Input.Hover = true
-					Library:tween(Input["8e"], {Color = Color3.fromRGB(60, 60, 60)})
-					Library:tween(Input["93"], {Color = Color3.fromRGB(60, 60, 60)})
+					Library:tween(Input["8e"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeHighlighted"]})
 				end)
 
 				Input["8c"].MouseLeave:Connect(function()
 					Input.Hover = false
 					if not Input.MouseDown then
-						Library:tween(Input["8e"], {Color = Color3.fromRGB(38, 38, 39)})
-						Library:tween(Input["93"], {Color = Color3.fromRGB(33, 33, 33)})
+						Library:tween(Input["8e"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"]})
 					end
 				end)
 
-				game:GetService("UserInputService").InputBegan:Connect(function(input, gpe)
+				--[[game:GetService("UserInputService").InputBegan:Connect(function(input, gpe)
 					if gpe then return end
 					if input.UserInputType == Enum.UserInputType.MouseButton1 and Input.Hover then
 						Input.MouseDown = true
@@ -1668,11 +2360,11 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 							Library:tween(Input["93"], {Color = Color3.fromRGB(60, 60, 60)})
 						else	
 							Library:tween(Input["8c"], {BackgroundColor3 = Color3.fromRGB(44, 44, 44)})		
-							Library:tween(Input["8e"], {Color = Color3.fromRGB(38, 38, 39)})
+							Library:tween(Input["8e"], {Color = Themes[_G.CurrentTheme]["elementUIStrokeDeactivated"]})
 							Library:tween(Input["93"], {Color = Color3.fromRGB(33, 33, 33)})
 						end
 					end
-				end)
+				end)]]--
 			end
 
 			do Input:TurnOnListener() end
@@ -1697,7 +2389,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Section["94"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Section["94"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 				Section["94"]["TextSize"] = 16;
-				Section["94"]["TextColor3"] = Color3.fromRGB(201, 201, 201);
+				Section["94"]["TextColor3"] = Themes[_G.CurrentTheme]["sectionText"];
 				Section["94"]["Size"] = UDim2.new(0, 200, 0, 25);
 				Section["94"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Section["94"]["Text"] = options.text;
@@ -1711,8 +2403,6 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 		function Tab:Key()
 
-			local Key = {}
-
 			--Render
 			do
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey
@@ -1725,6 +2415,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["100"]["Size"] = UDim2.new(1, 0, 1, 0);
 				Key["100"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Key["100"]["ScrollBarThickness"] = 1;
+				Key["100"]["ScrollBarImageColor3"] = Themes[_G.CurrentTheme]["scrollBarImage"]
 				Key["100"]["Visible"] = false;
 				Key["100"]["Name"] = [[BuyKey]]; --8c - 100 8d - 101 8e - 102 8f - 103 90 - 104 91 - 105 92 - 106 93 - 107 94 - 108 95 - 109 96 - 110 97 - 111
 
@@ -1735,7 +2426,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["101"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["101"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
 				Key["101"]["TextSize"] = 20;
-				Key["101"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Key["101"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyColor"];
 				Key["101"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Key["101"]["Size"] = UDim2.new(0, 175, 0, 25);
 				Key["101"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1745,12 +2436,12 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.TextLabel.UIGradient
 				Key["102"] = Instance.new("UIGradient", Key["101"]);
-				Key["102"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(160, 175, 231)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(119, 234, 215))};
+				Key["102"]["Color"] = Themes[_G.CurrentTheme]["premiumKeyLabel"];
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month
 				Key["103"] = Instance.new("TextButton", Key["100"]);
 				Key["103"]["BorderSizePixel"] = 0;
-				Key["103"]["BackgroundColor3"] = Color3.fromRGB(100, 146, 141);
+				Key["103"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["premiumKeyButtonBackground"];
 				Key["103"]["Size"] = UDim2.new(0, 100, 0, 60);
 				Key["103"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Key["103"]["Position"] = UDim2.new(0, 145, 0, 240);
@@ -1769,7 +2460,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["104"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 				Key["104"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["104"]["TextSize"] = 18;
-				Key["104"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Key["104"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyText"];
 				Key["104"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Key["104"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Key["104"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1784,7 +2475,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["105"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["105"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Regular, Enum.FontStyle.Italic);
 				Key["105"]["TextSize"] = 18;
-				Key["105"]["TextColor3"] = Color3.fromRGB(122, 193, 255);
+				Key["105"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyButtonText"];
 				Key["105"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Key["105"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Key["105"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1800,7 +2491,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["106"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["106"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Italic);
 				Key["106"]["TextSize"] = 18;
-				Key["106"]["TextColor3"] = Color3.fromRGB(122, 193, 255);
+				Key["106"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyButtonText"];
 				Key["106"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Key["106"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Key["106"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1812,10 +2503,11 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UIStroke
 				Key["107"] = Instance.new("UIStroke", Key["103"]);
 				Key["107"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+				Key["107"]["Color"] = Themes[_G.CurrentTheme]["premiumKeyUIStroke"]
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UIGradient
 				Key["108"] = Instance.new("UIGradient", Key["103"]);
-				Key["108"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(40, 204, 241)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(31, 124, 217))};
+				Key["108"]["Color"] = Themes[_G.CurrentTheme]["premiumKeyButtonGradient"];
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UICorner
 				Key["109"] = Instance.new("UICorner", Key["103"]);
@@ -1824,9 +2516,9 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month
 				Key["110"] = Instance.new("TextButton", Key["100"]);
 				Key["110"]["BorderSizePixel"] = 0;
-				Key["110"]["BackgroundColor3"] = Color3.fromRGB(100, 146, 141);
+				Key["110"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["premiumKeyButtonBackground"];
 				Key["110"]["Size"] = UDim2.new(0, 100, 0, 60);
-				Key["110"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				Key["110"]["BorderColor3"] = Themes[_G.CurrentTheme]["premiumKeyUIStroke"];
 				Key["110"]["Position"] = UDim2.new(0, 265, 0, 240);
 				Key["110"]["Name"] = [[1month]];
 				Key["110"]["TextTransparency"] = 1;
@@ -1842,7 +2534,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["97"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["97"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Regular, Enum.FontStyle.Italic);
 				Key["97"]["TextSize"] = 18;
-				Key["97"]["TextColor3"] = Color3.fromRGB(122, 193, 255);
+				Key["97"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyButtonText"];
 				Key["97"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Key["97"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Key["97"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1858,7 +2550,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["98"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["98"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Italic);
 				Key["98"]["TextSize"] = 18;
-				Key["98"]["TextColor3"] = Color3.fromRGB(122, 193, 255);
+				Key["98"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyButtonText"];
 				Key["98"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Key["98"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Key["98"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1870,10 +2562,11 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UIStroke
 				Key["99"] = Instance.new("UIStroke", Key["110"]);
 				Key["99"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+				Key["99"]["Color"] = Themes[_G.CurrentTheme]["premiumKeyUIStroke"]
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UIGradient
 				Key["9a"] = Instance.new("UIGradient", Key["110"]);
-				Key["9a"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(40, 204, 241)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(31, 124, 217))};
+				Key["9a"]["Color"] = Themes[_G.CurrentTheme]["premiumKeyButtonGradient"];
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UICorner
 				Key["9b"] = Instance.new("UICorner", Key["110"]);
@@ -1887,7 +2580,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["9c"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 				Key["9c"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["9c"]["TextSize"] = 18;
-				Key["9c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Key["9c"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyText"];
 				Key["9c"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Key["9c"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Key["9c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1899,7 +2592,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month
 				Key["9d"] = Instance.new("TextButton", Key["100"]);
 				Key["9d"]["BorderSizePixel"] = 0;
-				Key["9d"]["BackgroundColor3"] = Color3.fromRGB(100, 146, 141);
+				Key["9d"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["premiumKeyButtonBackground"];
 				Key["9d"]["Size"] = UDim2.new(0, 100, 0, 60);
 				Key["9d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Key["9d"]["Position"] = UDim2.new(0, 25, 0, 240);
@@ -1917,7 +2610,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["9e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["9e"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Italic);
 				Key["9e"]["TextSize"] = 18;
-				Key["9e"]["TextColor3"] = Color3.fromRGB(122, 193, 255);
+				Key["9e"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyButtonText"];
 				Key["9e"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Key["9e"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Key["9e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1934,7 +2627,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["9f"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Regular, Enum.FontStyle.Italic);
 				Key["9f"]["TextStrokeColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["9f"]["TextSize"] = 18;
-				Key["9f"]["TextColor3"] = Color3.fromRGB(122, 193, 255);
+				Key["9f"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyButtonText"];
 				Key["9f"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Key["9f"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Key["9f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1946,10 +2639,11 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UIStroke
 				Key["a0"] = Instance.new("UIStroke", Key["9d"]);
 				Key["a0"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+				Key["a0"]["Color"] = Themes[_G.CurrentTheme]["premiumKeyUIStroke"]
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UIGradient
 				Key["a1"] = Instance.new("UIGradient", Key["9d"]);
-				Key["a1"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(40, 204, 241)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(31, 124, 217))};
+				Key["a1"]["Color"] = Themes[_G.CurrentTheme]["premiumKeyButtonGradient"];
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.1month.UICorner
 				Key["a2"] = Instance.new("UICorner", Key["9d"]);
@@ -1968,7 +2662,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 					Key["a3"]["TextSize"] = 14;
 				end
 				Key["a3"]["TextSize"] = 14;
-				Key["a3"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Key["a3"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyText"];
 				Key["a3"]["Size"] = UDim2.new(0, 350, 0, 50);
 				Key["a3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Key["a3"]["Text"] = [[Get your own unique premium key, special role in the offical Discord server of Parmesan Hub and use our scripts without watching ads throughout the entire subscription period.]];
@@ -1979,10 +2673,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["a4"] = Instance.new("TextLabel", Key["100"]);
 				Key["a4"]["TextWrapped"] = true;
 				Key["a4"]["BorderSizePixel"] = 0;
-				Key["a4"]["BackgroundColor3"] = Color3.fromRGB(47, 47, 47);
+				Key["a4"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["premiumKeyBackground"];
 				Key["a4"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
 				Key["a4"]["TextSize"] = 16;
-				Key["a4"]["TextColor3"] = Color3.fromRGB(201, 201, 201);
+				Key["a4"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyGeneratorText"];
 				Key["a4"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Key["a4"]["Size"] = UDim2.new(0, 175, 0, 25);
 				Key["a4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -2045,6 +2739,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.TextLabel.UIStroke
 				Key["a6"] = Instance.new("UIStroke", Key["a4"]);
 				Key["a6"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+				Key["a6"]["Color"] = Themes[_G.CurrentTheme]["premiumKeyUIStroke"]
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.UIPadding
 				Key["a7"] = Instance.new("UIPadding", Key["100"]);
@@ -2057,7 +2752,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["a8"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["a8"]["FontFace"] = CustomFont
 				Key["a8"]["TextSize"] = 14;
-				Key["a8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Key["a8"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyText"];
 				Key["a8"]["Size"] = UDim2.new(0, 380, 0, 40);
 				Key["a8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Key["a8"]["Text"] = [[Click on one of the selected subscriptions to copy the payment link if you want to pay via Binance pay, USDT TRC20 or Litecoin.]];
@@ -2071,7 +2766,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["a9"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["a9"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Medium, Enum.FontStyle.Normal);
 				Key["a9"]["TextSize"] = 20;
-				Key["a9"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Key["a9"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyText"];
 				Key["a9"]["AutomaticSize"] = Enum.AutomaticSize.X;
 				Key["a9"]["Size"] = UDim2.new(0, 175, 0, 25);
 				Key["a9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -2086,7 +2781,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["aa"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Key["aa"]["FontFace"] = CustomFont
 				Key["aa"]["TextSize"] = 14;
-				Key["aa"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Key["aa"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyText"];
 				Key["aa"]["Size"] = UDim2.new(0, 350, 0, 30);
 				Key["aa"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Key["aa"]["Text"] = [[Send the amount of money equal to the selected subscription to the Paypal account:]];
@@ -2099,8 +2794,8 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Key["ab"]["BorderSizePixel"] = 0;
 				Key["ab"]["TextEditable"] = false;
 				Key["ab"]["TextSize"] = 14;
-				Key["ab"]["BackgroundColor3"] = Color3.fromRGB(47, 47, 47);
-				Key["ab"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Key["ab"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["premiumKeyBackground"];
+				Key["ab"]["TextColor3"] = Themes[_G.CurrentTheme]["premiumKeyText"];
 				Key["ab"]["FontFace"] = CustomFont
 				Key["ab"]["Size"] = UDim2.new(0, 200, 0, 30);
 				Key["ab"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -2115,6 +2810,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Frame.Main.ContentContainer.BuyKey.TextBox.UIStroke
 				Key["ad"] = Instance.new("UIStroke", Key["ab"]);
 				Key["ad"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+				Key["ad"]["Color"] = Themes[_G.CurrentTheme]["premiumKeyUIStroke"]
 			end
 
 			--Logic
@@ -2122,6 +2818,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				GUI["65"].MouseButton1Click:Connect(function()
 					GUI["f"]:WaitForChild("Profile").Visible = false;
 					GUI["f"]:WaitForChild("Credits").Visible = false;	
+					GUI["f"]:WaitForChild("Settings").Visible = false;
 					GUI.CurrentTab:Deactivate()
 					Key["100"]["Visible"] = true
 				end)
@@ -2132,9 +2829,120 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 			Tab:Key()
 		end
 
-		function Tab:Profile()
+		function Tab:Settings()
+			--Render
+			do
+				-- StarterGui.Main.Frame.Main.ContentContainer.Settings
+				Settings["c4"] = Instance.new("ScrollingFrame", GUI["f"]);
+				Settings["c4"]["Active"] = true;
+				Settings["c4"]["BorderSizePixel"] = 0;
+				Settings["c4"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				Settings["c4"]["BackgroundTransparency"] = 1;
+				Settings["c4"]["Size"] = UDim2.new(1, 0, 1, 0);
+				Settings["c4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				Settings["c4"]["ScrollBarThickness"] = 2;
+				Settings["c4"]["Name"] = [[Settings]];
+				Settings["c4"]["Visible"] = false
 
-			local Profile = {}
+				-- StarterGui.Main.Frame.Main.ContentContainer.Settings.Themes
+				Settings["c5"] = Instance.new("TextLabel", Settings["c4"]);
+				Settings["c5"]["BorderSizePixel"] = 0;
+				Settings["c5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				Settings["c5"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Settings["c5"]["TextSize"] = 14;
+				Settings["c5"]["TextColor3"] = Themes[_G.CurrentTheme]["themesText"];
+				Settings["c5"]["Size"] = UDim2.new(0, 100, 0, 30);
+				Settings["c5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				Settings["c5"]["Text"] = "Themes [Beta]";
+				Settings["c5"]["Name"] = [[Themes]];
+				Settings["c5"]["BackgroundTransparency"] = 1;
+				Settings["c5"]["Position"] = UDim2.new(0, 155, 0, 0);
+
+				-- StarterGui.Main.Frame.Main.ContentContainer.Settings.UIListLayout
+				Settings["cc"] = Instance.new("UIListLayout", Settings["c4"]);
+				Settings["cc"]["Padding"] = UDim.new(0, 10);
+				Settings["cc"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
+
+				-- StarterGui.Main.Frame.Main.ContentContainer.Settings.UIPadding
+				Settings["cd"] = Instance.new("UIPadding", Settings["c4"]);
+				Settings["cd"]["PaddingLeft"] = UDim.new(0, 10);
+			end
+			
+			function Settings:AddThemeButton(text, gradient, stroke)
+				local Button = {}
+				
+				-- StarterGui.Main.Frame.Main.ContentContainer.Settings.Classic
+				Button["c6"] = Instance.new("TextButton", Settings["c4"]);
+				Button["c6"]["BorderSizePixel"] = 0;
+				Button["c6"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+				Button["c6"]["TextTransparency"] = 1;
+				Button["c6"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				Button["c6"]["TextSize"] = 12;
+				Button["c6"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Button["c6"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Button["c6"]["Size"] = UDim2.new(0, 380, 0, 30);
+				Button["c6"]["Name"] = [[Classic]];
+				Button["c6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				Button["c6"]["Text"] = [[Default]];
+				Button["c6"]["Position"] = UDim2.new(0, 30, 0, 35);
+
+				-- StarterGui.Main.Frame.Main.ContentContainer.Settings.Classic.UIStroke
+				Button["c7"] = Instance.new("UIStroke", Button["c6"]);
+				Button["c7"]["Color"] = stroke;
+				Button["c7"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
+
+				-- StarterGui.Main.Frame.Main.ContentContainer.Settings.Classic.UICorner
+				Button["c8"] = Instance.new("UICorner", Button["c6"]);
+				Button["c8"]["CornerRadius"] = UDim.new(0, 4);
+
+				-- StarterGui.Main.Frame.Main.ContentContainer.Settings.Classic.TextLabel
+				Button["c9"] = Instance.new("TextLabel", Button["c6"]);
+				Button["c9"]["BorderSizePixel"] = 0;
+				Button["c9"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				Button["c9"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+				Button["c9"]["FontFace"] = Font.new([[rbxasset://fonts/families/Ubuntu.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Button["c9"]["TextSize"] = 12;
+				Button["c9"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Button["c9"]["Size"] = UDim2.new(1, 0, 1, 0);
+				Button["c9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				Button["c9"]["Text"] = text;
+				Button["c9"]["BackgroundTransparency"] = 1;
+
+				-- StarterGui.Main.Frame.Main.ContentContainer.Settings.Classic.TextLabel.UIPadding
+				Button["ca"] = Instance.new("UIPadding", Button["c9"]);
+				Button["ca"]["PaddingLeft"] = UDim.new(0, 15);
+
+				-- StarterGui.Main.Frame.Main.ContentContainer.Settings.Classic.UIGradient
+				Button["cb"] = Instance.new("UIGradient", Button["c6"]);
+				Button["cb"]["Color"] = gradient;
+				
+				Button["c6"].MouseButton1Click:Connect(function()
+					Library:ChangeTheme(text:gsub(" ",""))
+				end)
+			end
+			
+			GUI["4a"].MouseButton1Click:Connect(function()
+				GUI["f"]:WaitForChild("BuyKey").Visible = false;	
+				GUI["f"]:WaitForChild("Credits").Visible = false;	
+				GUI["f"]:WaitForChild("Profile").Visible = false;
+				
+				GUI.CurrentTab:Deactivate()
+				Settings["c4"]["Visible"] = true
+			end)
+			
+			Settings:AddThemeButton("Classic", ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(47, 47, 47)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(59, 62, 66))}, Color3.fromRGB(91, 91, 91))
+			Settings:AddThemeButton("Dark Forest", ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(33, 52, 40)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(54, 84, 65))}, Color3.fromRGB(50, 77, 60))
+			Settings:AddThemeButton("Wine Cherry", ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(55, 21, 21)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(90, 35, 35))}, Color3.fromRGB(104, 40, 40))
+			Settings:AddThemeButton("Light Colorless", ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(92, 92, 93)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(202, 204, 206))}, Color3.fromRGB(112, 112, 112))
+			Settings:AddThemeButton("Orange Juice", ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(206, 173, 96)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(253, 231, 119))}, Color3.fromRGB(255, 171, 0))
+			Settings:AddThemeButton("Spring Apple", ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(92, 152, 126)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(130, 173, 111))}, Color3.fromRGB(72, 117, 95))
+		end
+		
+		if not GUI["f"]:FindFirstChild("Settings") then
+			Tab:Settings()
+		end
+	
+		function Tab:Profile()
 
 			--Render
 			do
@@ -2142,18 +2950,19 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["ae"] = Instance.new("ScrollingFrame", GUI["f"]);
 				Profile["ae"]["Active"] = false;
 				Profile["ae"]["BorderSizePixel"] = 0;
-				Profile["ae"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				Profile["ae"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["profileText"];
 				Profile["ae"]["BackgroundTransparency"] = 1;
 				Profile["ae"]["Size"] = UDim2.new(1, 0, 1, 0);
 				Profile["ae"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Profile["ae"]["ScrollBarThickness"] = 1;
+				Profile["ae"]["ScrollBarImageColor3"] = Themes[_G.CurrentTheme]["scrollBarImage"]
 				Profile["ae"]["Visible"] = false;
 				Profile["ae"]["Name"] = [[Profile]];
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.Profile.ImageLabel
 				Profile["af"] = Instance.new("ImageLabel", Profile["ae"]);
 				Profile["af"]["BorderSizePixel"] = 0;
-				Profile["af"]["BackgroundColor3"] = Color3.fromRGB(48, 48, 48);
+				Profile["af"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["profileImageBackground"];
 				Profile["af"]["Image"] = game.Players:GetUserThumbnailAsync(game.Players.LocalPlayer.UserId, Enum.ThumbnailType.AvatarBust, Enum.ThumbnailSize.Size420x420);
 				Profile["af"]["Size"] = UDim2.new(0, 75, 0, 75);
 				Profile["af"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -2165,7 +2974,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.Profile.ImageLabel.UIStroke
 				Profile["b1"] = Instance.new("UIStroke", Profile["af"]);
-				Profile["b1"]["Color"] = Color3.fromRGB(85, 85, 85);
+				Profile["b1"]["Color"] = Themes[_G.CurrentTheme]["profileImageUIStroke"];
 				Profile["b1"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.Profile.TextLabel
@@ -2175,7 +2984,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b2"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Profile["b2"]["FontFace"] = CustomFont
 				Profile["b2"]["TextSize"] = 14;
-				Profile["b2"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Profile["b2"]["TextColor3"] = Themes[_G.CurrentTheme]["profileText"];
 				Profile["b2"]["Size"] = UDim2.new(0, 150, 0, 25);
 				Profile["b2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Profile["b2"]["Text"] = "Player ID: "..game.Players.LocalPlayer.UserId;
@@ -2185,10 +2994,10 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				-- StarterGui.Main.Frame.Main.ContentContainer.Profile.TextLabel
 				Profile["b3"] = Instance.new("TextLabel", Profile["ae"]);
 				Profile["b3"]["BorderSizePixel"] = 0;
-				Profile["b3"]["BackgroundColor3"] = Color3.fromRGB(46, 46, 46);
+				Profile["b3"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["profileImageBackground"];
 				Profile["b3"]["FontFace"] = CustomFont
 				Profile["b3"]["TextSize"] = 13;
-				Profile["b3"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Profile["b3"]["TextColor3"] = Themes[_G.CurrentTheme]["profileText"];
 				Profile["b3"]["Size"] = UDim2.new(0, 180, 0, 25);
 				Profile["b3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Profile["b3"]["Text"] = [[N/A]];
@@ -2211,7 +3020,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b6"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Profile["b6"]["FontFace"] = CustomFont
 				Profile["b6"]["TextSize"] = 16;
-				Profile["b6"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Profile["b6"]["TextColor3"] = Themes[_G.CurrentTheme]["profileNameColor"];
 				Profile["b6"]["Size"] = UDim2.new(0, 150, 0, 25);
 				Profile["b6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Profile["b6"]["Text"] = game.Players.LocalPlayer.Name;
@@ -2220,7 +3029,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.Profile.TextLabel.UIGradient
 				Profile["b7"] = Instance.new("UIGradient", Profile["b6"]);
-				Profile["b7"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 150, 0)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 0, 0))};
+				Profile["b7"]["Color"] = Themes[_G.CurrentTheme]["profileNameGradient"];
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.Profile.TextLabel
 				Profile["b8"] = Instance.new("TextLabel", Profile["ae"]);
@@ -2229,7 +3038,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b8"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Profile["b8"]["FontFace"] = CustomFont
 				Profile["b8"]["TextSize"] = 14;
-				Profile["b8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Profile["b8"]["TextColor3"] = Themes[_G.CurrentTheme]["profileText"];
 				Profile["b8"]["Size"] = UDim2.new(0, 150, 0, 25);
 				Profile["b8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Profile["b8"]["Text"] = "Key Type: N/A";
@@ -2242,7 +3051,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Profile["b9"]["BackgroundColor3"] = Color3.fromRGB(46, 46, 46);
 				Profile["b9"]["FontFace"] = CustomFont
 				Profile["b9"]["TextSize"] = 14;
-				Profile["b9"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Profile["b9"]["TextColor3"] = Themes[_G.CurrentTheme]["profileText"];
 				Profile["b9"]["Size"] = UDim2.new(0, 50, 0, 30);
 				Profile["b9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Profile["b9"]["Text"] = "Key: ";
@@ -2255,7 +3064,8 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				GUI["4b"].MouseButton1Click:Connect(function()
 					GUI["f"]:WaitForChild("BuyKey").Visible = false;	
 					GUI["f"]:WaitForChild("Credits").Visible = false;	
-
+					GUI["f"]:WaitForChild("Settings").Visible = false
+					
 					GUI.CurrentTab:Deactivate()
 					Profile["ae"]["Visible"] = true
 				end)
@@ -2267,8 +3077,6 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 		end
 
 		function Tab:Credits()
-
-			local Credits = {}
 
 			--Render
 			do
@@ -2282,6 +3090,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["ba"]["Size"] = UDim2.new(1, 0, 1, 0);
 				Credits["ba"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Credits["ba"]["ScrollBarThickness"] = 1;
+				Credits["ba"]["ScrollBarImageColor3"] = Themes[_G.CurrentTheme]["scrollBarImage"]
 				Credits["ba"]["Visible"] = false;
 				Credits["ba"]["Name"] = [[Credits]];
 
@@ -2289,7 +3098,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["bb"] = Instance.new("Frame", Credits["ba"]);
 				Credits["bb"]["ZIndex"] = 0;
 				Credits["bb"]["BorderSizePixel"] = 0;
-				Credits["bb"]["BackgroundColor3"] = Color3.fromRGB(47, 47, 47);
+				Credits["bb"]["BackgroundColor3"] = Themes[_G.CurrentTheme]["creditsBackground"];
 				Credits["bb"]["Size"] = UDim2.new(0, 175, 0, 95);
 				Credits["bb"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Credits["bb"]["Position"] = UDim2.new(0, 10, 0, 25);
@@ -2300,6 +3109,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.Credits.Frame.UIStroke
 				Credits["bd"] = Instance.new("UIStroke", Credits["bb"]);
+				Credits["bd"]["Color"] = Themes[_G.CurrentTheme]["creditsUIStroke"]
 
 
 				-- StarterGui.Main.Frame.Main.ContentContainer.Credits.Frame.TextLabel
@@ -2309,7 +3119,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["be"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Credits["be"]["FontFace"] = CustomFont
 				Credits["be"]["TextSize"] = 14;
-				Credits["be"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Credits["be"]["TextColor3"] = Themes[_G.CurrentTheme]["creditsText"];
 				Credits["be"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Credits["be"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Credits["be"]["Text"] = [[Script Hub by rawparmesan]];
@@ -2323,7 +3133,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["bf"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Credits["bf"]["FontFace"] = CustomFont
 				Credits["bf"]["TextSize"] = 14;
-				Credits["bf"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Credits["bf"]["TextColor3"] = Themes[_G.CurrentTheme]["creditsText"];
 				Credits["bf"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Credits["bf"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Credits["bf"]["Text"] = [[Script by rawparmesan]];
@@ -2337,7 +3147,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["c0"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Credits["c0"]["FontFace"] = CustomFont
 				Credits["c0"]["TextSize"] = 14;
-				Credits["c0"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Credits["c0"]["TextColor3"] = Themes[_G.CurrentTheme]["creditsText"];
 				Credits["c0"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Credits["c0"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Credits["c0"]["Text"] = [[UI library by rawparmesan]];
@@ -2350,7 +3160,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["c1"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["c1"]["FontFace"] = CustomFont
 				Credits["c1"]["TextSize"] = 14;
-				Credits["c1"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Credits["c1"]["TextColor3"] = Themes[_G.CurrentTheme]["creditsText"];
 				Credits["c1"]["Size"] = UDim2.new(0, 100, 0, 25);
 				Credits["c1"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Credits["c1"]["Text"] = [[Credits]];
@@ -2367,7 +3177,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["c2"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 				Credits["c2"]["FontFace"] = CustomFont
 				Credits["c2"]["TextSize"] = 12;
-				Credits["c2"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Credits["c2"]["TextColor3"] = Themes[_G.CurrentTheme]["creditsText"];
 				Credits["c2"]["Size"] = UDim2.new(0, 190, 0, 110);
 				Credits["c2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Credits["c2"]["Text"] = [[If you find a bug or want to change something in the script, tell about it rawparmesan (Discord) or in the official Discord server of the Parmesan Hub, and get the opportunity to get a premium key for a few days.]];
@@ -2380,7 +3190,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				Credits["c3"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Credits["c3"]["FontFace"] = CustomFont
 				Credits["c3"]["TextSize"] = 18;
-				Credits["c3"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+				Credits["c3"]["TextColor3"] = Themes[_G.CurrentTheme]["creditsText"];
 				Credits["c3"]["Size"] = UDim2.new(0, 200, 0, 50);
 				Credits["c3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Credits["c3"]["Text"] = [[Thanks for using Parmesan Hub!]];
@@ -2393,6 +3203,7 @@ function Library:Init(options) -- Window, Game Title, FPS and Ping counters
 				GUI["4c"].MouseButton1Click:Connect(function()
 					GUI["f"]:WaitForChild("BuyKey").Visible = false;	
 					GUI["f"]:WaitForChild("Profile").Visible = false;	
+					GUI["f"]:WaitForChild("Settings").Visible = false
 					GUI.CurrentTab:Deactivate()
 					Credits["ba"]["Visible"] = true
 				end)
