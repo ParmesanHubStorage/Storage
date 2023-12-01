@@ -9,7 +9,7 @@ elseif game.PlaceId == 13127800756 then
 elseif game.PlaceId == 14184086618 or game.PlaceId == 14483937954 or game.PlaceId == 14666799841 or game.PlaceId == 14840620690 then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/XtraCheese/bottleofwater/main/obbybutbike.lua", true))()
 elseif game.PlaceId == 537413528 or game.PlaceId == 1930863474 or game.PlaceId == 1930866268 then
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHub/ScriptStorage/main/babft2.lua')))()
+	loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHubStorage/ScriptStorage/main/babft2.lua')))()
 elseif game.PlaceId == 4924922222 then
 	loadstring(game:HttpGet(('https://raw.githubusercontent.com/ParmesanHub/ScriptStorage/main/brookhaven.lua')))()
 elseif game.PlaceId == 13864667823 or game.PlaceId == 14775231477 or game.PlaceId == 13864661000 then
